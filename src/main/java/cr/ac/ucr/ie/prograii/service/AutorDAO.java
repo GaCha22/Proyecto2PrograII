@@ -51,8 +51,6 @@ public class AutorDAO {
         XMLOutputter xmlOutputter = new XMLOutputter();
         xmlOutputter.setFormat(Format.getPrettyFormat());
         xmlOutputter.output(this.document,new FileWriter(this.path));
-        //Extra
-        xmlOutputter.output(this.document,System.out);
     }
 
     public void insertarCurso(Autor autor) throws IOException {
