@@ -1,18 +1,24 @@
 package cr.ac.ucr.ie.prograii.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Autor {
     private int idAutor;
     private String nombre;
     private String apellidosAutor;
+    private List<Libro> librosEscritos;
 
     public Autor() {
         this.nombre = this.apellidosAutor = "";
+        this.librosEscritos = new ArrayList<>();
     }
 
-    public Autor(int idAutor, String nombre, String apellidosAutor) {
+    public Autor(int idAutor, String nombre, String apellidosAutor, List<Libro> librosEscritos) {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.apellidosAutor = apellidosAutor;
+        this.librosEscritos = librosEscritos;
     }
 
     public int getIdAutor() {
@@ -38,4 +44,13 @@ public class Autor {
     public void setApellidosAutor(String apellidosAutor) {
         this.apellidosAutor = apellidosAutor;
     }
+
+    public List<Libro> getLibrosEscritos() {
+        return librosEscritos;
+    }
+
+    public void setLibrosEscritos(List<Libro> librosEscritos) {
+        this.librosEscritos = librosEscritos;
+    }
+
 }
