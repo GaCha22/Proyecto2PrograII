@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cr.ac.ucr.ie.prograii.model.Editorial;
-import cr.ac.ucr.ie.prograii.model.Libro;
-import cr.ac.ucr.ie.prograii.model.LibroItem;
 import org.jdom2.DataConversionException;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -32,7 +29,7 @@ public class AutorDAO {
     }
 
     public static AutorDAO crearDocumento(String documentPath) throws IOException {
-        return new AutorDAO(documentPath, "cursos.xml");
+        return new AutorDAO("autores", documentPath);
     }
 
     private AutorDAO(String documentPath) throws IOException, JDOMException {
@@ -53,7 +50,7 @@ public class AutorDAO {
         xmlOutputter.output(this.document,new FileWriter(this.path));
     }
 
-    public void insertarCurso(Autor autor) throws IOException {
+    public void insertarAutor(Autor autor) throws IOException {
         Element eAutor = new Element("autor");
         eAutor.setAttribute("id",String.valueOf(autor.getIdAutor()));
 

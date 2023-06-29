@@ -53,4 +53,12 @@ public class Autor {
         this.librosEscritos = librosEscritos;
     }
 
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "idAutor=" + idAutor +
+                ", nombre='" + nombre + '\'' +
+                ", apellidosAutor='" + apellidosAutor + '\'' +
+                '}';
+    }
 }
