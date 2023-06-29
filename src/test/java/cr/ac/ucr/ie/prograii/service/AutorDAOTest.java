@@ -41,7 +41,7 @@ class AutorDAOTest {
         autor1.setNombre("ASADV");
         autor1.setApellidosAutor("ASFDASD");
         autor2.setNombre("ASDFSTF");
-        autor2.setApellidosAutor("ASFDALKJHGFSD");
+        autor2.setApellidosAutor("ASFDALJHGFSD");
 
         try {
             AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
