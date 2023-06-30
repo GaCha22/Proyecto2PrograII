@@ -32,6 +32,7 @@ class EditorialDAOTest {
     void guardarEditorial_fuciona(){
             List<Libro> libros = new ArrayList<Libro>();
 
+
             // Primer libro
             Libro libro1 = new Libro();
             libro1.setIdLibro(1);
