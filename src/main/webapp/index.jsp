@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
+
 
     <style>
         body {
@@ -51,11 +53,7 @@
             font-size: 18px;
         }
 
-        body {
-            background-image: url('giphy.gif');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+
     </style>
 
 </head>

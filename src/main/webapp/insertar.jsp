@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Insertar Libro</title>
-  <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
   <style>
@@ -53,6 +52,12 @@
 
     .button-container button:first-child {
       margin-right: 10px;
+    }
+
+    body {
+      background-image: url('giphy.gif');
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
   </style>
