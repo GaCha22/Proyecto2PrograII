@@ -1,14 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Aarón
-  Date: 30/6/2023
-  Time: 01:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
   <title>Insertar Libro</title>
+  <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
   <style>
     body {
       margin: 0;
@@ -17,7 +13,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #f2f2f2;
+      background-color: #22272e;
       font-family: Arial, sans-serif;
     }
 
@@ -46,7 +42,7 @@
     }
 
     .button-container button {
-      background-color: #4caf50;
+      background-color: #553dad;
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -58,40 +54,40 @@
     .button-container button:first-child {
       margin-right: 10px;
     }
+
   </style>
 </head>
 <body>
+
 <div class="container">
-  <div class="form-group">
+  <div class="form-group mb-4">
     <input type="text" placeholder="Signatura">
   </div>
 
-  <div class="form-group">
-    <input type="text" placeholder="ISBM">
+  <div class="form-group mb-4">
+    <input type="text" placeholder="ISBN">
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-4">
     <input type="text" placeholder="Título">
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-4">
     <input type="text" placeholder="Año">
   </div>
 
-  <div class="form-group">
-    <input type="text" placeholder="Ciudad">
-  </div>
-
-  <div class="form-group">
+  <div class="form-group mb-4">
     <select>
       <option value="editorial1">Editorial 1</option>
       <option value="editorial2">Editorial 2</option>
       <option value="editorial3">Editorial 3</option>
       <option value="editorial4">Editorial 4</option>
     </select>
+
+    <button type="submit">Guardar</button>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-4">
     <select>
       <option value="tematica1">Temática 1</option>
       <option value="tematica2">Temática 2</option>
@@ -100,7 +96,15 @@
     </select>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-4">
+    <select>
+      <option value="Autores">Autor 1</option>
+    </select>
+
+    <button type="submit">Guardar</button>
+  </div>
+
+  <div class="form-group mb-4">
     <select>
       <option value="cantidad1">1</option>
       <option value="cantidad2">2</option>
@@ -109,15 +113,7 @@
     </select>
   </div>
 
-  <form action="autor.jsp">
-    <button type="submit">Agregar Autor</button>
-  </form>
-
-  <form action="editorial.jsp">
-    <button type="submit">Agregar Editorial</button>
-  </form>
-
-  <div class="button-container">
+  <div class="button-container mb-4">
     <form action="index.jsp">
       <button type="submit">Atrás</button>
     </form>
