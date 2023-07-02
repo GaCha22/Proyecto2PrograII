@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
+
+
     <style>
         body {
             margin: 0;
@@ -11,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f2f2f2;
+            background-color: #22272e;
             font-family: Arial, sans-serif;
         }
 
@@ -40,8 +43,8 @@
         }
 
         .button-container button {
-            margin-bottom: 10px;
-            background-color: #4caf50;
+            margin-bottom: 20px;
+            background-color: #553dad;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -49,7 +52,10 @@
             padding: 12px 20px;
             font-size: 18px;
         }
+
+
     </style>
+
 </head>
 <body>
 <div class="container">
