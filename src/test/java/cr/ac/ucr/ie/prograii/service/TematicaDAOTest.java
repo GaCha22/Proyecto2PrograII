@@ -14,7 +14,7 @@ class TematicaDAOTest {
     @Test
     void crear_documento_funciona(){
         try {
-            TematicaDAO tematicaDAO = TematicaDAO.crearDocumento("tematicas.xml");
+            TematicaDAO tematicaDAO = TematicaDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +39,7 @@ class TematicaDAOTest {
         Tematica tematica4 = new Tematica(4, "Acción");
 
         try {
-            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
+            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml");
             tematicaDAO.insertarTematica(tematica1);
             tematicaDAO.insertarTematica(tematica2);
             tematicaDAO.insertarTematica(tematica3);
