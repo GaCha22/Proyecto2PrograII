@@ -57,24 +57,18 @@
 </head>
 <body>
 <div class="container">
-    <div class="input-container">
-        <select>
-            <option value="opcion1">ID del Libro</option>
-            <option value="opcion2">ISBN</option>
-            <option value="opcion3">Título del libro</option>
-            <option value="opcion4">Autor del libro</option>
-        </select>
-        <input type="text" placeholder="Buscar">
-    </div>
     <div class="button-container">
-        <form action="insertar.jsp">
-            <button type="submit">Agregar Libro</button>
+        <form action="libro.jsp">
+            <button type="submit">Libro</button>
         </form>
-        <form action="editar.jsp" method="post">
-            <button type="submit">Editar Libro</button>
+        <form action="autor.jsp" method="post">
+            <button type="submit">Autor</button>
         </form>
-        <form action="eliminar.jsp" method="post">
-            <button type="submit">Eliminar Libro</button>
+        <form action="editorial.jsp" method="post">
+            <button type="submit">Editorial</button>
+        </form>
+        <form action="tematica.jsp" method="post">
+            <button type="submit">Temática</button>
         </form>
     </div>
 </div>
