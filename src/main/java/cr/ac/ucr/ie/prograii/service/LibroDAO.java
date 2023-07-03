@@ -66,7 +66,6 @@ public class LibroDAO {
 
         for (Autor autor : autores) {
             Element eAutor = new Element("autor");
-            eAutor.setAttribute("id", String.valueOf(autor.getIdAutor()));
 
             Element eNombre = new Element("nombre");
             eNombre.addContent(autor.getNombre());

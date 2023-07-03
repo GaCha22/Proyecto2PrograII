@@ -19,15 +19,16 @@ public class EditorialDAO {
     private Element raiz;
     private String rutaDocumento;
 
-    public EditorialDAO(String nombreRaiz, String rutaDocumento) {
+    public EditorialDAO(String nombreRaiz, String rutaDocumento) throws IOException {
         this.raiz = new Element(nombreRaiz);
         this.rutaDocumento = rutaDocumento;
         this.document = new Document(raiz);
+        guardar();
     }
 
     // crea un documento
-    public static EditorialDAO crearDocumento(String rutaDocumento){
-        return new EditorialDAO(rutaDocumento, "editoriales");
+    public static EditorialDAO crearDocumento(String rutaDocumento) throws IOException {
+        return new EditorialDAO("editoriales", rutaDocumento);
     }
 
     private EditorialDAO(String rutaDocumento) throws IOException, JDOMException {
