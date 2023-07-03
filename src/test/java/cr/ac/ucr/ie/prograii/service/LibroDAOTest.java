@@ -6,7 +6,8 @@ import cr.ac.ucr.ie.prograii.model.Editorial;
 import cr.ac.ucr.ie.prograii.model.Libro;
 import cr.ac.ucr.ie.prograii.model.Tematica;
 import org.jdom2.JDOMException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
