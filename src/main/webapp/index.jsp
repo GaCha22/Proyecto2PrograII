@@ -76,6 +76,9 @@
         <form action="eliminar.jsp" method="post">
             <button type="submit">Eliminar Libro</button>
         </form>
+        <form action="tematica.jsp" method="post">
+            <button type="submit">Tematica</button>
+        </form>
     </div>
 </div>
 </body>
