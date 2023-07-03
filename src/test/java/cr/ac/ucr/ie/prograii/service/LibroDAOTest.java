@@ -6,12 +6,11 @@ import cr.ac.ucr.ie.prograii.model.Editorial;
 import cr.ac.ucr.ie.prograii.model.Libro;
 import cr.ac.ucr.ie.prograii.model.Tematica;
 import org.jdom2.JDOMException;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 public class LibroDAOTest  {
 
@@ -19,7 +18,7 @@ public class LibroDAOTest  {
     @Test
     public void crear_documento_funciona(){
         try {
-           libroDAO.crearDocumento("libros.xml");
+           libroDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\libros.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,7 +58,7 @@ public class LibroDAOTest  {
         libro1.setAutores(autores);
 
         try {
-            libroDAO = LibroDAO.abrirDocumento("libros.xml");
+            libroDAO = LibroDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\libros.xml");
             libroDAO.insertarLibro(libro1);
             libroDAO.insertarLibro(libro1);
             libroDAO.guardar();

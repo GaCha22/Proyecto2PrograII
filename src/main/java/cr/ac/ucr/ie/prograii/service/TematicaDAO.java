@@ -75,4 +75,9 @@ public class TematicaDAO {
         }
         return tematicas;
     }
+
+    public String tematicaString(){
+        XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+        return xmlOutputter.outputString(document);
+    }
 }

@@ -1,10 +1,6 @@
 package cr.ac.ucr.ie.prograii.servlets;
 
-import cr.ac.ucr.ie.prograii.model.Autor;
-import cr.ac.ucr.ie.prograii.model.Editorial;
 import cr.ac.ucr.ie.prograii.model.Tematica;
-import cr.ac.ucr.ie.prograii.service.AutorDAO;
-import cr.ac.ucr.ie.prograii.service.EditorialDAO;
 import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//@WebServlet("/insertar")
-public class InsertarServlet extends HttpServlet {
+@WebServlet("/autocompleteTematica")
+public class AutoCompleteTematicaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
