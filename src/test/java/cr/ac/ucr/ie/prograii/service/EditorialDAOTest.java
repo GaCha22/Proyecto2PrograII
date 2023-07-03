@@ -14,7 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class EditorialDAOTest {
     @Test
     void crear_documento_funciona(){
-        EditorialDAO editorialDAO = EditorialDAO.crearDocumento("editoriales.xml");
+        try {
+            EditorialDAO editorialDAO = EditorialDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\editoriales.xml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -48,7 +52,7 @@ class EditorialDAOTest {
         Editorial editorial2 = new Editorial(02, "Casa Azul","New York",libros);
 
         try {
-            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("editorial.xml");
+            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\editoriales.xml");
             editorialDAO.insertarEditorial(editorial1);
             editorialDAO.insertarEditorial(editorial2);
         } catch (IOException | JDOMException e) {
@@ -59,7 +63,7 @@ class EditorialDAOTest {
     @Test
     void getTEditorial_funciona(){
         try {
-            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("editorial.xml");
+            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
             List<Editorial> editorials = editorialDAO.getEditoriales();
             System.out.println(editorials.toString());
         } catch (IOException | JDOMException e) {

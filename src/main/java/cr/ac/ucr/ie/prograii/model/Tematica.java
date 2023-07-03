@@ -28,4 +28,10 @@ public class Tematica {
     public void setNombreTematica(String nombreTematica) {
         this.nombreTematica = nombreTematica;
     }
+
+    @Override
+    public String toString() {
+        return "Tipo: " + this.idTipo +
+                " Nombre: " + this.nombreTematica;
+    }
 }

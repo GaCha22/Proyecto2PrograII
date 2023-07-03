@@ -1,11 +1,7 @@
 package cr.ac.ucr.ie.prograii.servlets;
 
 import cr.ac.ucr.ie.prograii.model.Autor;
-import cr.ac.ucr.ie.prograii.model.Editorial;
-import cr.ac.ucr.ie.prograii.model.Tematica;
 import cr.ac.ucr.ie.prograii.service.AutorDAO;
-import cr.ac.ucr.ie.prograii.service.EditorialDAO;
-import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//@WebServlet("/insertar")
-public class InsertarServlet extends HttpServlet {
+@WebServlet("/autocompleteAutor")
+public class AutoCompleteAutorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,38 +22,38 @@ public class InsertarServlet extends HttpServlet {
             String term = req.getParameter("term"); // Obtener el valor del parámetro "term" enviado desde el cliente
 
             // Obtener todas las temáticas desde el archivo XML
-            List<Tematica> tematicas = TematicaDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml").getTematicas();
-            System.out.println(tematicas.toString());
+            List<Autor> autores = AutorDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml").getAutores();
+            System.out.println(autores.toString());
 
             // Filtrar las temáticas que coincidan con el término de búsqueda
-            List<Tematica> tematicasFiltradas = new ArrayList<>();
-            for (Tematica tematica : tematicas) {
-                if (tematica.getNombreTematica().toLowerCase().contains(term.toLowerCase())) {
-                    tematicasFiltradas.add(tematica);
+            List<Autor> autoresFiltrados = new ArrayList<>();
+            for (Autor autor : autores) {
+                if (autor.getNombre().toLowerCase().contains(term.toLowerCase())) {
+                    autoresFiltrados.add(autor);
                 }
             }
 
-            System.out.println(tematicasFiltradas.toString());
+            System.out.println(autoresFiltrados.toString());
 
             // Generar la respuesta XML con las temáticas filtradas
             resp.setContentType("application/xml");
             resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(convertTematicasToXML(tematicasFiltradas));
+            resp.getWriter().write(convertAutoresToXML(autoresFiltrados));
         } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private String convertTematicasToXML(List<Tematica> tematicas) {
+    private String convertAutoresToXML(List<Autor> autores) {
         StringBuilder xml = new StringBuilder();
-        xml.append("<tematicas>");
+        xml.append("<autores>");
 
-        for (Tematica tematica : tematicas) {
-            xml.append("<tematica idTipo=\"").append(tematica.getIdTipo()).append("\" nombre=\"")
-                    .append(tematica.getNombreTematica()).append("\" />");
+        for (Autor autor : autores) {
+            xml.append("<autor idAutor=\"").append(autor.getIdAutor()).append("\" nombre=\"")
+                    .append(autor.getNombre()).append(" ").append(autor.getApellidosAutor()).append("\" />");
         }
 
-        xml.append("</tematicas>");
+        xml.append("</autores>");
         return xml.toString();
     }
 
