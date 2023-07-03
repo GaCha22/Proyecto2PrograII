@@ -4,6 +4,7 @@ public class Tematica {
     private int idTipo;
     private String nombreTematica;
 
+
     public Tematica() {
         this.nombreTematica = "";
     }
