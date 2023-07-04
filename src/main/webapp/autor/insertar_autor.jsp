@@ -86,7 +86,7 @@
             if (nombre === "" || apellidos === "" || id === "") {
                 errorMessage = "Por favor, complete todos los campos.";
             } else if (!/^\d+$/.test(id)) {
-                errorMessage = "El ID del autor debe contener solo números.";
+                errorMessage = "El ID del autor solo debe contener números.";
             }
 
             if (errorMessage !== "") {
@@ -104,7 +104,7 @@
             <div>
                 <label for="nombre">Nombre del Autor</label>
                 <div>
-                    <input type="text" name="nombre" id="nombre">
+                    <input type="text" placeholder="Nombre del Autor" name="nombre" id="nombre">
                 </div>
             </div>
             <div>

@@ -1,3 +1,6 @@
+<%@ page import="cr.ac.ucr.ie.prograii.model.Autor" %>
+<%@ page import="cr.ac.ucr.ie.prograii.service.AutorDAO" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +9,7 @@
   <title>Eliminar Autor</title>
   <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js%22%3E"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <style>
     body {
@@ -41,6 +44,8 @@
     }
 
     .button-container button {
+      margin-top: 10px;
+      margin-bottom: 10px;
       background-color: #553dad;
       color: #fff;
       border: none;
@@ -70,6 +75,10 @@
       color: #fff;
     }
 
+    .error-message {
+      color: #fff;
+    }
+
   </style>
   <script>
     $(document).ready(function() {
@@ -86,7 +95,7 @@
             },
             success: function(data) {
               var autocompleteData = [];
-
+              $("#codAutor").val("");
               $(data).find("autor").each(function() {
                 var objeto = $(this);
                 var nombre = objeto.attr("nombre");
@@ -121,12 +130,28 @@
     }
     });
   </script>
+  <script>
+    function validateForm() {
+      var nombre = document.getElementById("autor").value;
+
+      var errorMessage = "";
+
+      if (nombre === "") {
+        errorMessage = "Por favor, complete todos los campos.";
+      }
+
+      if (errorMessage !== "") {
+        document.getElementById("error-message").innerText = errorMessage;
+        return false;
+      }
+    }
+  </script>
 </head>
 <body>
 <div class="container">
   <h1>Eliminar Autor</h1>
   <div class="button-container">
-    <form action="/prograii/eliminar_autor" method="post">
+    <form action="/prograii/eliminar_autor" method="post" onsubmit="return validateForm()">
       <div>
         <label for="autor">Nombre del Autor</label>
         <div>
@@ -138,6 +163,7 @@
         <input type="submit" value="Eliminar" class="delete-button">
       </div>
     </form>
+    <div id="error-message" class="error-message"></div>
     <div class="button-container mb-4">
       <form action="autor.jsp">
         <button type="submit">Atrás</button>

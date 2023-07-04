@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 public class EliminarAutorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int codAutor = Integer.parseInt(req.getParameter("codAutor"));
+        System.out.println(codAutor);
         resp.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
