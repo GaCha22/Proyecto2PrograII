@@ -12,6 +12,7 @@
     ArrayList<Editorial> editoriales = editorialDAO.getEditoriales();
 
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

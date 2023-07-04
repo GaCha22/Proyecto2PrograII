@@ -66,8 +66,6 @@
 </head>
     <body>
 
-
-
         <div class="container text-center">
             <div>
                 <form action="insertarEditorial.jsp" method="POST">
