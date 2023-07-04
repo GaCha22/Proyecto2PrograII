@@ -61,7 +61,7 @@
         <form action="libro.jsp">
             <button type="submit">Libro</button>
         </form>
-        <form action="autor.jsp" method="post">
+        <form action="autor/autor.jsp" method="post">
             <button type="submit">Autor</button>
         </form>
         <form action="editorial.jsp" method="post">

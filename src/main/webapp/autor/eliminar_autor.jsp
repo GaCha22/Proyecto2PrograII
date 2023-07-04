@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Eliminar Autor</title>
-  <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
+  <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
   <style>
     body {
       margin: 0;
