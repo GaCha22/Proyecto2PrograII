@@ -20,8 +20,6 @@
     <title>Insertar Editorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-
-
     <style>
         body {
             margin: 0;
@@ -78,8 +76,6 @@
 <body>
     <div class="container text-center">
         <form action="/prograii_war_exploded/insertarEditorial" method="post">
-
-
 
         <div>
             <label for="nombre" class="form-label text-danger">Nombre</label>

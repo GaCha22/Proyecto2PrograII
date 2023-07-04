@@ -1,4 +1,19 @@
+<%@ page import="cr.ac.ucr.ie.prograii.service.EditorialDAO" %>
+<%@ page import="cr.ac.ucr.ie.prograii.model.Editorial" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%
+    EditorialDAO editorialDAO = null;
+
+    editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
+
+    ArrayList<Editorial> editoriales = editorialDAO.getEditoriales();
+
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,15 +92,28 @@
                     <button type="submit" class="btn btn-success mb-5">Eliminar</button>
                 </form>
             </div>
-            <div class="row">
-                <div class="col border custom-bg custom-text">
-                    Editorial
-                </div>
-                <div class="col border custom-bg custom-text">
-                    ID
-                </div>
-            </div>
+
         </div>
+        <table class="table table-sm table-dark table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ciudad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                for (Editorial editorial : editoriales) {
+            %>
+            <tr>
+                <td><%= editorial.getIdEditorial() %></td>
+                <td><%= editorial.getNombreEditorial() %></td>
+                <td><%= editorial.getCiudad() %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
 
 </body>
 </html>

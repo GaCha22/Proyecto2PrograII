@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii;
+package cr.ac.ucr.ie.prograii.servlets.editorial;
 
 import cr.ac.ucr.ie.prograii.model.Editorial;
 import cr.ac.ucr.ie.prograii.service.EditorialDAO;
