@@ -1,10 +1,12 @@
 package cr.ac.ucr.ie.prograii.servlets.autor;
 
+import cr.ac.ucr.ie.prograii.service.AutorDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +16,11 @@ public class EliminarAutorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int codAutor = Integer.parseInt(req.getParameter("codAutor"));
-        System.out.println(codAutor);
+        try {
+            AutorDAO.abrirDocumento("autores.xml").eliminarAutor(codAutor);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         resp.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");

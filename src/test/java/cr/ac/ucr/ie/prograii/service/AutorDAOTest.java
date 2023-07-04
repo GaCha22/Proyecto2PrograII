@@ -61,4 +61,16 @@ class AutorDAOTest {
         }
     }
 
+    @Test
+    void eliminar_funciona(){
+        try {
+            AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
+            autorDAO.eliminarAutor(2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
