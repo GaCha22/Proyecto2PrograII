@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <title>Eliminar Autor</title>
   <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js%22%3E"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <style>
     body {
       margin: 0;
@@ -68,16 +71,67 @@
     }
 
   </style>
+  <script>
+    $(document).ready(function() {
+    var autocompleteAutor = $("#autor");
+    if (autocompleteAutor.data("autocomplete")) {
+      autocompleteAutor.autocomplete({
+        source: function(request, response) {
+          $.ajax({
+            url: "autocompleteAutor",
+            type: "POST",
+            dataType: "xml",
+            data: {
+              term: request.term
+            },
+            success: function(data) {
+              var autocompleteData = [];
+
+              $(data).find("autor").each(function() {
+                var objeto = $(this);
+                var nombre = objeto.attr("nombre");
+                var id = objeto.attr("idAutor");
+
+                var autocompleteItem = {
+                  label: nombre,
+                  value: {
+                    id: id,
+                    nombre: nombre
+                  }
+                };
+
+                autocompleteData.push(autocompleteItem);
+              });
+
+              response(autocompleteData);
+            }
+          });
+        },
+        select: function(event, ui) {
+          var selectedObj = ui.item.value;
+          var selectedNombre = selectedObj.nombre;
+          var selectedId = selectedObj.id;
+
+          autocompleteAutor.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+          $("#codAutor").val(selectedId);
+
+          return false;
+        }
+      });
+    }
+    });
+  </script>
 </head>
 <body>
 <div class="container">
   <h1>Eliminar Autor</h1>
   <div class="button-container">
-    <form action="/prograii/eliminar_autor" method="get">
+    <form action="/prograii/eliminar_autor" method="post">
       <div>
-        <label for="nombre">Nombre del Autor</label>
+        <label for="autor">Nombre del Autor</label>
         <div>
-          <input type="text" name="nombre" id="nombre">
+          <input type="text" placeholder="Autor" name="autor" id="autor" data-autocomplete="true" autocomplete="on">
+          <input type="hidden" name="codAutor" id="codAutor">
         </div>
       </div>
       <div class="button-container mb-4">

@@ -7,7 +7,6 @@ public class Autor {
     private int idAutor;
     private String nombre;
     private String apellidosAutor;
-    private String nacionalidad;
     private List<Libro> librosEscritos;
 
     public Autor() {
@@ -19,15 +18,13 @@ public class Autor {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.apellidosAutor = apellidosAutor;
-        this.nacionalidad = nacionalidad;
         this.librosEscritos = librosEscritos;
     }
 
-    public Autor(int idAutor, String nombre, String apellidosAutor, String nacionalidad) {
+    public Autor(int idAutor, String nombre, String apellidosAutor) {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.apellidosAutor = apellidosAutor;
-        this.nacionalidad = nacionalidad;
     }
 
     public int getIdAutor() {

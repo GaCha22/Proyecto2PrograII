@@ -7,22 +7,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/insertar_autor")
 public class InsertarAutorServlet extends HttpServlet {
-    private AutorDAO autorDAO;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombreAutor = req.getParameter("Nombre");
-        String apellidosAutor = req.getParameter("Apellidos");
-        int idAutor = Integer.parseInt(req.getParameter("ID Autor"));
-        String nacionalidad = req.getParameter("Nacionalidad");
-        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor, nacionalidad);
-        AutorDAO.crearDocumento("autores.xml");
-        autorDAO.insertarAutor(autor);
+        String nombreAutor = req.getParameter("nombre");
+        String apellidosAutor = req.getParameter("apellidos");
+        int idAutor = Integer.parseInt(req.getParameter("id"));
+        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
+        try {
+            AutorDAO.abrirDocumento("autores.xml").insertarAutor(autor);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         resp.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -72,11 +75,19 @@ public class InsertarAutorServlet extends HttpServlet {
             out.println("                padding: 12px 20px;");
             out.println("                font-size: 18px;");
             out.println("            }");
+            out.println("            h1 {");
+            out.println("               color: #fff;");
+            out.println("            }");
             out.println("        </style>");
             out.println("    </head>");
             out.println("    <body>");
             out.println("    <div class=\"container\">");
             out.println("        <h1>Autor insertado correctamente</h1>");
+            out.println("       <div class=\"button-container mb-4\">");
+            out.println("       <form action=\"/prograii/autor/autor.jsp\">");
+            out.println("           <button type=\"submit\">Atrás</button>");
+            out.println("       </form>");
+            out.println("       </div>");
             out.println("     </div>");
             out.println("    </body>");
             out.println("</html>");

@@ -50,7 +50,7 @@
         }
 
         .button-container .save-button {
-            margin-top: 10px;
+            margin-top: 20px;
             margin-bottom: 10px;
             background-color: #553dad;
             color: #fff;
@@ -69,13 +69,38 @@
             color: #fff;
         }
 
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
+        }
+
     </style>
+    <script>
+        function validateForm() {
+            var nombre = document.getElementById("nombre").value;
+            var apellidos = document.getElementById("apellidos").value;
+            var id = document.getElementById("id").value;
+
+            var errorMessage = "";
+
+            if (nombre === "" || apellidos === "" || id === "") {
+                errorMessage = "Por favor, complete todos los campos.";
+            } else if (!/^\d+$/.test(id)) {
+                errorMessage = "El ID del autor debe contener solo números.";
+            }
+
+            if (errorMessage !== "") {
+                document.getElementById("error-message").innerText = errorMessage;
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <h1>Insertar Autor</h1>
     <div class="button-container">
-        <form action="/prograii/insertar_autor" method="post">
+        <form action="/prograii/insertar_autor" method="post" onsubmit="return validateForm()">
             <div>
                 <label for="nombre">Nombre del Autor</label>
                 <div>
@@ -95,14 +120,9 @@
                 </div>
             </div>
             <div>
-                <label for="nacionalidad">Nacionalidad del Autor</label>
-                <div>
-                    <input type="text" name="nacionalidad" id="nacionalidad">
-                </div>
-            </div>
-            <div>
                 <input type="submit" value="Guardar" class="save-button">
             </div>
+            <div id="error-message" class="error-message"></div>
         </form>
         <div class="button-container mb-4">
             <form action="autor.jsp">
