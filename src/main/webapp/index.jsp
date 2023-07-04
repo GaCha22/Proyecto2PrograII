@@ -5,7 +5,6 @@
     <title>Biblioteca</title>
     <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
 
-
     <style>
         body {
             margin: 0;
@@ -55,7 +54,6 @@
 
 
     </style>
-
 </head>
 <body>
 <div class="container">
@@ -69,7 +67,7 @@
         <input type="text" placeholder="Buscar">
     </div>
     <div class="button-container">
-        <form action="insertar.jsp" method="post">
+        <form action="insertar.jsp">
             <button type="submit">Agregar Libro</button>
         </form>
         <form action="editar.jsp" method="post">
