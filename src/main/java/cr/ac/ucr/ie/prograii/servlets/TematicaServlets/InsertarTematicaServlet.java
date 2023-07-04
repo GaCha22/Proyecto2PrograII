@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets;
+package cr.ac.ucr.ie.prograii.servlets.TematicaServlets;
 
 import cr.ac.ucr.ie.prograii.model.Tematica;
 import cr.ac.ucr.ie.prograii.service.TematicaDAO;

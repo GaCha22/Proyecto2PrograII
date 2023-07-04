@@ -76,6 +76,28 @@ public class TematicaDAO {
         return tematicas;
     }
 
+    public void eliminarTematica(String nombreTematicaEliminar) throws IOException {
+
+        List<Element> eListaTematicas = root.getChildren();
+        int nuevoIdTipo = 1;
+
+        for (int i = 0; i < eListaTematicas.size(); i++) {
+            Element eTematica = eListaTematicas.get(i);
+            String nombreTematica = eTematica.getChildText("nombre");
+
+            if (nombreTematica.equals(nombreTematicaEliminar)) {
+                eListaTematicas.remove(i);
+                i--;
+                for (Element tematicaRestante : eListaTematicas) {
+                    tematicaRestante.setAttribute("idTipo", String.valueOf(nuevoIdTipo));
+                    nuevoIdTipo++;
+                }
+                guardar();
+                return;
+            }
+        }
+    }
+
     public String tematicaString(){
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
         return xmlOutputter.outputString(document);
