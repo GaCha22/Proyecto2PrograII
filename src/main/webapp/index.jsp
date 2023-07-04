@@ -70,9 +70,6 @@
         <form action="tematica.jsp" method="post">
             <button type="submit">Temática</button>
         </form>
-        <form action="tematica.jsp" method="post">
-            <button type="submit">Tematica</button>
-        </form>
     </div>
 </div>
 </body>
