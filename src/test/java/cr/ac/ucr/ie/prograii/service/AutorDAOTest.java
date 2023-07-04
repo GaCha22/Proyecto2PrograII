@@ -12,7 +12,7 @@ class AutorDAOTest {
     @Test
     void crear_documento_funciona(){
         try {
-            AutorDAO autorDAO = AutorDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml");
+            AutorDAO autorDAO = AutorDAO.crearDocumento("autores.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,7 +42,7 @@ class AutorDAOTest {
         autor2.setApellidosAutor("ASFDALJHGFSD");
 
         try {
-            AutorDAO autorDAO = AutorDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml");
+            AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
             autorDAO.insertarAutor(autor1);
             autorDAO.insertarAutor(autor2);
         } catch (IOException | JDOMException e) {
