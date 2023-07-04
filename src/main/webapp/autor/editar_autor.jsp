@@ -73,7 +73,7 @@
 <div class="container">
   <h1>Editar Autor</h1>
   <div class="button-container">
-    <form action="/prograii/editar_autor" method="post">
+    <form action="/prograii/editar_autor" method="get">
       <div>
         <label for="nombre">Nombre del Autor</label>
         <div>

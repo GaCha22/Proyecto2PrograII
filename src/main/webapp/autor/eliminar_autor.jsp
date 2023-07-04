@@ -73,7 +73,7 @@
 <div class="container">
   <h1>Eliminar Autor</h1>
   <div class="button-container">
-    <form action="/prograii/eliminar_autor" method="post">
+    <form action="/prograii/eliminar_autor" method="get">
       <div>
         <label for="nombre">Nombre del Autor</label>
         <div>
