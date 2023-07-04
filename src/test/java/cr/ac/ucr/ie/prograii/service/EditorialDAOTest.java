@@ -12,25 +12,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 class EditorialDAOTest {
-    @Test
-    void crear_documento_funciona(){
-        EditorialDAO editorialDAO = EditorialDAO.crearDocumento("editoriales.xml");
-    }
+    private EditorialDAO editorialDAO;
 
     @Test
-    void abrir_documento_funciona() {
-        try {
-            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (JDOMException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    void guardarEditorial_fuciona() throws IOException, JDOMException {
+        EditorialDAO.crearDocumento("editoriales.xml");
+        editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
 
-    @Test
-    void guardarEditorial_fuciona(){
-            List<Libro> libros = new ArrayList<Libro>();
+        List<Libro> libros = new ArrayList<Libro>();
 
 
             // Primer libro
@@ -47,13 +36,14 @@ class EditorialDAOTest {
         Editorial editorial1 = new Editorial(01, "Monge","Jalisco",libros);
         Editorial editorial2 = new Editorial(02, "Casa Azul","New York",libros);
 
-        try {
-            EditorialDAO editorialDAO = EditorialDAO.abrirDocumento("editorial.xml");
             editorialDAO.insertarEditorial(editorial1);
             editorialDAO.insertarEditorial(editorial2);
-        } catch (IOException | JDOMException e) {
-            throw new RuntimeException(e);
-        }
+
+        Editorial nuevaEditorial = new Editorial(1, "yoyi", "yiyo");
+
+        // insertar en el xml
+        editorialDAO.insertarEditorial(nuevaEditorial);
+
     }
 
     @Test

@@ -79,6 +79,9 @@
             <button type="submit">Eliminar Libro</button>
         </form>
     </div>
+    <div>
+
+    </div>
 </div>
 </body>
 </html>
