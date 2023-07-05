@@ -1,5 +1,6 @@
 package cr.ac.ucr.ie.prograii.servlets.autor;
 
+import cr.ac.ucr.ie.prograii.model.Autor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +13,11 @@ import java.io.PrintWriter;
 @WebServlet("/editar_autor")
 public class EditarAutorServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String nombreAutor = req.getParameter("nombre");
+        String apellidosAutor = req.getParameter("apellidos");
+        int idAutor = Integer.parseInt(req.getParameter("codAutor"));
+        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
         resp.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");

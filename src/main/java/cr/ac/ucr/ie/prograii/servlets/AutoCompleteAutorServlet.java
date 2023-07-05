@@ -28,7 +28,8 @@ public class AutoCompleteAutorServlet extends HttpServlet {
             // Filtrar las temáticas que coincidan con el término de búsqueda
             List<Autor> autoresFiltrados = new ArrayList<>();
             for (Autor autor : autores) {
-                if (autor.getNombre().toLowerCase().contains(term.toLowerCase())) {
+                String nombreCompleto = autor.getNombre() + " " +autor.getApellidosAutor();
+                if (nombreCompleto.toLowerCase().contains(term.toLowerCase())) {
                     autoresFiltrados.add(autor);
                 }
             }

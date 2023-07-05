@@ -81,6 +81,7 @@
 
   </style>
   <script>
+
     $(document).ready(function() {
     var autocompleteAutor = $("#autor");
     if (autocompleteAutor.data("autocomplete")) {
@@ -129,12 +130,15 @@
       });
     }
     });
-  </script>
-  <script>
+
     function validateForm() {
       var nombre = document.getElementById("autor").value;
-
       var errorMessage = "";
+      var codAutor = document.getElementById("codAutor").value;
+
+      if (codAutor === ""){
+        errorMessage = "El autor digitado no existe.";
+      }
 
       if (nombre === "") {
         errorMessage = "Por favor, complete todos los campos.";
@@ -144,7 +148,9 @@
         document.getElementById("error-message").innerText = errorMessage;
         return false;
       }
+
     }
+
   </script>
 </head>
 <body>

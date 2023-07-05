@@ -39,7 +39,8 @@
         }
 
         .button-container button {
-            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             background-color: #553dad;
             color: #fff;
             border: none;
@@ -50,7 +51,7 @@
         }
 
         .button-container .save-button {
-            margin-top: 20px;
+            margin-top: 10px;
             margin-bottom: 10px;
             background-color: #553dad;
             color: #fff;
@@ -71,7 +72,6 @@
 
         .error-message {
             color: #fff;
-            margin-top: 10px;
         }
 
     </style>
@@ -110,13 +110,13 @@
             <div>
                 <label for="apellidos">Apellidos del Autor</label>
                 <div>
-                    <input type="text" name="apellidos" id="apellidos">
+                    <input type="text" placeholder="Apellidos del Autor" name="apellidos" id="apellidos">
                 </div>
             </div>
             <div>
                 <label for="id">ID del Autor</label>
                 <div>
-                    <input type="text" name="id" id="id">
+                    <input type="text" placeholder="ID del Autor" name="id" id="id">
                 </div>
             </div>
             <div>

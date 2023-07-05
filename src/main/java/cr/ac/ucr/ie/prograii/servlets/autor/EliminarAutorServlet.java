@@ -22,6 +22,7 @@ public class EliminarAutorServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         resp.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");

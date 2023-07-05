@@ -1,12 +1,9 @@
-<%@ page import="cr.ac.ucr.ie.prograii.service.AutorDAO" %>
-<%@ page import="cr.ac.ucr.ie.prograii.model.Autor" %>
-<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Insertar Autor</title>
+  <title>Editar Autor</title>
   <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
   <style>
     body {
@@ -35,14 +32,15 @@
     }
 
     .button-container {
-      margin-top: 10px;
-      margin-bottom: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
     }
 
     .button-container button {
+      margin-top: 10px;
+      margin-bottom: 10px;
       background-color: #553dad;
       color: #fff;
       border: none;
@@ -52,7 +50,7 @@
       font-size: 18px;
     }
 
-    .button-container .edit-button {
+    .button-container .save-button {
       margin-top: 10px;
       margin-bottom: 10px;
       background-color: #553dad;
@@ -70,6 +68,30 @@
 
     h1 {
       color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .search-bar input[type="text"] {
+      font-size: 18px;
+      padding: 8px;
+      margin-right: 10px;
+      width: 200px;
+    }
+
+    .search-bar button {
+      background-color: #553dad;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 10px 16px;
+      font-size: 18px;
     }
 
     .error-message {
@@ -77,7 +99,6 @@
     }
 
   </style>
-
   <script>
     function validateForm() {
       var nombre = document.getElementById("nombre").value;
@@ -102,32 +123,35 @@
 <body>
 <div class="container">
   <h1>Editar Autor</h1>
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar autor" name="search" id="search">
+    <button type="button">Buscar</button>
+  </div>
   <div class="button-container">
-    <form action="/prograii/editar_autor" method="post">
-        <div>
-          <label for="autor">Nombre del Autor</label>
-          <div>
-            <input type="text" placeholder="Autor" name="autor" id="autor" data-autocomplete="true" autocomplete="on">
-            <input type="hidden" name="codAutor" id="codAutor">
-          </div>
-        </div>
+    <form action="/prograii/editar_autor" method="post" onsubmit="return validateForm()">
       <div>
-        <label for="apellidos">Nuevo apellidos del Autor</label>
+        <label for="nombre">Nombre del Autor</label>
         <div>
-          <input type="text" name="apellidos" id="apellidos">
+          <input type="text" placeholder="Nombre del Autor" name="nombre" id="nombre">
         </div>
       </div>
       <div>
-        <label for="id">Nuevo ID del Autor</label>
+        <label for="apellidos">Apellidos del Autor</label>
         <div>
-          <input type="text" name="id" id="id">
+          <input type="text" placeholder="Apellidos del Autor" name="apellidos" id="apellidos">
         </div>
       </div>
-      <div class="button-container mb-4">
-        <input type="submit" value="Editar" class="edit-button" onclick="return validateForm()">
+      <div>
+        <label for="id">ID del Autor</label>
+        <div>
+          <input type="text" placeholder="ID del Autor" name="id" id="id">
+        </div>
       </div>
+      <div>
+        <input type="submit" value="Guardar" class="save-button">
+      </div>
+      <div id="error-message" class="error-message"></div>
     </form>
-    <div id="error-message" class="error-message"></div>
     <div class="button-container mb-4">
       <form action="autor.jsp">
         <button type="submit">Atrás</button>
