@@ -170,4 +170,33 @@ public class LibroDAO {
         }
         guardar();
     }
+
+    public void editarLibro(int idLibro, Libro libroActualizado) throws IOException, DataConversionException {
+        List<Element> libros = root.getChildren("libro");
+
+        for (Element eLibro : libros) {
+            int id = eLibro.getAttribute("id").getIntValue();
+            if (id == idLibro) {
+                eLibro.getChild("titulo").setText(libroActualizado.getTitulo());
+                eLibro.getChild("isbn").setText(libroActualizado.getIsbn());
+                eLibro.removeChildren("autor");
+                for (Autor autor :
+                        libroActualizado.getAutores()) {
+                    Element eAutor = new Element("autor");
+                    eAutor.setAttribute("idAutor", String.valueOf(autor.getIdAutor()));
+                    eLibro.addContent(eAutor);
+                }
+                Element eEditorial = eLibro.getChild("editorial");
+                Element eTematica = eLibro.getChild("tematica");
+                eEditorial.getAttribute("idEditorial").setValue(String.valueOf(libroActualizado.getEditorial().getIdEditorial()));
+                eTematica.getAttribute("idTematica").setValue(String.valueOf(libroActualizado.getTematica().getIdTipo()));
+                eLibro.removeChildren("editorial");
+                eLibro.removeChildren("tematica");
+                eLibro.addContent(eEditorial);
+                eLibro.addContent(eTematica);
+                break;
+            }
+        }
+        guardar();
+    }
 }

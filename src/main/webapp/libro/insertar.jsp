@@ -304,13 +304,14 @@
       var id = document.getElementById("idLibro").value;
       var tematica = document.getElementById("tematica").value;
       var editorial = document.getElementById("editorial").value;
-      var codAutor = document.getElementById("codAutor").value
-      var codTematica = document.getElementById("codTematica").value
-      var codEditorial = document.getElementById("codEditorial").value
+      var codAutor = document.getElementById("codAutor").value;
+      var codTematica = document.getElementById("codTematica").value;
+      var codEditorial = document.getElementById("codEditorial").value;
+      var isbn = document.getElementById("isbn").value;
 
       var errorMessage = "";
 
-      if (titulo === "" || autor === "" || id === "" || editorial === "" || tematica === "") {
+      if (titulo === "" || autor === "" || id === "" || editorial === "" || tematica === "" || isbn === "") {
         errorMessage = "Por favor, complete todos los campos.";
       } else if (!/^\d+$/.test(id)) {
         errorMessage = "El id del libro debe contener solo números.";
@@ -343,6 +344,10 @@
 
   <div class="form-group mb-4">
     <input type="text" placeholder="Título" id="titulo" name="titulo">
+  </div>
+
+  <div class="form-group mb-4">
+    <input type="text" placeholder="ISBN" id="isbn" name="isbn">
   </div>
 
   <div class="form-group mb-4">
