@@ -16,8 +16,8 @@ class EditorialDAOTest {
 
     @Test
     void guardarEditorial_fuciona() throws IOException, JDOMException {
-        EditorialDAO.crearDocumento("editoriales.xml");
-        editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
+        //EditorialDAO.crearDocumento("editoriales.xml");
+        editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\Luis\\Desktop\\apache-tomcat\\bin\\editoriales.xml");
 
         List<Libro> libros = new ArrayList<Libro>();
 
@@ -33,13 +33,15 @@ class EditorialDAOTest {
             libro1.setTematica(new Tematica()); // Asigna una temática
             libros.add(libro1);
 
-        Editorial editorial1 = new Editorial(01, "Monge","Jalisco",libros);
-        Editorial editorial2 = new Editorial(02, "Casa Azul","New York",libros);
+        //Editorial editorial1 = new Editorial(01, "Monge","Jalisco",libros);
+        //Editorial editorial2 = new Editorial(02, "Casa Azul","New York",libros);
 
-            editorialDAO.insertarEditorial(editorial1);
-            editorialDAO.insertarEditorial(editorial2);
+        //editorialDAO.insertarEditorial(editorial1);
+        //editorialDAO.insertarEditorial(editorial2);
 
-        Editorial nuevaEditorial = new Editorial(1, "yoyi", "yiyo");
+        int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
+
+        Editorial nuevaEditorial = new Editorial(nuevoID, "yuya", "piko");
 
         // insertar en el xml
         editorialDAO.insertarEditorial(nuevaEditorial);
@@ -56,5 +58,24 @@ class EditorialDAOTest {
             throw new RuntimeException(e);
         }
     }
-  
+
+    @Test
+    void buscar() throws IOException, JDOMException {
+        editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\Luis\\Desktop\\apache-tomcat\\bin\\editoriales.xml");
+
+        boolean resultado = editorialDAO.buscar(String.valueOf(1));
+
+        if(resultado){
+            editorialDAO.eliminarEditorial("1");
+            System.out.println("SE BORRO");
+        }else{
+            System.out.println("NO SE BORRO");
+        }
+
+        assert resultado == true : "No se encuentra";
+    }
+
+
+
+
 }

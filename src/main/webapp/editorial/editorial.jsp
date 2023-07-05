@@ -81,39 +81,41 @@
     <body>
 
         <div class="container text-center">
-            <div>
-                <form action="insertarEditorial.jsp" method="POST">
-                    <button type="submit" class="btn btn-success mb-5">Añadir</button>
-                </form>
-                <form action="editarEditorial.jsp" method="POST">
-                    <button type="submit" class="btn btn-success mb-5">Editar</button>
-                </form>
-                <form action="eliminarEditorial.html" method="POST">
-                    <button type="submit" class="btn btn-success mb-5">Eliminar</button>
-                </form>
+                <div>
+                    <form action="insertarEditorial.jsp" method="POST">
+                        <button type="submit" class="btn btn-success mb-5">Añadir</button>
+                    </form>
+                    <form action="editarEditorial.jsp" method="POST">
+                        <button type="submit" class="btn btn-success mb-5">Editar</button>
+                    </form>
+                    <form action="eliminarEditorial.jsp" method="POST">
+                        <button type="submit" class="btn btn-success mb-5">Eliminar</button>
+                    </form>
+                </div>
+            <div style="overflow: auto; max-height: 300px; width: 400px; margin: 50px;">
+
+                <table class="table table-sm table-dark table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Ciudad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        for (Editorial editorial : editoriales) {
+                    %>
+                    <tr>
+                        <td><%= editorial.getIdEditorial() %></td>
+                        <td><a href="editarEditorial.jsp"><%= editorial.getNombreEditorial() %></a></td>
+                        <td><%= editorial.getCiudad() %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
             </div>
-
         </div>
-        <table class="table table-sm table-dark table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Ciudad</th>
-            </tr>
-            </thead>
-            <tbody>
-            <%
-                for (Editorial editorial : editoriales) {
-            %>
-            <tr>
-                <td><%= editorial.getIdEditorial() %></td>
-                <td><%= editorial.getNombreEditorial() %></td>
-                <td><%= editorial.getCiudad() %></td>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
 
-</body>
+    </body>
 </html>

@@ -73,7 +73,7 @@
         <form action="editar.jsp" method="post">
             <button type="submit">Editar Libro</button>
         </form>
-        <form action="eliminar.jsp" method="post">
+        <form action="editorial/editorial.jsp" method="post">
             <button type="submit">Eliminar Libro</button>
         </form>
     </div>

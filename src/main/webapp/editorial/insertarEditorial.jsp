@@ -3,16 +3,6 @@
 <%@ page import="cr.ac.ucr.ie.prograii.model.Editorial" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-<%
-    EditorialDAO editorialDAO = null;
-
-    editorialDAO = EditorialDAO.abrirDocumento("editoriales.xml");
-
-    ArrayList<Editorial> editoriales = editorialDAO.getEditoriales();
-
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,8 +45,7 @@
             justify-content: space-between;
             width: 100%;
         }
-
-        .button-container button {
+         .button-container button {
             background-color: #3dad8d;
             color: #fff;
             border: none;
@@ -70,34 +59,54 @@
             margin-right: 10px;
         }
 
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
+        }
+
     </style>
+
+    <script>
+        function validateForm() {
+            var nombre = document.getElementById("nombre").value;
+            var ciudad = document.getElementById("ciudad").value;
+
+            var errorMessage = "";
+
+            if (nombre === "" || ciudad === "") {
+                errorMessage = "Por favor, complete todos los campos.";
+            }
+
+            if (errorMessage !== "") {
+                document.getElementById("error-message").innerText = errorMessage;
+                return false;
+            }
+        }
+    </script>
 
 </head>
 <body>
     <div class="container text-center">
-        <form action="/prograii_war_exploded/insertarEditorial" method="post">
-
+        <form action="/prograii_war_exploded/insertarEditorial" method="post" onsubmit="return validateForm()">
         <div>
             <label for="nombre" class="form-label text-danger">Nombre</label>
-            <input type="text" name="nombre" id="nombre" class="mb-5">
         </div>
         <div>
+            <input type="text" name="nombre" id="nombre" class="mb-5">
+        </div>
+
+        <div>
             <label for="ciudad" class="form-label text-danger">Ciudad</label>
+        </div>
+        <div>
             <input type="text" name="ciudad" id="ciudad" class="mb-5">
         </div>
         <div>
             <button type="submit" class="">Guardar</button>
         </div>
-        </form>
-        <div>
-            <select name="editoriales">
-                <% for (Editorial editorial : editoriales) { %>
-                <option value="<%= editorial %>"><%= editorial.getNombreEditorial() %></option>
-                <h1><%=editorial%></h1>
-                <% } %>
-            </select>
-        </div>
+        <div id="error-message" class="error-message"></div>
 
+        </form>
     </div>
 
 

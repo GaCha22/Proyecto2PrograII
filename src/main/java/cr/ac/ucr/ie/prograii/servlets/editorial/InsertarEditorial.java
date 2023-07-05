@@ -23,14 +23,12 @@ public class InsertarEditorial extends HttpServlet {
         try (PrintWriter out = resp.getWriter()) {
 
 
-
-
             String nombre = req.getParameter("nombre");
             String ciudad = req.getParameter("ciudad");
 
             out.println("       <title>antes del IF</title>");
-            int i=0;
-            if (nombre != null && ciudad != null) {
+
+            if (!nombre.isEmpty() && !ciudad.isEmpty()) {
 
                 System.out.println(nombre);
                 System.out.println(ciudad);
@@ -44,12 +42,12 @@ public class InsertarEditorial extends HttpServlet {
                     return;
                 }
 
+                int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
 
-                nuevaEditorial = new Editorial(i, nombre, ciudad);
+                nuevaEditorial = new Editorial(nuevoID, nombre, ciudad);
 
                 // insertar en el xml
                 editorialDAO.insertarEditorial(nuevaEditorial);
-
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -58,21 +56,20 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("       <title>Insertado</title>");
                 out.println("   </head>");
                 out.println("   <body>");
-                out.println("        <h1>Insertado con éxito</h1>");
+                out.println("<h1 style=\"text-align: center;\">Insertado con éxito</h1>");
+                out.println("<form action=\"editorial/editorial.jsp\">");
+                out.println("    <button type=\"submit\">Volver al inicio</button>");
+                out.println("</form>");
                 out.println("   </body>");
                 out.println("   </html>");
 
 
+            }else
+                out.println("<h1>Error al insertar</h1>");
 
 
 
-
-                i++;
-            }
         }
-
-
-
 
     }
 
