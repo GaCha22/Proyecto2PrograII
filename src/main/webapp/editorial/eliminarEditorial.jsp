@@ -1,9 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Luis
+  Date: 04/07/2023
+  Time: 04:24 p. m.
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Biblioteca</title>
-    <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
+    <title>Eliminar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
 
     <style>
         body {
@@ -26,8 +32,8 @@
             padding: 20px;
         }
 
-        .input-container {
-            margin-bottom: 20px;
+        .form-group {
+            margin-bottom: 10px;
         }
 
         select, input, button {
@@ -37,13 +43,11 @@
 
         .button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
-
         .button-container button {
-            margin-bottom: 20px;
-            background-color: #553dad;
+            background-color: #3dad8d;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -52,28 +56,28 @@
             font-size: 18px;
         }
 
+        .button-container button:first-child {
+            margin-right: 10px;
+        }
+
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
+        }
 
     </style>
+
 </head>
 <body>
-<div class="container">
-    <div class="button-container">
-        <form action="libro.jsp">
-            <button type="submit">Libro</button>
-        </form>
-        <form action="autor/autor.jsp">
-            <button type="submit">Autor</button>
-        </form>
-        <form action="editorial.jsp">
-            <button type="submit">Editorial</button>
-        </form>
-        <form action="tematica.jsp">
-            <button type="submit">Temática</button>
-        </form>
-    </div>
     <div>
+        <div>
+            <form action="/prograii_war_exploded/eliminarEditorial" method="post">
+                <input type="text" name="id" placeholder="Buscar por id...">
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
 
     </div>
-</div>
+
 </body>
 </html>
