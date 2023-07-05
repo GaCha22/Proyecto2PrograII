@@ -1,14 +1,22 @@
 <%@ page import="cr.ac.ucr.ie.prograii.service.LibroDAO" %>
 <%@ page import="cr.ac.ucr.ie.prograii.model.Libro" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    LibroDAO libroDAO = null;
+    List<Libro> libros;
+    boolean buscar = false;
+    buscar = (boolean)request.getAttribute("buscar");
+    if (buscar){
+        libros = (List<Libro>)request.getAttribute("lista");
+    }else {
+        LibroDAO libroDAO = null;
 
-    libroDAO = LibroDAO.abrirDocumento("libros.xml");
+        libroDAO = LibroDAO.abrirDocumento("libros.xml");
 
-    ArrayList<Libro> editoriales = libroDAO.getLibros();
+        libros = libroDAO.getLibros();
+    }
 
 %>
 <html>
@@ -63,9 +71,38 @@
             font-size: 18px;
         }
     </style>
+    <script>
+        function validateForm() {
+            var search = document.getElementById("search").value;
+
+
+            var errorMessage = "";
+
+            if (search === "") {
+                errorMessage = "Por favor, complete el campo para buscar.";
+            }
+
+            if (errorMessage !== "") {
+                document.getElementById("error-message").innerText = errorMessage;
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
+    <div>
+        <form action="./buscarLibro" method="post" onsubmit="return validateForm()">
+            <div id="error-message" class="error-message"></div>
+            <select name="tipo">
+                <option value="1">Titulo</option>
+                <option value="2">Autor</option>
+                <option value="3">Tematica</option>
+            </select>
+            <input name="search" id="search" placeholder="Buscar">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
     <div class="button-container">
         <form action="insertar.jsp">
             <button type="submit">Añadir Libro</button>
@@ -97,7 +134,7 @@
             </thead>
             <tbody>
             <%
-                for (Libro editorial : editoriales) {
+                for (Libro editorial : libros) {
             %>
             <tr>
                 <td><%= editorial.getIdLibro() %></td>

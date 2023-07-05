@@ -155,7 +155,7 @@ public class InsertarServlet extends HttpServlet {
             if (insertado) {
                 out.println("        <h1>Libro insertado correctamente</h1>");
                 out.println("       <div class=\"button-container mb-4\">");
-                out.println("       <form action=\"/prograii/libro/libro.jsp\">");
+                out.println("       <form action=\"/prograii/libro/buscarLibro\">");
                 out.println("           <button type=\"submit\">Atrás</button>");
                 out.println("       </form>");
             }else {

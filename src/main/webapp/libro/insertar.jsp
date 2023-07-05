@@ -330,13 +330,13 @@
     }
 
     function goBack(){
-      window.location.href = "./libro.jsp";
+      window.location.href = "./buscarLibro";
     }
   </script>
 <body>
 
 <div class="container">
-  <form action="./insertarLibro" method="post">
+  <form action="./insertarLibro" method="post" onsubmit="return validateForm()">
 
   <div class="form-group mb-4">
     <input type="text" placeholder="Id del Libro" id="idLibro" name="idLibro">

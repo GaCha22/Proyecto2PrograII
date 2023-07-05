@@ -322,7 +322,7 @@
         }
 
         function goBack(){
-            window.location.href = "./libro.jsp";
+            window.location.href = "./buscarLibro";
         }
 
         function validateForm() {

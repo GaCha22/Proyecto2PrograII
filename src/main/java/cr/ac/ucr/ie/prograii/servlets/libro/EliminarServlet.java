@@ -82,7 +82,7 @@ public class EliminarServlet extends HttpServlet {
             out.println("    <div class=\"container\">");
             out.println("        <h1>Libro eliminado correctamente</h1>");
             out.println("       <div class=\"button-container mb-4\">");
-            out.println("       <form action=\"./libro.jsp\">");
+            out.println("       <form action=\"/prograii/libro/buscarLibro\">");
             out.println("           <button type=\"submit\">Atrás</button>");
             out.println("       </form>");
             out.println("       </div>");

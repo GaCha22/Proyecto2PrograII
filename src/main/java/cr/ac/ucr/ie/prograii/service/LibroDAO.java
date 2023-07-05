@@ -10,6 +10,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -166,17 +167,26 @@ public class LibroDAO {
             if (id == idLibro) {
                 eLibro.getChild("titulo").setText(libroActualizado.getTitulo());
                 eLibro.getChild("isbn").setText(libroActualizado.getIsbn());
-                eLibro.removeChildren("autor");
-                for (Autor autor :
-                        libroActualizado.getAutores()) {
+                eLibro.removeChild("autores");
+                Element eAutores = new Element("autores");
+                for (Autor autor : libroActualizado.getAutores()) {
                     Element eAutor = new Element("autor");
+                    Element nombre = new Element("nombre");
+                    Element apellidos = new Element("apellidos");
                     eAutor.setAttribute("idAutor", String.valueOf(autor.getIdAutor()));
-                    eLibro.addContent(eAutor);
+                    nombre.addContent(autor.getNombre());
+                    apellidos.addContent(autor.getApellidosAutor());
+                    eAutor.addContent(nombre);
+                    eAutor.addContent(apellidos);
+                    eAutores.addContent(eAutor);
                 }
-                Element eEditorial = eLibro.getChild("editorial");
-                Element eTematica = eLibro.getChild("tematica");
-                eEditorial.getAttribute("idEditorial").setValue(String.valueOf(libroActualizado.getEditorial().getIdEditorial()));
-                eTematica.getAttribute("idTematica").setValue(String.valueOf(libroActualizado.getTematica().getIdTipo()));
+                eLibro.addContent(eAutores);
+                Element eEditorial = new Element("editorial");
+                Element eTematica = new Element("tematica");
+                eEditorial.setAttribute("idEditorial", String.valueOf(libroActualizado.getEditorial().getIdEditorial()));
+                eEditorial.addContent(libroActualizado.getEditorial().getNombreEditorial());
+                eTematica.setAttribute("idTematica", String.valueOf(libroActualizado.getTematica().getIdTipo()));
+                eTematica.addContent(libroActualizado.getTematica().getNombreTematica());
                 eLibro.removeChildren("editorial");
                 eLibro.removeChildren("tematica");
                 eLibro.addContent(eEditorial);
