@@ -9,6 +9,7 @@
   <title>Editar Autor</title>
   <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
   <style>
+
     body {
       margin: 0;
       padding: 0;
@@ -74,29 +75,6 @@
       margin-bottom: 10px;
     }
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .search-bar input[type="text"] {
-      font-size: 18px;
-      padding: 8px;
-      margin-right: 10px;
-      width: 200px;
-    }
-
-    .search-bar button {
-      background-color: #553dad;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      padding: 10px 16px;
-      font-size: 18px;
-    }
-
     .error-message {
       color: #fff;
     }
@@ -120,6 +98,9 @@
         document.getElementById("error-message").innerText = errorMessage;
         return false;
       }
+    }
+    function goBack(){
+      window.location.href = "./libro.jsp";
     }
   </script>
 </head>
