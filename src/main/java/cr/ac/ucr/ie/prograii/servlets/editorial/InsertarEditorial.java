@@ -110,7 +110,6 @@ public class InsertarEditorial extends HttpServlet {
                     out.println("</html>");
                 }else {
 
-
                     System.out.println(nombre);
                     System.out.println(ciudad);
 
