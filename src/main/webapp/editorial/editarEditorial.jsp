@@ -163,7 +163,7 @@
             <div id="error-message" class="error-message"></div>
         </form>
         <div class="button-container mb-3">
-            <form action="editorial/editorial.jsp">
+            <form action="editorial.jsp">
                 <button type="submit">Atrás</button>
             </form>
         </div>
