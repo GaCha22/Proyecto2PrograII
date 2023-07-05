@@ -50,7 +50,7 @@
       font-size: 18px;
     }
 
-    .button-container .save-button {
+    .button-container .edit-button {
       margin-top: 10px;
       margin-bottom: 10px;
       background-color: #553dad;
@@ -148,7 +148,7 @@
         </div>
       </div>
       <div>
-        <input type="submit" value="Editar" class="save-button">
+        <input type="submit" value="Editar" class="edit-button">
       </div>
       <div id="error-message" class="error-message"></div>
     </form>
