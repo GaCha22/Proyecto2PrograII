@@ -120,6 +120,20 @@ public class AutorDAO {
         guardar();
     }
 
+    public void editarAutor(int codAutor, Autor autorActualizado) throws IOException {
+        List<Element> autores = root.getChildren("autor");
+
+        for (Element autor : autores) {
+            int id = Integer.parseInt(autor.getAttributeValue("id"));
+            if (id == codAutor) {
+                autor.getChild("nombre").setText(autorActualizado.getNombre());
+                autor.getChild("apellidos").setText(autorActualizado.getApellidosAutor());
+                break;
+            }
+        }
+        guardar();
+    }
+
     public ArrayList<Autor> getAutores() throws DataConversionException {
         List eListaAAutores = root.getChildren();
         ArrayList<Autor> autores = new ArrayList<Autor>();

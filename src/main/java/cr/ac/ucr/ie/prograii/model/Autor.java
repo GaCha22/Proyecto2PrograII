@@ -14,7 +14,7 @@ public class Autor {
         this.librosEscritos = new ArrayList<>();
     }
 
-    public Autor(int idAutor, String nombre, String apellidosAutor, String nacionalidad, List<Libro> librosEscritos) {
+    public Autor(int idAutor, String nombre, String apellidosAutor, List<Libro> librosEscritos) {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.apellidosAutor = apellidosAutor;
