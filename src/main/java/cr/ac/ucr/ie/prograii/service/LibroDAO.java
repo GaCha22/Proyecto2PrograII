@@ -67,23 +67,17 @@ public class LibroDAO {
         for (Autor autor : autores) {
             Element eAutor = new Element("autor");
 
-            Element eNombre = new Element("nombre");
-            eNombre.addContent(autor.getNombre());
-            eAutor.addContent(eNombre);
-
-            Element eApellidos = new Element("apellido");
-            eApellidos.addContent(autor.getApellidosAutor());
-            eAutor.addContent(eApellidos);
+            eAutor.setAttribute("idAutor", String.valueOf(autor.getIdAutor()));
             eLibro.addContent(eAutor);
         }
 
         Element eEditorial = new Element("editorial");
 
-        eEditorial.addContent(libro.getEditorial().getNombreEditorial());
+        eEditorial.setAttribute("idEditorial", String.valueOf(libro.getEditorial().getIdEditorial()));
         eLibro.addContent(eEditorial);
 
         Element eTematica = new Element("tematica");
-        eTematica.addContent(libro.getTematica().getNombreTematica());
+        eTematica.setAttribute("idTematica", String.valueOf(libro.getTematica().getIdTipo()));
         eLibro.addContent(eTematica);
 
         root.addContent(eLibro);
@@ -114,8 +108,12 @@ public class LibroDAO {
             Editorial editorial = new Editorial();
             editorial.setNombreEditorial(eLibro.getChildText("editorial"));
             libroActual.setEditorial(editorial);
-            Tematica tematica = new Tematica();
-            tematica.setNombreTematica(eLibro.getChildText("tematica"));
+            Tematica tematica = null;
+            try {
+                tematica = TematicaDAO.abrirDocumento("tematicas.xml").getTematica(eLibro.getChild("tematica").getAttribute("idTematica").getIntValue());
+            } catch (IOException | JDOMException e) {
+                throw new RuntimeException(e);
+            }
             libroActual.setTematica(tematica);
 
             libros.add(libroActual);

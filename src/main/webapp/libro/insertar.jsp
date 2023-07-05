@@ -252,6 +252,7 @@
       var authorInput = document.createElement("input");
       authorInput.type = "text";
       authorInput.name = "autor" + authorCount;
+      // authorInput.id = "autor" + authorCount;
       authorInput.placeholder = "Autor";
       authorInput.autocomplete = "on";
       authorInput.setAttribute("data-autocomplete", "true");
@@ -314,7 +315,7 @@
       } else if (!/^\d+$/.test(id)) {
         errorMessage = "El id del libro debe contener solo números.";
       }else if (codAutor === ""){
-        errorMessage = "El autor no existe, elija uno de las opciones"
+        errorMessage = "El autor no existe, elija una de las opciones"
       } else if (codTematica === ""){
         errorMessage = "La tematica no existe, elija una de las opciones"
       } else if (codEditorial === ""){
@@ -326,11 +327,15 @@
         return false;
       }
     }
+
+    function goBack(){
+      window.location.href = "./libro.jsp";
+    }
   </script>
 <body>
 
 <div class="container">
-  <form class="/insertarLibro" method="post" onsubmit="return validateForm()">
+  <form action="./insertarLibro" method="post">
 
   <div class="form-group mb-4">
     <input type="text" placeholder="Id del Libro" id="idLibro" name="idLibro">
@@ -363,7 +368,7 @@
   <div id="error-message" class="error-message"></div>
 
   <div class="button-container mb-4">
-    <button type="button" onclick="history.back()">Atrás</button>
+    <button type="button" onclick="goBack()">Atrás</button>
     <button type="submit">Guardar</button>
   </div>
 

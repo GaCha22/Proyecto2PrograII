@@ -43,7 +43,6 @@ class EditorialDAOTest {
             libro1.setTitulo("El señor de los anillos");
             libro1.setIsbn("9788445004954");
             libro1.setAutores(new ArrayList<>()); // Añade autores a la lista de autores
-            libro1.getItems(); // Añade items a la lista de items
             libro1.setEditorial(new Editorial()); // Asigna una editorial
             libro1.setTematica(new Tematica()); // Asigna una temática
             libros.add(libro1);
