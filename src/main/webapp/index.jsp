@@ -61,13 +61,13 @@
         <form action="libro.jsp">
             <button type="submit">Libro</button>
         </form>
-        <form action="autor/autor.jsp" method="post">
+        <form action="autor/autor.jsp">
             <button type="submit">Autor</button>
         </form>
-        <form action="editorial.jsp" method="post">
+        <form action="editorial.jsp">
             <button type="submit">Editorial</button>
         </form>
-        <form action="tematica.jsp" method="post">
+        <form action="tematica.jsp">
             <button type="submit">Temática</button>
         </form>
     </div>

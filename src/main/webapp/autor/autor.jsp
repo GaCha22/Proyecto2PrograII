@@ -63,6 +63,9 @@
     <form action="editar_autor.jsp" method="post">
         <button type="submit">Editar Autor</button>
     </form>
+        <form action="/prograii">
+            <button type="submit">Atrás</button>
+        </form>
     </div>
 </div>
 </body>
