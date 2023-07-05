@@ -9,7 +9,6 @@ public class Libro {
     private String titulo;
     private String isbn;
     private List<Autor> autores;
-    private List<LibroItem> items;
     private Editorial editorial;
     private Tematica tematica;
 
@@ -17,16 +16,14 @@ public class Libro {
         this.autores = new ArrayList<>();
         this.editorial = new Editorial();
         this.tematica = new Tematica();
-        this.items = new ArrayList<>();
         this.isbn = this.titulo = "";
     }
 
-    public Libro(int idLibro, String titulo, String isbn, List<Autor> autores, List<LibroItem> items, Editorial editorial, Tematica tematica) {
+    public Libro(int idLibro, String titulo, String isbn, List<Autor> autores, Editorial editorial, Tematica tematica) {
         this.idLibro = idLibro;
         this.titulo = titulo;
         this.isbn = isbn;
         this.autores = autores;
-        this.items = items;
         this.editorial = editorial;
         this.tematica = tematica;
     }
@@ -79,12 +76,15 @@ public class Libro {
         this.tematica = tematica;
     }
 
-    public List<LibroItem> getItems() {
-        return items;
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "idLibro=" + idLibro +
+                ", titulo='" + titulo + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", autores=" + autores +
+                ", editorial=" + editorial +
+                ", tematica=" + tematica +
+                '}';
     }
-
-    public void setItems(List<LibroItem> items) {
-        this.items = items;
-    }
-
 }

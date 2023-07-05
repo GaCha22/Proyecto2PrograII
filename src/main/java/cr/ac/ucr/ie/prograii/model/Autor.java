@@ -21,6 +21,12 @@ public class Autor {
         this.librosEscritos = librosEscritos;
     }
 
+    public Autor(int idAutor, String nombre, String apellidosAutor) {
+        this.idAutor = idAutor;
+        this.nombre = nombre;
+        this.apellidosAutor = apellidosAutor;
+    }
+
     public int getIdAutor() {
         return idAutor;
     }
@@ -53,4 +59,12 @@ public class Autor {
         this.librosEscritos = librosEscritos;
     }
 
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "idAutor=" + idAutor +
+                ", nombre='" + nombre + '\'' +
+                ", apellidosAutor='" + apellidosAutor + '\'' +
+                '}';
+    }
 }

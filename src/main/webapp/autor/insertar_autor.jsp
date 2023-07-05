@@ -3,9 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
-
+    <title>Insertar Autor</title>
+    <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
     <style>
         body {
             margin: 0;
@@ -36,6 +35,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
 
         .button-container button {
@@ -50,7 +50,7 @@
             font-size: 18px;
         }
 
-        .button-container .login-button {
+        .button-container .save-button {
             margin-top: 10px;
             margin-bottom: 10px;
             background-color: #553dad;
@@ -77,44 +77,59 @@
     </style>
     <script>
         function validateForm() {
-            var nombre = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+            var nombre = document.getElementById("nombre").value;
+            var apellidos = document.getElementById("apellidos").value;
+            var id = document.getElementById("id").value;
+
             var errorMessage = "";
 
-            if (nombre === "" || password === "") {
+            if (nombre === "" || apellidos === "" || id === "") {
                 errorMessage = "Por favor, complete todos los campos.";
+            } else if (!/^\d+$/.test(id)) {
+                errorMessage = "El ID del autor solo debe contener números.";
             }
 
             if (errorMessage !== "") {
                 document.getElementById("error-message").innerText = errorMessage;
                 return false;
             }
-
         }
-
     </script>
 </head>
 <body>
 <div class="container">
-    <h1>Iniciar sesión</h1>
-    <form action="/prograii/login" method="post" onsubmit="return validateForm()">
-        <div>
-            <label for="username">Username</label>
+    <h1>Insertar Autor</h1>
+    <div class="button-container">
+        <form action="/prograii/insertar_autor" method="post" onsubmit="return validateForm()">
             <div>
-                <input type="text" name="username" id="username">
+                <label for="nombre">Nombre del Autor</label>
+                <div>
+                    <input type="text" placeholder="Nombre del Autor" name="nombre" id="nombre">
+                </div>
             </div>
-        </div>
-        <div>
-            <label for="password">Password</label>
             <div>
-                <input type="password" name="password" id="password">
+                <label for="apellidos">Apellidos del Autor</label>
+                <div>
+                    <input type="text" placeholder="Apellidos del Autor" name="apellidos" id="apellidos">
+                </div>
             </div>
+            <div>
+                <label for="id">ID del Autor</label>
+                <div>
+                    <input type="text" placeholder="ID del Autor" name="id" id="id">
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Guardar" class="save-button">
+            </div>
+            <div id="error-message" class="error-message"></div>
+        </form>
+        <div class="button-container mb-4">
+            <form action="autor.jsp">
+                <button type="submit">Atrás</button>
+            </form>
         </div>
-        <div id="error-message" class="error-message"></div>
-        <div class="button-container">
-            <input type="submit" value="Login" class="login-button">
-        </div>
-    </form>
+    </div>
 </div>
 </body>
 </html>
