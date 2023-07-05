@@ -1,3 +1,6 @@
+<%@ page import="cr.ac.ucr.ie.prograii.service.AutorDAO" %>
+<%@ page import="cr.ac.ucr.ie.prograii.model.Autor" %>
+<%@ page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,12 +126,24 @@
 <body>
 <div class="container">
   <h1>Editar Autor</h1>
-  <div class="search-bar">
-    <input type="text" placeholder="Buscar autor" name="search" id="search">
-    <button type="button">Buscar</button>
-  </div>
   <div class="button-container">
     <form action="/prograii/editar_autor" method="post" onsubmit="return validateForm()">
+      <div>
+        <%
+          AutorDAO autorDAO;
+          autorDAO = AutorDAO.abrirDocumento("autores.xml");
+          List<Autor> autores= autorDAO.getAutores();
+        %>
+        <br>
+        <select name="autor">
+          <% for(Autor autor : autores) { %>
+          <option value="<%= autor.getIdAutor() %>">
+            <%= autor.getNombre() + " " + autor.getApellidosAutor()%>
+          </option>
+          <% } %>
+        </select>
+        <br>
+      </div>
       <div>
         <label for="nombre">Nombre del Autor</label>
         <div>
@@ -139,12 +154,6 @@
         <label for="apellidos">Apellidos del Autor</label>
         <div>
           <input type="text" placeholder="Apellidos del Autor" name="apellidos" id="apellidos">
-        </div>
-      </div>
-      <div>
-        <label for="id">ID del Autor</label>
-        <div>
-          <input type="text" placeholder="ID del Autor" name="id" id="id">
         </div>
       </div>
       <div>
