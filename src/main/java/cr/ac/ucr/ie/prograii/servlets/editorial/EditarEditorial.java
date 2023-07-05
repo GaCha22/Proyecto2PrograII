@@ -46,8 +46,8 @@ public class EditarEditorial extends HttpServlet {
                 out.println("<html>");
                 out.println("    <head>");
                 out.println("        <meta charset=\"UTF-8\">");
-                out.println("        <title>Autor editado</title>");
-                out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"estilox.css/inicio.css\">");
+                out.println("        <title>Editar Editorial</title>");
+                out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"../estilox.css/editar.css\">");
                 out.println("        <style>");
                 out.println("            body {");
                 out.println("                margin: 0;");
@@ -96,7 +96,7 @@ public class EditarEditorial extends HttpServlet {
                 out.println("    </head>");
                 out.println("    <body>");
                 out.println("    <div class=\"container\">");
-                out.println("        <h1>Autor editado correctamente</h1>");
+                out.println("        <h1>Autor Editado Correctamente</h1>");
                 out.println("       <div class=\"button-container mb-4\">");
                 out.println("       <form action=\"editorial.jsp\">");
                 out.println("           <button type=\"submit\">Atrás</button>");

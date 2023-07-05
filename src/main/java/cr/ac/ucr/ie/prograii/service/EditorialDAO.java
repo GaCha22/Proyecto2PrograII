@@ -166,11 +166,11 @@ public class EditorialDAO {
     }
 
     // busca por id una editorial
-    public boolean buscar(String idAbuscar) {
-        Element editorial = raiz.getChild("editorial");
-        if (editorial != null) {
-            String id = editorial.getAttributeValue("id");
-            return idAbuscar.equals(id);
+    public boolean buscar(int idEditorial) throws DataConversionException {
+        List<Element> eListaEditoriales = raiz.getChildren();
+        for (Element eEditorial : eListaEditoriales) {
+            int codEditorialAcutal = eEditorial.getAttribute("id").getIntValue();
+            if (codEditorialAcutal == idEditorial) return true;
         }
         return false;
     }

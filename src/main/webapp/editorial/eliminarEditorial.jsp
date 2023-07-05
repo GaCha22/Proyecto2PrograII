@@ -165,7 +165,7 @@
 <div class="container">
     <h1>Eliminar Editorial</h1>
     <div class="button-container">
-        <form action="/prograii/eliminarEditorial" method="post" onsubmit="return validateForm()">
+        <form action="./eliminarEditorial" method="post" onsubmit="return validateForm()">
             <div>
                 <label for="editorial" id="editorial-label">Nombre del Editorial</label>
                 <div>

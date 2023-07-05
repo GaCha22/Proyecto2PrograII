@@ -63,7 +63,7 @@ class EditorialDAOTest {
     void buscar() throws IOException, JDOMException {
         editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\Luis\\Desktop\\apache-tomcat\\bin\\editoriales.xml");
 
-        boolean resultado = editorialDAO.buscar(String.valueOf(1));
+        boolean resultado = editorialDAO.buscar(1);
 
         if(resultado){
             editorialDAO.eliminarEditorial(1);
