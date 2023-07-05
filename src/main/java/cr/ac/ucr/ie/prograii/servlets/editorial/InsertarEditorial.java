@@ -43,7 +43,6 @@ public class InsertarEditorial extends HttpServlet {
 
             if (!nombre.isEmpty() && !ciudad.isEmpty()) {
 
-
                 try {
                     editorialDAO = EditorialDAO.abrirDocumento(path);
                 } catch (Exception e) {
@@ -54,7 +53,6 @@ public class InsertarEditorial extends HttpServlet {
 
                 System.out.println(nombre);
                 System.out.println(ciudad);
-
 
 
                 int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
