@@ -2,6 +2,7 @@ package cr.ac.ucr.ie.prograii.service;
 
 import cr.ac.ucr.ie.prograii.model.Autor;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,12 +34,22 @@ public class AutorDAO {
     }
 
     private AutorDAO(String documentPath) throws IOException, JDOMException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setIgnoringElementContentWhitespace(true);
-        this.document = saxBuilder.build(documentPath);
-        this.root = document.getRootElement();
-        this.path = documentPath;
+        File file = new File(documentPath);
+        if (!file.exists()) {
+            //se encarga de crear tanto el DOM y como Documento XML
+            this.path = documentPath;
+            this.root = new Element("autores");
+            this.document = new Document(root);
+            guardar();
+        }else {
+            SAXBuilder saxBuilder = new SAXBuilder();
+            saxBuilder.setIgnoringElementContentWhitespace(true);
+            this.document = saxBuilder.build(documentPath);
+            this.root = document.getRootElement();
+            this.path = documentPath;
+        }
     }
+
 
     public static AutorDAO abrirDocumento(String documentPath) throws IOException, JDOMException {
         return new AutorDAO(documentPath);
@@ -63,6 +74,63 @@ public class AutorDAO {
         eAutor.addContent(eApellidos);
 
         root.addContent(eAutor);
+        guardar();
+    }
+
+    public boolean buscarAutor(int codAutor){
+        boolean autorExiste = false;
+        List eListaAutores = root.getChildren();
+        for(Object obj: eListaAutores) {
+            Element eAutor = (Element)obj;
+            if(Integer.parseInt(eAutor.getAttributeValue("id")) == codAutor){
+                autorExiste = true;
+                break;
+            }
+        }
+        return autorExiste;
+    }
+
+    public Autor getAutor(int codAutor) throws DataConversionException {
+        Autor autor = new Autor();
+        List eListaAutores = root.getChildren();
+
+        for(Object object: eListaAutores){
+
+            Element eAutor = (Element) object;
+            autor.setIdAutor(eAutor.getAttribute("id").getIntValue());
+            if(autor.getIdAutor()==codAutor){
+                autor.setNombre(eAutor.getChildText("nombre"));
+                autor.setApellidosAutor(eAutor.getChildText("apellidos"));
+            }
+        }
+        return autor;
+
+    }
+
+    public void eliminarAutor(int codAutor) throws IOException {
+        List<Element> autores = root.getChildren("autor");
+
+        for (Element autor : autores) {
+            int id = Integer.parseInt(autor.getAttributeValue("id"));
+            if (id == codAutor) {
+                root.removeContent(autor);
+                break;
+            }
+        }
+        guardar();
+    }
+
+    public void editarAutor(int codAutor, Autor autorActualizado) throws IOException {
+        List<Element> autores = root.getChildren("autor");
+
+        for (Element autor : autores) {
+            int id = Integer.parseInt(autor.getAttributeValue("id"));
+            if (id == codAutor) {
+                autor.getChild("nombre").setText(autorActualizado.getNombre());
+                autor.getChild("apellidos").setText(autorActualizado.getApellidosAutor());
+                break;
+            }
+        }
         guardar();
     }
 
