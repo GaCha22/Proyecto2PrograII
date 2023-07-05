@@ -28,51 +28,60 @@ public class InsertarEditorial extends HttpServlet {
             out.println("        <meta charset=\"UTF-8\">");
             out.println("        <title>Insertar Editorial</title>");
             out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"../estilox.css/editar.css\">");
-            out.println("        <style>");
-            out.println("            body {");
-            out.println("                margin: 0;");
-            out.println("                padding: 0;");
-            out.println("                display: flex;");
-            out.println("                justify-content: center;");
-            out.println("                align-items: center;");
-            out.println("                height: 100vh;");
-            out.println("                background-color: #22272e;");
-            out.println("                font-family: Arial, sans-serif;");
-            out.println("            }");
-            out.println("            .container {");
-            out.println("                display: flex;");
-            out.println("                flex-direction: column;");
-            out.println("                align-items: center;");
-            out.println("                justify-content: center;");
-            out.println("                border-radius: 10px;");
-            out.println("                padding: 20px;");
-            out.println("            }");
-            out.println("            .input-container {");
-            out.println("                margin-bottom: 20px;");
-            out.println("            }");
-            out.println("            select, input, button {");
-            out.println("                font-size: 20px;");
-            out.println("                padding: 10px;");
-            out.println("            }");
-            out.println("            .button-container {");
-            out.println("                display: flex;");
-            out.println("                flex-direction: column;");
-            out.println("                align-items: center;");
-            out.println("            }");
-            out.println("            .button-container button {");
-            out.println("                margin-bottom: 20px;");
-            out.println("                background-color: #553dad;");
-            out.println("                color: #fff;");
-            out.println("                border: none;");
-            out.println("                border-radius: 4px;");
-            out.println("                cursor: pointer;");
-            out.println("                padding: 12px 20px;");
-            out.println("                font-size: 18px;");
-            out.println("            }");
-            out.println("            h1 {");
-            out.println("               color: #fff;");
-            out.println("            }");
-            out.println("        </style>");
+
+            out.println("<style>");
+            out.println("    body {");
+            out.println("        margin: 0;");
+            out.println("        padding: 0;");
+            out.println("        display: flex;");
+            out.println("        justify-content: center;");
+            out.println("        align-items: center;");
+            out.println("        height: 100vh;");
+            out.println("        background-color: #22272e;");
+            out.println("        font-family: Arial, sans-serif;");
+            out.println("    }");
+            out.println("");
+            out.println("    .container {");
+            out.println("        display: flex;");
+            out.println("        flex-direction: column;");
+            out.println("        align-items: center;");
+            out.println("        justify-content: center;");
+            out.println("        border-radius: 10px;");
+            out.println("        padding: 20px;");
+            out.println("    }");
+            out.println("");
+            out.println("");
+            out.println("    select, input, button {");
+            out.println("        font-size: 20px;");
+            out.println("        padding: 10px;");
+            out.println("    }");
+            out.println("");
+            out.println("     .button-container button {");
+            out.println("        background-color: #3dad8d;");
+            out.println("        color: #fff;");
+            out.println("        border: none;");
+            out.println("        border-radius: 4px;");
+            out.println("        cursor: pointer;");
+            out.println("        padding: 12px 20px;");
+            out.println("        font-size: 18px;");
+            out.println("    }");
+            out.println("");
+            out.println("    .button-container button:first-child {");
+            out.println("        margin-right: 10px;");
+            out.println("    }");
+            out.println("");
+            out.println("    .error-message {");
+            out.println("        color: #fff;");
+            out.println("        margin-top: 10px;");
+            out.println("    }");
+            out.println("    h1 {");
+            out.println("        color: white;");
+            out.println("    }");
+            out.println("    label {");
+            out.println("        color: white;");
+            out.println("    }");
+            out.println("</style>");
+
             out.println("    </head>");
             out.println("    <body>");
 
@@ -97,17 +106,15 @@ public class InsertarEditorial extends HttpServlet {
             // si ya existe
             try {
                 if(editorialDAO.buscarTruncar(nombreSpaces, ciudadSpaces) == true){
-                    out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"../estilox.css/editar.css\">");
                     out.println("    <div class=\"container\">");
-                    out.println("        <h1>Error, ya existe</h1>");
+                    out.println("        <h1>Error, ya existe una editorial con ese nombre</h1>");
                     out.println("       <div class=\"button-container mb-4\">");
                     out.println("       <form action=\"editorial/editorial.jsp\">");
                     out.println("           <button type=\"submit\">Atrás</button>");
                     out.println("       </form>");
                     out.println("       </div>");
                     out.println("     </div>");
-                    out.println("    </body>");
-                    out.println("</html>");
+
                 }else {
 
                     System.out.println(nombre);
@@ -124,19 +131,19 @@ public class InsertarEditorial extends HttpServlet {
                     out.println("    <div class=\"container\">");
                     out.println("        <h1>Autor Ingresado Correctamente</h1>");
                     out.println("       <div class=\"button-container mb-4\">");
-                    out.println("       <form action=\"/editorial/editorial.jsp\">");
+                    out.println("       <form action=\"editorial/editorial.jsp\">");
                     out.println("           <button type=\"submit\">Atrás</button>");
                     out.println("       </form>");
                     out.println("       </div>");
                     out.println("     </div>");
-                    out.println("    </body>");
-                    out.println("</html>");
                 }
             } catch (Exception e) {
                 String error = e.getMessage();
                 out.println(error);
                 return;
             }
+            out.println("    </body>");
+            out.println("</html>");
         }
 
     }
