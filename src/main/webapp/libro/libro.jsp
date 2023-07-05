@@ -63,6 +63,9 @@
         <form action="editar.jsp" method="post">
             <button type="submit">Editar Libro</button>
         </form>
+        <form action="./index.jsp" method="post">
+            <button type="submit">Atras</button>
+        </form>
     </div>
 </div>
 </body>
