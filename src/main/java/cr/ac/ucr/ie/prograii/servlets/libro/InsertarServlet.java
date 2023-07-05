@@ -1,7 +1,10 @@
-package cr.ac.ucr.ie.prograii.servlets.autor;
+package cr.ac.ucr.ie.prograii.servlets.libro;
 
 import cr.ac.ucr.ie.prograii.model.Autor;
-import cr.ac.ucr.ie.prograii.service.AutorDAO;
+import cr.ac.ucr.ie.prograii.model.Editorial;
+import cr.ac.ucr.ie.prograii.model.Libro;
+import cr.ac.ucr.ie.prograii.model.Tematica;
+import cr.ac.ucr.ie.prograii.service.LibroDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,27 +14,71 @@ import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 
-@WebServlet("/editar_autor")
-public class EditarAutorServlet extends HttpServlet {
+@WebServlet("/libro/insertarLibro")
+public class InsertarServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombreAutor = req.getParameter("nombre");
-        String apellidosAutor = req.getParameter("apellidos");
-        int idAutor = Integer.parseInt(req.getParameter("autor"));
-        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
+        int idLibro = Integer.parseInt(req.getParameter("idLibro"));
+        String titulo = req.getParameter("titulo");
+        int codAutor = Integer.parseInt(req.getParameter("codAutor"));
+        int codTematica = Integer.parseInt(req.getParameter("codTematica"));
+        int codEditorial = Integer.parseInt(req.getParameter("codEditorial"));
+        String isbn = req.getParameter("isbn");
+
+        String codAutor1 = req.getParameter("codAutor1");
+        String codAutor2 = req.getParameter("codAutor2");
+
+        Libro libro = new Libro();
+        libro.setIdLibro(idLibro);
+        libro.setTitulo(titulo);
+        libro.setIsbn(isbn);
+
+        Tematica tematica = new Tematica();
+        tematica.setIdTipo(codTematica);
+        libro.setTematica(tematica);
+
+        List<Autor> autores = new ArrayList<>();
+        Autor autor = new Autor();
+        autor.setIdAutor(codAutor);
+        autores.add(autor);
+
+        if (codAutor1 != null && !codAutor1.isBlank()){
+            Autor autor1 = new Autor();
+            autor1.setIdAutor(Integer.parseInt(codAutor1));
+            autores.add(autor1);
+        }
+        if (codAutor2 != null && !codAutor2.isBlank()){
+            Autor autor2 = new Autor();
+            autor2.setIdAutor(Integer.parseInt(codAutor2));
+            autores.add(autor2);
+        }
+
+        libro.setAutores(autores);
+
+        Editorial editorial = new Editorial();
+        editorial.setIdEditorial(codEditorial);
+        libro.setEditorial(editorial);
+
+        boolean insertado = false;
         try {
-            AutorDAO.abrirDocumento("autores.xml").editarAutor(idAutor, autor);
+            LibroDAO libroDAO = LibroDAO.abrirDocumento("libros.xml");
+            if (!libroDAO.buscarLibro(idLibro)){
+                libroDAO.insertarLibro(libro);
+                insertado = true;
+            }
         } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
-        resp.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("    <head>");
             out.println("        <meta charset=\"UTF-8\">");
-            out.println("        <title>Autor editado</title>");
+            out.println("        <title>Autor insertado</title>");
             out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"estilox.css/inicio.css\">");
             out.println("        <style>");
             out.println("            body {");
@@ -81,15 +128,25 @@ public class EditarAutorServlet extends HttpServlet {
             out.println("    </head>");
             out.println("    <body>");
             out.println("    <div class=\"container\">");
-            out.println("        <h1>Autor editado correctamente</h1>");
-            out.println("       <div class=\"button-container mb-4\">");
-            out.println("       <form action=\"/prograii/autor/autor.jsp\">");
-            out.println("           <button type=\"submit\">Atrás</button>");
-            out.println("       </form>");
+            if (insertado) {
+                out.println("        <h1>Libro insertado correctamente</h1>");
+                out.println("       <div class=\"button-container mb-4\">");
+                out.println("       <form action=\"/prograii/libro/libro.jsp\">");
+                out.println("           <button type=\"submit\">Atrás</button>");
+                out.println("       </form>");
+            }else {
+                out.println("        <h1>La id del libro ya existe</h1>");
+                out.println("       <div class=\"button-container mb-4\">");
+                out.println("       <form action=\"/prograii/libro/insertar.jsp\">");
+                out.println("           <button type=\"submit\">Atrás</button>");
+                out.println("       </form>");
+            }
             out.println("       </div>");
             out.println("     </div>");
             out.println("    </body>");
             out.println("</html>");
         }
     }
+
 }
+

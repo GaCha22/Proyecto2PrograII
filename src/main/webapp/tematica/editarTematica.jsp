@@ -1,19 +1,13 @@
 <%@ page import="cr.ac.ucr.ie.prograii.service.TematicaDAO" %>
 <%@ page import="cr.ac.ucr.ie.prograii.model.Tematica" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: DanielaPC
-  Date: 2/7/2023
-  Time: 22:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Eliminar Tematica</title>
+    <title>Editar Tematica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="estilox.css/prueba.css">
+    <link rel="stylesheet" type="text/css" href="../estilox.css/prueba.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <style>
@@ -62,7 +56,7 @@
 
         .button-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             width: 100%;
             margin-top: 10px;
         }
@@ -77,18 +71,14 @@
             font-size: 18px;
             width: 48%;
         }
-
-        .button-container button:first-child {
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Eliminar una temática...</h1>
-    <form action="/prograii/eliminarTematica" method="post">
+    <h1>Editar una temática</h1>
+    <form action="/prograii/editarTematica" method="post">
         <div class="form-group mb-4">
-            <h1>Seleccione la temática que desea eliminar.</h1>
+            <h1>Seleccione la temática que desea editar.</h1>
         </div>
         <div>
             <%
@@ -106,10 +96,21 @@
             </select>
             <br>
         </div>
+        <div class="form-group mb-4">
+            <label for="newNombre" style="color: #333333;">Nuevo nombre temática</label>
+            <div>
+                <input type="text" name="newNombre" id="newNombre">
+            </div>
+        </div>
         <div class="button-container">
-            <button type="submit">Eliminar</button>
+            <button type="submit">Editar</button>
         </div>
     </form>
+    <div class="button-container">
+    <form action="tematica.jsp">
+        <button type="submit">Atrás</button>
+    </form>
+    </div>
 </div>
 </body>
 </html>

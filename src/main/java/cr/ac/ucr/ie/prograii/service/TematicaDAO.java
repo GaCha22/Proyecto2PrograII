@@ -9,6 +9,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,11 +32,20 @@ public class TematicaDAO {
     }
 
     private TematicaDAO(String documentPath) throws IOException, JDOMException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setIgnoringElementContentWhitespace(true);
-        this.document = saxBuilder.build(documentPath);
-        this.root = document.getRootElement();
-        this.path = documentPath;
+        File file = new File(documentPath);
+        if (!file.exists()) {
+            //se encarga de crear tanto el DOM y como Documento XML
+            this.path = documentPath;
+            this.root = new Element("tematicas");
+            this.document = new Document(root);
+            guardar();
+        }else {
+            SAXBuilder saxBuilder = new SAXBuilder();
+            saxBuilder.setIgnoringElementContentWhitespace(true);
+            this.document = saxBuilder.build(documentPath);
+            this.root = document.getRootElement();
+            this.path = documentPath;
+        }
     }
 
     public static TematicaDAO abrirDocumento(String documentPath) throws IOException, JDOMException {

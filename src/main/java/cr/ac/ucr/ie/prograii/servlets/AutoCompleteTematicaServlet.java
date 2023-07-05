@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/autocompleteTematica")
+@WebServlet("/autocomplete/autocompleteTematica")
 public class AutoCompleteTematicaServlet extends HttpServlet {
 
     @Override
@@ -22,7 +22,7 @@ public class AutoCompleteTematicaServlet extends HttpServlet {
             String term = req.getParameter("term"); // Obtener el valor del parámetro "term" enviado desde el cliente
 
             // Obtener todas las temáticas desde el archivo XML
-            List<Tematica> tematicas = TematicaDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml").getTematicas();
+            List<Tematica> tematicas = TematicaDAO.abrirDocumento("tematicas.xml").getTematicas();
             System.out.println(tematicas.toString());
 
             // Filtrar las temáticas que coincidan con el término de búsqueda

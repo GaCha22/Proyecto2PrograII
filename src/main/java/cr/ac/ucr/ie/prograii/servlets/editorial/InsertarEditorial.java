@@ -12,7 +12,7 @@ import org.jdom2.JDOMException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/insertarEditorial")
+@WebServlet("/editorial/insertarEditorial")
 public class InsertarEditorial extends HttpServlet {
     private EditorialDAO editorialDAO;
     private Editorial nuevaEditorial;
@@ -20,6 +20,8 @@ public class InsertarEditorial extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         try (PrintWriter out = resp.getWriter()) {
 
 
@@ -68,6 +70,7 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("        <meta charset=\"UTF-8\">");
                 out.println("        <title>Insertar Editorial</title>");
                 out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"../estilox.css/editar.css\">");
+
                 out.println("        <style>");
                 out.println("            body {");
                 out.println("                margin: 0;");
@@ -125,8 +128,6 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("     </div>");
                 out.println("    </body>");
                 out.println("</html>");
-
-
             }else
                 out.println("<h1>Error al insertar</h1>");
 
