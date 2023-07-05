@@ -63,10 +63,10 @@ public class InsertarServlet extends HttpServlet {
         boolean insertado = false;
         try {
             LibroDAO libroDAO = LibroDAO.abrirDocumento("libros.xml");
-//            if (!libroDAO.buscarLibro(idLibro)){
-//                libroDAO.insertarLibro(libro);
-//                insertado = true;
-//            }
+            if (!libroDAO.buscarLibro(idLibro)){
+                libroDAO.insertarLibro(libro);
+                insertado = true;
+            }
         } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
@@ -147,3 +147,4 @@ public class InsertarServlet extends HttpServlet {
     }
 
 }
+
