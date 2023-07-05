@@ -101,7 +101,7 @@
             <h1>Insertar Editorial</h1>
         </div>
 
-        <form action="/prograii/insertarEditorial" method="post" onsubmit="return validateForm()">
+        <form action="./insertarEditorial" method="post" onsubmit="return validateForm()">
         <div>
             <label for="nombre">Nombre</label>
         </div>

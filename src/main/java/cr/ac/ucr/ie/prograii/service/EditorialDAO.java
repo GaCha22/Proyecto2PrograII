@@ -37,16 +37,16 @@ public class EditorialDAO {
 
         if (!file.exists()) {
             //se encarga de crear tanto el DOM y como Documento XML
-            this.rutaDocumento = rutaDocumento;
-            this.raiz = new Element("editoriales");
-            this.document = new Document(raiz);
+            this.path = rutaDocumento;
+            this.root = new Element("editoriales");
+            this.document = new Document(root);
             guardar();
         }else{
             SAXBuilder saxBuilder = new SAXBuilder();
             saxBuilder.setIgnoringElementContentWhitespace(true);
             this.document = saxBuilder.build(rutaDocumento);
-            this.raiz = document.getRootElement();
-            this.rutaDocumento = rutaDocumento;
+            this.root = document.getRootElement();
+            this.path = rutaDocumento;
         }
     }
 
@@ -109,11 +109,11 @@ public class EditorialDAO {
 
     // eliminar
     public void eliminarEditorial(int codEditorial) throws IOException {
-        List<Element> editoriales = raiz.getChildren("editorial");
+        List<Element> editoriales = root.getChildren("editorial");
         for (Element editorial : editoriales) {
             int id = Integer.parseInt(editorial.getAttributeValue("id"));
             if (id == codEditorial) {
-                raiz.removeContent(editorial);
+                root.removeContent(editorial);
                 break;
             }
         }
@@ -161,7 +161,7 @@ public class EditorialDAO {
 
     // busca por id una editorial
     public boolean buscar(int idEditorial) throws DataConversionException {
-        List<Element> eListaEditoriales = raiz.getChildren();
+        List<Element> eListaEditoriales = root.getChildren();
         for (Element eEditorial : eListaEditoriales) {
             int codEditorialAcutal = eEditorial.getAttribute("id").getIntValue();
             if (codEditorialAcutal == idEditorial) return true;
@@ -171,7 +171,7 @@ public class EditorialDAO {
 
     // busca por nombre una editorial
     public boolean buscarIguales(String nombreEditorial, String ciudadEditorial) {
-        Element editorial = raiz.getChild("editorial");
+        Element editorial = root.getChild("editorial");
         if (editorial != null) {
             String nombre = editorial.getAttributeValue("nombre");
             String ciudad = editorial.getAttributeValue("ciudad");
@@ -182,7 +182,7 @@ public class EditorialDAO {
 
     // editar
     public void editarEditorial(int editCode, Editorial editorialActualizado) throws IOException {
-        List<Element> editoriales = raiz.getChildren("editorial");
+        List<Element> editoriales = root.getChildren("editorial");
 
         for (Element editorial : editoriales) {
             int id = Integer.parseInt(editorial.getAttributeValue("id"));

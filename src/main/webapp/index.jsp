@@ -96,31 +96,25 @@
 </head>
 <body>
 <div class="container">
-    <div class="button-container">
-        <form action="libro.jsp">
-            <button type="submit">Libro</button>
-        </form>
-        <form action="autor/autor.jsp">
-            <button type="submit">Autor</button>
-        </form>
-        <form action="editorial/editorial.jsp">
-            <button type="submit">Editorial</button>
-        </form>
-        <form action="tematica.jsp">
-            <button type="submit">Temática</button>
-        </form>
-    </div>
-    <div>
-        <label for="password">Password</label>
+    <h1>Iniciar sesión</h1>
+    <form action="/prograii/login" method="post" onsubmit="return validateForm()">
         <div>
-            <input type="password" name="password" id="password">
+            <label for="username">Username</label>
+            <div>
+                <input type="text" name="username" id="username">
+            </div>
         </div>
-    </div>
-    <div id="error-message" class="error-message"></div>
-    <div class="button-container">
-        <input type="submit" value="Login" class="login-button">
-    </div>
-</form>
-</div>>
+        <div>
+            <label for="password">Password</label>
+            <div>
+                <input type="password" name="password" id="password">
+            </div>
+        </div>
+        <div id="error-message" class="error-message"></div>
+        <div class="button-container">
+            <input type="submit" value="Login" class="login-button">
+        </div>
+    </form>
+</div>
 </body>
 </html>

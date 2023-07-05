@@ -110,6 +110,9 @@
     <form action="eliminarTematica.jsp">
       <button type="submit">Eliminar Tématica</button>
     </form>
+    <form action="../pagina_principal.jsp" method="post">
+      <button type="submit">Atras</button>
+    </form>
   </div>
 </div>
 </body>

@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/agregarTematica")
+@WebServlet("/tematica/agregarTematica")
 public class InsertarTematicaServlet extends HttpServlet {
     static boolean flag = false;
     @Override
@@ -60,7 +60,7 @@ public class InsertarTematicaServlet extends HttpServlet {
                 out.println("    <div class=\"container\">");
                 if (nombre == null || nombre.isBlank()) {
                     out.println("        <h1>Error debe ingresar un nombre!</h1>");
-                    out.println("<p><a href=\"/prograii/insertarTematica.jsp\">Insertar temática</a></p>");
+                    out.println("<p><a href=\"./insertarTematica.jsp\">Insertar temática</a></p>");
                     out.println("    </div>");
                     out.println("</body>");
                     out.println("</html>");
@@ -68,7 +68,7 @@ public class InsertarTematicaServlet extends HttpServlet {
                     for (Tematica tematica : tematicas) {
                         if (tematica.getNombreTematica().toLowerCase().contains(nombre.toLowerCase())) {
                             out.println("        <h1>La temática ya existe!</h1>");
-                            out.println("<p><a href=\"/prograii/insertarTematica.jsp\">Insertar otra temática</a></p>");
+                            out.println("<p><a href=\"./insertarTematica.jsp\">Insertar otra temática</a></p>");
                             flag = true;
                             break;
                         }
@@ -81,7 +81,7 @@ public class InsertarTematicaServlet extends HttpServlet {
                         Tematica tematica = new Tematica(contador, nombre);
                         tematicaDAO.insertarTematica(tematica);
                         out.println("        <h1>Se agregó correctamente la temática!</h1>");
-                        out.println("        <p><a href=\"/prograii/insertarTematica.jsp\">Atrás</a></p>");
+                        out.println("        <p><a href=\"./insertarTematica.jsp\">Atrás</a></p>");
                     }
                 }
             } catch (JDOMException e) {

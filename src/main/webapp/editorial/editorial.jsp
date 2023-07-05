@@ -89,6 +89,9 @@
                     <form action="eliminarEditorial.jsp" method="POST">
                         <button type="submit" class="btn btn-success mb-5">Eliminar</button>
                     </form>
+                    <form action="../pagina_principal.jsp" method="post">
+                        <button type="submit">Atras</button>
+                    </form>
                 </div>
 
         </div>
