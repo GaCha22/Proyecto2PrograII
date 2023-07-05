@@ -19,7 +19,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Editorial</title>
+    <link rel="stylesheet" type="text/css" href="../estilox.css/editar.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 
     <style>
         body {
@@ -42,8 +44,8 @@
             padding: 20px;
         }
 
-        .input-container {
-            margin-bottom: 20px;
+        .form-group {
+            margin-bottom: 10px;
         }
 
         select, input, button {
@@ -51,15 +53,8 @@
             padding: 10px;
         }
 
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
         .button-container button {
-            margin-bottom: 20px;
-            background-color: #3dada0;
+            background-color: #3dad8d;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -67,19 +62,22 @@
             padding: 12px 20px;
             font-size: 18px;
         }
-        .custom-bg {
-            background-color: #22272e; /* Reemplaza #FF0000 con el color deseado */
+
+        .button-container button:first-child {
+            margin-right: 10px;
         }
 
-        .custom-text {
-            color: #FFFFFF; /* Reemplaza #FFFFFF con el color deseado para el texto */
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
         }
+
+
 
     </style>
 
 </head>
     <body>
-
         <div class="container text-center">
                 <div>
                     <form action="insertarEditorial.jsp" method="POST">
@@ -92,29 +90,30 @@
                         <button type="submit" class="btn btn-success mb-5">Eliminar</button>
                     </form>
                 </div>
-            <div style="overflow: auto; max-height: 300px; width: 400px; margin: 50px;">
 
-                <table class="table table-sm table-dark table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Ciudad</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%
-                        for (Editorial editorial : editoriales) {
-                    %>
-                    <tr>
-                        <td><%= editorial.getIdEditorial() %></td>
-                        <td><a href="editarEditorial.jsp"><%= editorial.getNombreEditorial() %></a></td>
-                        <td><%= editorial.getCiudad() %></td>
-                    </tr>
-                    <% } %>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+        <div style="overflow: auto; max-height: 300px; width: 400px; margin: 50px;">
+
+            <table class="table table-sm table-dark table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    for (Editorial editorial : editoriales) {
+                %>
+                <tr>
+                    <td><%= editorial.getIdEditorial() %></td>
+                    <td><a href="editarEditorial.jsp"><%= editorial.getNombreEditorial() %></a></td>
+                    <td><%= editorial.getCiudad() %></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
         </div>
 
     </body>

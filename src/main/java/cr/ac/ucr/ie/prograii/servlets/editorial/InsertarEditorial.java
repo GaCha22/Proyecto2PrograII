@@ -25,16 +25,25 @@ public class InsertarEditorial extends HttpServlet {
         try (PrintWriter out = resp.getWriter()) {
 
 
+
+
             String nombre = req.getParameter("nombre");
             String ciudad = req.getParameter("ciudad");
 
-            out.println("       <title>antes del IF</title>");
+            // trim para comparar
+            String nombreSpaces = nombre.trim();
+            String ciudadSpaces = ciudad.trim();
+
+            /*
+            if(nombreSpaces.equalsIgnoreCase(ciudadSpaces)){
+                out.println("<h1 style=\"text-align: center;\">Error, ya existe esta editorial</h1>");
+                out.println("<form action=\"editorial/editorial.jsp\">");
+                out.println("    <button type=\"submit\">Volver al inicio</button>");
+                out.println("</form>");
+            }
+             */
 
             if (!nombre.isEmpty() && !ciudad.isEmpty()) {
-
-                System.out.println(nombre);
-                System.out.println(ciudad);
-
 
                 try {
                     editorialDAO = EditorialDAO.abrirDocumento(path);
@@ -43,6 +52,10 @@ public class InsertarEditorial extends HttpServlet {
                     out.println("<h1>"+error+"</h1>");
                     return;
                 }
+
+                System.out.println(nombre);
+                System.out.println(ciudad);
+
 
                 int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
 
@@ -53,11 +66,11 @@ public class InsertarEditorial extends HttpServlet {
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
-                out.println("   <head>");
-                out.println("       <meta charset=\"UTF-8\">");
-                out.println("       <title>Insertado</title>");
-                out.println("   </head>");
-                out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"estilox.css/inicio.css\">");
+                out.println("    <head>");
+                out.println("        <meta charset=\"UTF-8\">");
+                out.println("        <title>Insertar Editorial</title>");
+                out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"../estilox.css/editar.css\">");
+
                 out.println("        <style>");
                 out.println("            body {");
                 out.println("                margin: 0;");
@@ -103,19 +116,18 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("               color: #fff;");
                 out.println("            }");
                 out.println("        </style>");
-                out.println("   <body>");
-                out.println("   <div class=\"container\">");
-                out.println("       <h1>Insertado con éxito</h1>");
+                out.println("    </head>");
+                out.println("    <body>");
+                out.println("    <div class=\"container\">");
+                out.println("        <h1>Autor Ingresado Correctamente</h1>");
                 out.println("       <div class=\"button-container mb-4\">");
-                out.println("       <form action=\"./editorial.jsp\">");
-                out.println("           <button type=\"submit\">Volver al inicio</button>");
+                out.println("       <form action=\"editorial.jsp\">");
+                out.println("           <button type=\"submit\">Atrás</button>");
                 out.println("       </form>");
-                out.println("   </div>");
-                out.println("   </div>");
-                out.println("   </body>");
-                out.println("   </html>");
-
-
+                out.println("       </div>");
+                out.println("     </div>");
+                out.println("    </body>");
+                out.println("</html>");
             }else
                 out.println("<h1>Error al insertar</h1>");
 

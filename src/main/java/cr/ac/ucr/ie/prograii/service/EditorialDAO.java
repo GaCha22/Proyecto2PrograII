@@ -29,24 +29,24 @@ public class EditorialDAO {
 
     // crea un documento
     public static EditorialDAO crearDocumento(String rutaDocumento) throws IOException {
-        return new EditorialDAO(rutaDocumento, "editoriales.xml");
+        return new EditorialDAO("editoriales",rutaDocumento);
     }
 
     private EditorialDAO(String rutaDocumento) throws IOException, JDOMException {
         File file = new File(rutaDocumento);
+
         if (!file.exists()) {
             //se encarga de crear tanto el DOM y como Documento XML
-            this.path = rutaDocumento;
-            this.root = new Element("libros");
-            this.document = new Document(root);
+            this.rutaDocumento = rutaDocumento;
+            this.raiz = new Element("editoriales");
+            this.document = new Document(raiz);
             guardar();
-        }else {
+        }else{
             SAXBuilder saxBuilder = new SAXBuilder();
             saxBuilder.setIgnoringElementContentWhitespace(true);
-
             this.document = saxBuilder.build(rutaDocumento);
-            this.root = document.getRootElement();
-            this.path = rutaDocumento;
+            this.raiz = document.getRootElement();
+            this.rutaDocumento = rutaDocumento;
         }
     }
 
@@ -66,10 +66,9 @@ public class EditorialDAO {
 
     // insertar Editorial
     public void insertarEditorial(Editorial editorial) throws IOException {
-        String nuevoId = generarNuevoId();
 
         Element eEditorial = new Element("editorial");
-        eEditorial.setAttribute("id", nuevoId);
+        eEditorial.setAttribute("id", String.valueOf(editorial.getIdEditorial()));
 
         // agregar elemento nombre
         Element eNombre = new Element("nombre");
@@ -85,6 +84,7 @@ public class EditorialDAO {
         guardar();
     }
 
+    // revisa el ultimo editorial y saca el id, y le suma 1
     public String generarNuevoId() {
         int ultimoId = 0;
 
@@ -107,26 +107,17 @@ public class EditorialDAO {
         return String.valueOf(nuevoId);
     }
 
-    public void eliminarEditorial(String idEditorial) throws IOException {
-
-        List<Element> eListaEditorial = root.getChildren();
-        int nuevoIdTipo = 1;
-
-        for (int i = 0; i < eListaEditorial.size(); i++) {
-            Element eEditorial = eListaEditorial.get(i);
-            String actualEditorial = eEditorial.getAttributeValue("id");
-
-            if (actualEditorial.equals(idEditorial)) {
-                eListaEditorial.remove(i);
-                i--;
-                for (Element editorialRestante : eListaEditorial) {
-                    editorialRestante.setAttribute("id", String.valueOf(nuevoIdTipo));
-                    nuevoIdTipo++;
-                }
-                guardar();
-                return;
+    // eliminar
+    public void eliminarEditorial(int codEditorial) throws IOException {
+        List<Element> editoriales = raiz.getChildren("editorial");
+        for (Element editorial : editoriales) {
+            int id = Integer.parseInt(editorial.getAttributeValue("id"));
+            if (id == codEditorial) {
+                raiz.removeContent(editorial);
+                break;
             }
         }
+        guardar();
     }
 
     // get de editoriales
@@ -168,15 +159,40 @@ public class EditorialDAO {
         return editorialActual;
     }
 
-    public boolean buscar(String idAbuscar) {
-        Element editorial = root.getChild("editorial");
-        if (editorial != null) {
-            String id = editorial.getAttributeValue("id");
-            return idAbuscar.equals(id);
+    // busca por id una editorial
+    public boolean buscar(int idEditorial) throws DataConversionException {
+        List<Element> eListaEditoriales = raiz.getChildren();
+        for (Element eEditorial : eListaEditoriales) {
+            int codEditorialAcutal = eEditorial.getAttribute("id").getIntValue();
+            if (codEditorialAcutal == idEditorial) return true;
         }
         return false;
     }
 
-    // borra un elemento del xml
+    // busca por nombre una editorial
+    public boolean buscarIguales(String nombreEditorial, String ciudadEditorial) {
+        Element editorial = raiz.getChild("editorial");
+        if (editorial != null) {
+            String nombre = editorial.getAttributeValue("nombre");
+            String ciudad = editorial.getAttributeValue("ciudad");
+            return nombreEditorial.equals(nombre) && ciudadEditorial.equals(ciudad);
+        }
+        return false;
+    }
+
+    // editar
+    public void editarEditorial(int editCode, Editorial editorialActualizado) throws IOException {
+        List<Element> editoriales = raiz.getChildren("editorial");
+
+        for (Element editorial : editoriales) {
+            int id = Integer.parseInt(editorial.getAttributeValue("id"));
+            if (id == editCode) {
+                editorial.getChild("nombre").setText(editorialActualizado.getNombreEditorial());
+                editorial.getChild("ciudad").setText(editorialActualizado.getCiudad());
+                break;
+            }
+        }
+        guardar();
+    }
 }
 
