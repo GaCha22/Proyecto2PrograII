@@ -86,7 +86,7 @@
 <body>
 <div class="container">
     <h1>Eliminar una temática...</h1>
-    <form action="/prograii/eliminarTematica" method="post">
+    <form action="./eliminarTematica" method="post">
         <div class="form-group mb-4">
             <h1>Seleccione la temática que desea eliminar.</h1>
         </div>

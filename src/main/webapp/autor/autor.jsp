@@ -102,7 +102,7 @@
         <form action="editar_autor.jsp" method="post">
             <button type="submit">Editar Autor</button>
         </form>
-        <form action="/prograii">
+        <form action="../pagina_principal.jsp">
             <button type="submit">Atrás</button>
         </form>
     </div>

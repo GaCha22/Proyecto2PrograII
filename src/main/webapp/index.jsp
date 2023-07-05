@@ -115,6 +115,6 @@
             <input type="submit" value="Login" class="login-button">
         </div>
     </form>
-</div>>
+</div>
 </body>
 </html>

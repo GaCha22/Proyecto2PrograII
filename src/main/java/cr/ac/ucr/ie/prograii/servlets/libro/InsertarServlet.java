@@ -4,7 +4,10 @@ import cr.ac.ucr.ie.prograii.model.Autor;
 import cr.ac.ucr.ie.prograii.model.Editorial;
 import cr.ac.ucr.ie.prograii.model.Libro;
 import cr.ac.ucr.ie.prograii.model.Tematica;
+import cr.ac.ucr.ie.prograii.service.AutorDAO;
+import cr.ac.ucr.ie.prograii.service.EditorialDAO;
 import cr.ac.ucr.ie.prograii.service.LibroDAO;
+import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -36,30 +39,51 @@ public class InsertarServlet extends HttpServlet {
         libro.setTitulo(titulo);
         libro.setIsbn(isbn);
 
-        Tematica tematica = new Tematica();
-        tematica.setIdTipo(codTematica);
+        Tematica tematica = null;
+        try {
+            tematica = TematicaDAO.abrirDocumento("tematicas.xml").getTematica(codTematica);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         libro.setTematica(tematica);
 
         List<Autor> autores = new ArrayList<>();
-        Autor autor = new Autor();
-        autor.setIdAutor(codAutor);
+        Autor autor = null;
+        try {
+            autor = AutorDAO.abrirDocumento("autores.xml").getAutor(codAutor);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         autores.add(autor);
 
         if (codAutor1 != null && !codAutor1.isBlank()){
-            Autor autor1 = new Autor();
-            autor1.setIdAutor(Integer.parseInt(codAutor1));
+            Autor autor1 = null;
+            try {
+                autor1 = AutorDAO.abrirDocumento("autores.xml").getAutor(Integer.parseInt(codAutor1));
+            } catch (JDOMException e) {
+                throw new RuntimeException(e);
+            }
             autores.add(autor1);
         }
+
         if (codAutor2 != null && !codAutor2.isBlank()){
-            Autor autor2 = new Autor();
-            autor2.setIdAutor(Integer.parseInt(codAutor2));
+            Autor autor2 = null;
+            try {
+                autor2 = AutorDAO.abrirDocumento("autores.xml").getAutor(Integer.parseInt(codAutor2));
+            } catch (JDOMException e) {
+                throw new RuntimeException(e);
+            }
             autores.add(autor2);
         }
-
         libro.setAutores(autores);
 
-        Editorial editorial = new Editorial();
-        editorial.setIdEditorial(codEditorial);
+
+        Editorial editorial = null;
+        try {
+            editorial = EditorialDAO.abrirDocumento("editoriales.xml").getEditorial(codEditorial);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         libro.setEditorial(editorial);
 
         boolean insertado = false;
@@ -131,7 +155,7 @@ public class InsertarServlet extends HttpServlet {
             if (insertado) {
                 out.println("        <h1>Libro insertado correctamente</h1>");
                 out.println("       <div class=\"button-container mb-4\">");
-                out.println("       <form action=\"/prograii/libro/libro.jsp\">");
+                out.println("       <form action=\"/prograii/libro/buscarLibro\">");
                 out.println("           <button type=\"submit\">Atrás</button>");
                 out.println("       </form>");
             }else {

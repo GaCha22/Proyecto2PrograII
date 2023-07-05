@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/editarTematica")
+@WebServlet("/tematica/editarTematica")
 public class EditarTematicaServlet extends HttpServlet {
 
     private TematicaDAO tematicaDAO;
@@ -58,19 +58,19 @@ public class EditarTematicaServlet extends HttpServlet {
                 out.println("    <div class=\"container\">");
                 if (nombreTematicaEditar == null || nombreTematicaEditar.isBlank()) {
                     out.println("        <h1>¡Error, debe seleccionar una temática!</h1>");
-                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Menu Inicial</a></p>");
+                    out.println("        <p><a href=\"./editarTematica.jsp\">Atrás</a></p>");
                 } else if (nuevoNombreTematica == null || nuevoNombreTematica.isBlank()) {
                     out.println("        <h1>¡Error, debe ingresar un nuevo nombre!</h1>");
-                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
+                    out.println("        <p><a href=\"./editarTematica.jsp\">Atrás</a></p>");
                 } else if (nombreTematicaEditar == null || nombreTematicaEditar.isBlank()
                         || nuevoNombreTematica == null || nuevoNombreTematica.isBlank()) {
                     out.println("        <h1>¡Error, debe ingresar un nuevo nombre y seleccionar una temática!</h1>");
-                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
+                    out.println("        <p><a href=\"./editarTematica.jsp\">Atrás</a></p>");
                 } else {
                     TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
                     tematicaDAO.editarTematica(nombreTematicaEditar, nuevoNombreTematica);
                     out.println("        <h1>¡Se ha editado el nombre de la temática con éxito!</h1>");
-                    out.println("         <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
+                    out.println("         <p><a href=\"./editarTematica.jsp\">Atrás</a></p>");
                 }
                 out.println("    </div>");
                 out.println("</body>");

@@ -75,7 +75,7 @@
 <body>
 <div class="container">
     <h1 style="color: #553dad;">Agregar nueva temática</h1>
-    <form action="/prograii/agregarTematica" method="post">
+    <form action="./agregarTematica" method="post">
         <div class="form-group mb-4">
             <label for="nombre" style="color: #333333;">Nombre Temática</label>
             <div>

@@ -58,7 +58,7 @@
     <form action="/prograii/logout">
       <button type="submit">Cerrar sesión</button>
     </form>
-    <form action="libro/libro.jsp">
+    <form action="libro/buscarLibro">
       <button type="submit">Libro</button>
     </form>
     <form action="autor/autor.jsp">
