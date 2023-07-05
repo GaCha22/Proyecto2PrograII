@@ -106,9 +106,11 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("   <body>");
                 out.println("   <div class=\"container\">");
                 out.println("       <h1>Insertado con éxito</h1>");
+                out.println("       <div class=\"button-container mb-4\">");
                 out.println("       <form action=\"editorial/editorial.jsp\">");
                 out.println("           <button type=\"submit\">Volver al inicio</button>");
                 out.println("       </form>");
+                out.println("   </div>");
                 out.println("   </div>");
                 out.println("   </body>");
                 out.println("   </html>");
