@@ -55,7 +55,6 @@
       width: 100%;
     }
 
-
     .form-group button{
       background-color: #553dad;
       color: #fff;
@@ -67,7 +66,6 @@
       margin-top: 10px;
     }
 
-
     .button-container button:first-child {
       margin-right: 10px;
     }
@@ -76,17 +74,15 @@
       margin-bottom: 10px;
     }
 
-    .author-container {
-      padding-bottom: 10px;
-    }
-
-
     body {
       background-image: url('giphy.gif');
       background-repeat: no-repeat;
       background-size: cover;
     }
 
+    h1 {
+      color: #fff;
+    }
 
   </style>
   <script>

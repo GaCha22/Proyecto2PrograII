@@ -14,7 +14,7 @@ class TematicaDAOTest {
     @Test
     void crear_documento_funciona(){
         try {
-            TematicaDAO tematicaDAO = TematicaDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml");
+            TematicaDAO tematicaDAO = TematicaDAO.crearDocumento("tematicas.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +39,7 @@ class TematicaDAOTest {
         Tematica tematica4 = new Tematica(4, "Acción");
 
         try {
-            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\tematicas.xml");
+            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
             tematicaDAO.insertarTematica(tematica1);
             tematicaDAO.insertarTematica(tematica2);
             tematicaDAO.insertarTematica(tematica3);
@@ -50,11 +50,27 @@ class TematicaDAOTest {
     }
 
     @Test
-    void getTematica_funciona(){
+    void getTematicas_funciona(){
         try {
             TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
             List<Tematica> tematicas = tematicaDAO.getTematicas();
             System.out.println(tematicas.toString());
+        } catch (IOException | JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void getTematicaFunciona() {
+        try {
+            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
+            Tematica tematica = tematicaDAO.getTematica(2);
+
+            if (tematica == null) {
+                System.out.println("No se ha encontrado la tematica");
+            } else {
+                System.out.println(tematica.toString());
+            }
         } catch (IOException | JDOMException e) {
             throw new RuntimeException(e);
         }

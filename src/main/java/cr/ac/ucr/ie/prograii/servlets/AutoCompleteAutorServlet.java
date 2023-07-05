@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/autocompleteAutor")
+@WebServlet("/autor/autocompleteAutor")
 public class AutoCompleteAutorServlet extends HttpServlet {
 
     @Override
@@ -22,7 +22,7 @@ public class AutoCompleteAutorServlet extends HttpServlet {
             String term = req.getParameter("term"); // Obtener el valor del parámetro "term" enviado desde el cliente
 
             // Obtener todas las temáticas desde el archivo XML
-            List<Autor> autores = AutorDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml").getAutores();
+            List<Autor> autores = AutorDAO.abrirDocumento("autores.xml").getAutores();
             System.out.println(autores.toString());
 
             // Filtrar las temáticas que coincidan con el término de búsqueda
