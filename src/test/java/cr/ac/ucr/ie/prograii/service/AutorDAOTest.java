@@ -61,4 +61,34 @@ class AutorDAOTest {
         }
     }
 
+    @Test
+    void eliminar_funciona(){
+        try {
+            AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
+            autorDAO.eliminarAutor(2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void editar_funciona(){
+        Autor autor1 = new Autor();
+        Autor autor2 = new Autor();
+        autor1.setIdAutor(1);
+        autor1.setNombre("ASADV");
+        autor1.setApellidosAutor("ASFDASD");
+        autor2.setNombre("ASDFSTF");
+        autor2.setApellidosAutor("ASFDALJHGFSD");
+        try {
+            AutorDAO.abrirDocumento("autores.xml").editarAutor(1, autor2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -86,6 +86,9 @@
             <input type="submit" value="Agregar">
         </div>
     </form>
+    <form action="tematica.jsp">
+        <button type="submit">Atrás</button>
+    </form>
 </div>
 </body>
 </html>

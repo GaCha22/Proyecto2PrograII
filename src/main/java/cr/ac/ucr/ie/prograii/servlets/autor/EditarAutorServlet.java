@@ -1,10 +1,13 @@
 package cr.ac.ucr.ie.prograii.servlets.autor;
 
+import cr.ac.ucr.ie.prograii.model.Autor;
+import cr.ac.ucr.ie.prograii.service.AutorDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +15,16 @@ import java.io.PrintWriter;
 @WebServlet("/editar_autor")
 public class EditarAutorServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String nombreAutor = req.getParameter("nombre");
+        String apellidosAutor = req.getParameter("apellidos");
+        int idAutor = Integer.parseInt(req.getParameter("autor"));
+        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
+        try {
+            AutorDAO.abrirDocumento("autores.xml").editarAutor(idAutor, autor);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
         resp.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");

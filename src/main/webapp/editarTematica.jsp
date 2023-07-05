@@ -1,12 +1,6 @@
 <%@ page import="cr.ac.ucr.ie.prograii.service.TematicaDAO" %>
 <%@ page import="cr.ac.ucr.ie.prograii.model.Tematica" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: DanielaPC
-  Date: 2/7/2023
-  Time: 22:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -62,7 +56,7 @@
 
         .button-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             width: 100%;
             margin-top: 10px;
         }
@@ -77,15 +71,11 @@
             font-size: 18px;
             width: 48%;
         }
-
-        .button-container button:first-child {
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Editar una temática...</h1>
+    <h1>Editar una temática</h1>
     <form action="/prograii/editarTematica" method="post">
         <div class="form-group mb-4">
             <h1>Seleccione la temática que desea editar.</h1>
@@ -116,6 +106,11 @@
             <button type="submit">Editar</button>
         </div>
     </form>
+    <div class="button-container">
+    <form action="tematica.jsp">
+        <button type="submit">Atrás</button>
+    </form>
+    </div>
 </div>
 </body>
 </html>
