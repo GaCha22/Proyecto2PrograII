@@ -6,7 +6,7 @@
 <html>
 <head>
   <title>Menu Temática</title>
-  <link rel="stylesheet" type="text/css" href="estilox.css/tematica.css">
+  <link rel="stylesheet" type="text/css" href="../estilox.css/tematica.css">
   <style>
     body {
       margin: 0;
@@ -26,10 +26,6 @@
       justify-content: center;
       border-radius: 10px;
       padding: 20px;
-    }
-
-    .input-container {
-      margin-bottom: 20px;
     }
 
     select, input, button {
@@ -54,6 +50,31 @@
       font-size: 18px;
     }
 
+    table {
+      font-size: 20px;
+      color: #000000;
+      border-collapse: collapse;
+      width: 300px;
+      margin: 50px;
+      background-color: #fff; /* Fondo blanco */
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #3E164A;
+    }
+
+    table a {
+      color: #000000;
+      text-decoration: none;
+    }
+
   </style>
 </head>
 <body>
@@ -67,7 +88,6 @@
     </thead>
     <tbody>
     <%
-
       List<Tematica> tematicas = TematicaDAO.abrirDocumento("tematicas.xml").getTematicas();
       for (Tematica tematica : tematicas) {
     %>
@@ -94,4 +114,3 @@
 </div>
 </body>
 </html>
-
