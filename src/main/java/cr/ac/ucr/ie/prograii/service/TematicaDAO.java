@@ -98,6 +98,53 @@ public class TematicaDAO {
         }
     }
 
+    public boolean buscarTematicaporID(int idTematica) {
+        List<Element> eListaTematicas = root.getChildren();
+        boolean isPresent = false;
+
+        for (Element eTematica : eListaTematicas) {
+            int idActual = Integer.parseInt(eTematica.getAttributeValue("idTipo"));
+            if (idActual == idTematica) {
+                isPresent = true;
+                break;
+            }
+        }
+
+        return isPresent;
+    }
+
+    public Tematica getTematica(int idTematica)  {
+        List<Element> eListaTematicas = root.getChildren();
+        Tematica tematica = null;
+
+        for (Element eTematica : eListaTematicas) {
+            int idActual = Integer.parseInt(eTematica.getAttributeValue("idTipo"));
+
+            if (idActual == idTematica) {
+                tematica = new Tematica();
+                tematica.setIdTipo(idActual);
+                tematica.setNombreTematica(eTematica.getChildText("nombre"));
+                break;
+            }
+        }
+        return tematica;
+    }
+
+    public void editarTematica(String nombreTematicaEditar, String nuevoNombreTematica) throws IOException {
+        List<Element> eListaTematicas = root.getChildren();
+
+        for (Element eTematica : eListaTematicas) {
+            String nombreTematicaActual= eTematica.getChildText("nombre");
+
+            if (nombreTematicaActual.equals(nombreTematicaEditar)) {
+                eTematica.getChild("nombre").setText(nuevoNombreTematica);
+                break;
+            }
+        }
+
+        guardar();
+    }
+
     public String tematicaString(){
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
         return xmlOutputter.outputString(document);

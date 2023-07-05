@@ -50,11 +50,27 @@ class TematicaDAOTest {
     }
 
     @Test
-    void getTematica_funciona(){
+    void getTematicas_funciona(){
         try {
             TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
             List<Tematica> tematicas = tematicaDAO.getTematicas();
             System.out.println(tematicas.toString());
+        } catch (IOException | JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void getTematicaFunciona() {
+        try {
+            TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
+            Tematica tematica = tematicaDAO.getTematica(2);
+
+            if (tematica == null) {
+                System.out.println("No se ha encontrado la tematica");
+            } else {
+                System.out.println(tematica.toString());
+            }
         } catch (IOException | JDOMException e) {
             throw new RuntimeException(e);
         }
