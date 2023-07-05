@@ -31,7 +31,7 @@ public class LibroDAOTest  {
 
         Libro libro1 = new Libro();
         Libro libro2 = new Libro();
-        libro1.setIdLibro(2);
+        libro1.setIdLibro(1);
         libro1.setTitulo("Caperucita Roja");
         libro1.setIsbn("ss12");
         libro1.setTematica(new Tematica(12,"tematica1"));
@@ -46,12 +46,14 @@ public class LibroDAOTest  {
 
         List<Autor> autores = new ArrayList<>();
         autores.add(autor1);
+        autores.add(autor1);
 
         libro1.setAutores(autores);
 
         try {
-            libroDAO = LibroDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\libros.xml");
+            libroDAO = LibroDAO.abrirDocumento("libros.xml");
             libroDAO.insertarLibro(libro1);
+            libro1.setIdLibro(2);
             libroDAO.insertarLibro(libro1);
             libroDAO.guardar();
         } catch (IOException | JDOMException e) {
@@ -77,4 +79,33 @@ public class LibroDAOTest  {
         }
     }
 
+    @Test
+    void editar_funciona(){
+        try {
+            Libro libro1 = new Libro();
+            Libro libro2 = new Libro();
+            libro1.setIdLibro(1);
+            libro1.setTitulo("Caperucita Roja");
+            libro1.setIsbn("ss12");
+            libro1.setTematica(new Tematica(12,"tematica1"));
+            Editorial editorial = new Editorial();
+            editorial.setIdEditorial(1);
+            editorial.setNombreEditorial("editorial1");
+            libro1.setEditorial(editorial);
+
+            Autor autor1 = new Autor();
+            autor1.setNombre("Gabriel");
+            autor1.setIdAutor(1);
+            autor1.setApellidosAutor("chaves");
+
+            List<Autor> autores = new ArrayList<>();
+            autores.add(autor1);
+
+            libro1.setAutores(autores);
+
+            LibroDAO.abrirDocumento("libros.xml").editarLibro(2, libro1);
+        } catch (IOException | JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

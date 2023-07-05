@@ -15,7 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #435164;
+            background-color: #22272e;
             font-family: Arial, sans-serif;
         }
 
@@ -26,10 +26,6 @@
             justify-content: center;
             border-radius: 10px;
             padding: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 10px;
         }
 
         select, input, button {
@@ -44,7 +40,9 @@
         }
 
         .button-container button {
-            background-color: #ad3d46;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #553dad;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -53,10 +51,29 @@
             font-size: 18px;
         }
 
-        .button-container button:first-child {
-            margin-right: 10px;
+        .button-container .delete-button {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #553dad;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 12px 20px;
+            font-size: 18px;
         }
 
+        label {
+            color: #fff;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        .error-message {
+            color: #fff;
+        }
 
     </style>
     <script>
@@ -67,7 +84,7 @@
                 autocompleteLibro.autocomplete({
                     source: function(request, response) {
                         $.ajax({
-                            url: "autocompleteLibro",
+                            url: "/prograii/autocomplete/autocompleteLibro",
                             type: "POST",
                             dataType: "xml",
                             data: {
@@ -101,7 +118,8 @@
                         var selectedNombre = selectedObj.nombre;
                         var selectedId = selectedObj.id;
 
-                        autocompleteLibro.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+                        autocompleteLibro.val(selectedNombre);
+                        $("#idLibro").val(selectedId);
 
                         return false;
                     }
@@ -109,32 +127,47 @@
             }
         });
 
+        function goBack(){
+            window.location.href = "./libro.jsp";
+        }
+
+        function validateForm() {
+            var titulo = document.getElementById("search").value;
+            var errorMessage = "";
+            var idLibro = document.getElementById("idLibro").value;
+
+            if (titulo === "") {
+                errorMessage = "Por favor, complete todos los campos.";
+            }else if (idLibro === ""){
+                errorMessage = "El autor digitado no existe.";
+            }
+
+
+            if (errorMessage !== "") {
+                document.getElementById("error-message").innerText = errorMessage;
+                return false;
+            }
+
+        }
     </script>
 </head>
 <body>
-
-
-
 <div class="container">
-
-    <div class="input-container">
-
-        <input type="text" placeholder="Buscar" name="search" id="search" data-autocomplete="true" autocomplete="off" class="ui-autocomplete-input">
-        <button type="submit">Buscar</button>
-
-        <div class="row mt-4">
-            <div class="col-sm-4 border text-center">
-                <h3>Libro</h3>
-            </div>
-            <div class="col-sm-4 border text-center">
-                <h3>Autor</h3>
-            </div>
-            <div class="col-sm-4 border text-center">
-                <h3 style="white-space: nowrap;">Tematica</h3>
-
+    <h1>Eliminar Libro</h1>
+    <form action="./eliminarServlet" method="post" onsubmit="return validateForm()">
+        <div>
+            <label for="search">Titulo del Libro</label>
+            <div>
+                <input type="text" placeholder="Buscar" name="search" id="search" data-autocomplete="true" autocomplete="off" class="ui-autocomplete-input">
+                <input type="hidden" name="idLibro" id="idLibro">
             </div>
         </div>
-    </div>
+        <div id="error-message" class="error-message"></div>
+        <div class="button-container mb-4">
+            <button type="button" onclick="goBack()">Atrás</button>
+            <button type="submit">Eliminar</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

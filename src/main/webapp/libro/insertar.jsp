@@ -103,7 +103,7 @@
         autocompleteTematica.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteTematica",
+              url: "/prograii/autocomplete/autocompleteTematica",
               type: "POST",
               dataType: "xml",
               data: {
@@ -151,7 +151,7 @@
         autocompleteEditorial.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteEditorial",
+              url: "/prograii/autocomplete/autocompleteEditorial",
               type: "POST",
               dataType: "xml",
               data: {
@@ -199,7 +199,7 @@
         field.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteAutor",
+              url: "/prograii/autocomplete/autocompleteAutor",
               type: "POST",
               dataType: "xml",
               data: {
@@ -304,13 +304,14 @@
       var id = document.getElementById("idLibro").value;
       var tematica = document.getElementById("tematica").value;
       var editorial = document.getElementById("editorial").value;
-      var codAutor = document.getElementById("codAutor").value
-      var codTematica = document.getElementById("codTematica").value
-      var codEditorial = document.getElementById("codEditorial").value
+      var codAutor = document.getElementById("codAutor").value;
+      var codTematica = document.getElementById("codTematica").value;
+      var codEditorial = document.getElementById("codEditorial").value;
+      var isbn = document.getElementById("isbn").value;
 
       var errorMessage = "";
 
-      if (titulo === "" || autor === "" || id === "" || editorial === "" || tematica === "") {
+      if (titulo === "" || autor === "" || id === "" || editorial === "" || tematica === "" || isbn === "") {
         errorMessage = "Por favor, complete todos los campos.";
       } else if (!/^\d+$/.test(id)) {
         errorMessage = "El id del libro debe contener solo números.";
@@ -343,6 +344,10 @@
 
   <div class="form-group mb-4">
     <input type="text" placeholder="Título" id="titulo" name="titulo">
+  </div>
+
+  <div class="form-group mb-4">
+    <input type="text" placeholder="ISBN" id="isbn" name="isbn">
   </div>
 
   <div class="form-group mb-4">

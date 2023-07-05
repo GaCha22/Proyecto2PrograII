@@ -26,6 +26,7 @@ public class InsertarServlet extends HttpServlet {
         int codAutor = Integer.parseInt(req.getParameter("codAutor"));
         int codTematica = Integer.parseInt(req.getParameter("codTematica"));
         int codEditorial = Integer.parseInt(req.getParameter("codEditorial"));
+        String isbn = req.getParameter("isbn");
 
         String codAutor1 = req.getParameter("codAutor1");
         String codAutor2 = req.getParameter("codAutor2");
@@ -33,6 +34,7 @@ public class InsertarServlet extends HttpServlet {
         Libro libro = new Libro();
         libro.setIdLibro(idLibro);
         libro.setTitulo(titulo);
+        libro.setIsbn(isbn);
 
         Tematica tematica = new Tematica();
         tematica.setIdTipo(codTematica);

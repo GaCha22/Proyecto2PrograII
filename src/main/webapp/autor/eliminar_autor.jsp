@@ -88,7 +88,7 @@
       autocompleteAutor.autocomplete({
         source: function(request, response) {
           $.ajax({
-            url: "autocompleteAutor",
+            url: "/prograii/autocomplete/autocompleteAutor",
             type: "POST",
             dataType: "xml",
             data: {
@@ -138,9 +138,7 @@
 
       if (codAutor === ""){
         errorMessage = "El autor digitado no existe.";
-      }
-
-      if (nombre === "") {
+      }else if (nombre === "") {
         errorMessage = "Por favor, complete todos los campos.";
       }
 
