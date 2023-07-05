@@ -1,10 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Biblioteca</title>
-    <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
-
+    <title>Autor</title>
+    <link rel="stylesheet" type="text/css" href="../estilox.css/inicio.css">
     <style>
         body {
             margin: 0;
@@ -51,27 +49,20 @@
             padding: 12px 20px;
             font-size: 18px;
         }
-
-
     </style>
 </head>
 <body>
 <div class="container">
     <div class="button-container">
-        <form action="libro/libro.jsp">
-            <button type="submit">Libro</button>
+        <form action="insertar.jsp">
+            <button type="submit">Añadir Libro</button>
         </form>
-        <form action="autor/autor.jsp">
-            <button type="submit">Autor</button>
+        <form action="eliminar.jsp" method="post">
+            <button type="submit">Eliminar Libro</button>
         </form>
-        <form action="editorial/editorial.jsp">
-            <button type="submit">Editorial</button>
+        <form action="editar.jsp" method="post">
+            <button type="submit">Editar Libro</button>
         </form>
-        <form action="tematica.jsp">
-            <button type="submit">Temática</button>
-        </form>
-    </div>
-    <div>
     </div>
 </div>
 </body>

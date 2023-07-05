@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets.TematicaServlets;
+package cr.ac.ucr.ie.prograii.servlets.tematica;
 
 import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
@@ -56,12 +56,12 @@ public class EliminarTematicaServlet extends HttpServlet {
                 out.println("    <div class=\"container\">");
                 if(nombreTematicaEliminar == null || nombreTematicaEliminar.isBlank()){
                     out.println("        <h1>¡Error, no se ha seleccionado una temática!</h1>");
-                    out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
+                    out.println("        <p><a href=\"/prograii/eliminarTematica.jsp\">Atrás</a></p>");
                 }else{
                     TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
                     tematicaDAO.eliminarTematica(nombreTematicaEliminar);
                     out.println("        <h1>¡Se ha eliminado la temática con éxito!</h1>");
-                     out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
+                     out.println("         <p><a href=\"/prograii/eliminarTematica.jsp\">Atrás</a></p>");
                 }
                 out.println("    </div>");
                 out.println("</body>");

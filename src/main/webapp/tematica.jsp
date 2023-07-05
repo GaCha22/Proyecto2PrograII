@@ -1,3 +1,6 @@
+<%@ page import="cr.ac.ucr.ie.prograii.model.Tematica" %>
+<%@ page import="cr.ac.ucr.ie.prograii.service.TematicaDAO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -54,15 +57,37 @@
   </style>
 </head>
 <body>
+<div style="overflow: auto; max-height: 300px; width: 400px; margin: 50px;">
+  <table class="table table-sm table-dark table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+
+      List<Tematica> tematicas = TematicaDAO.abrirDocumento("tematicas.xml").getTematicas();
+      for (Tematica tematica : tematicas) {
+    %>
+    <tr>
+      <td><%= tematica.getIdTipo() %></td>
+      <td><a href="editarTematica.jsp"><%=tematica.getNombreTematica()%></a></td>
+    </tr>
+    <% } %>
+    </tbody>
+  </table>
+</div>
 <div class="container">
   <div class="button-container">
     <form action="insertarTematica.jsp">
       <button type="submit">Agregar Temática</button>
     </form>
-    <form action="editarTematica.jsp" method="post">
+    <form action="editarTematica.jsp">
       <button type="submit">Editar Tématica</button>
     </form>
-    <form action="eliminarTematica.jsp" method="post">
+    <form action="eliminarTematica.jsp">
       <button type="submit">Eliminar Tématica</button>
     </form>
   </div>

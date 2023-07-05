@@ -77,6 +77,63 @@ public class AutorDAO {
         guardar();
     }
 
+    public boolean buscarAutor(int codAutor){
+        boolean autorExiste = false;
+        List eListaAutores = root.getChildren();
+        for(Object obj: eListaAutores) {
+            Element eAutor = (Element)obj;
+            if(Integer.parseInt(eAutor.getAttributeValue("id")) == codAutor){
+                autorExiste = true;
+                break;
+            }
+        }
+        return autorExiste;
+    }
+
+    public Autor getAutor(int codAutor) throws DataConversionException {
+        Autor autor = new Autor();
+        List eListaAutores = root.getChildren();
+
+        for(Object object: eListaAutores){
+
+            Element eAutor = (Element) object;
+            autor.setIdAutor(eAutor.getAttribute("id").getIntValue());
+            if(autor.getIdAutor()==codAutor){
+                autor.setNombre(eAutor.getChildText("nombre"));
+                autor.setApellidosAutor(eAutor.getChildText("apellidos"));
+            }
+        }
+        return autor;
+
+    }
+
+    public void eliminarAutor(int codAutor) throws IOException {
+        List<Element> autores = root.getChildren("autor");
+
+        for (Element autor : autores) {
+            int id = Integer.parseInt(autor.getAttributeValue("id"));
+            if (id == codAutor) {
+                root.removeContent(autor);
+                break;
+            }
+        }
+        guardar();
+    }
+
+    public void editarAutor(int codAutor, Autor autorActualizado) throws IOException {
+        List<Element> autores = root.getChildren("autor");
+
+        for (Element autor : autores) {
+            int id = Integer.parseInt(autor.getAttributeValue("id"));
+            if (id == codAutor) {
+                autor.getChild("nombre").setText(autorActualizado.getNombre());
+                autor.getChild("apellidos").setText(autorActualizado.getApellidosAutor());
+                break;
+            }
+        }
+        guardar();
+    }
+
     public ArrayList<Autor> getAutores() throws DataConversionException {
         List eListaAAutores = root.getChildren();
         ArrayList<Autor> autores = new ArrayList<Autor>();

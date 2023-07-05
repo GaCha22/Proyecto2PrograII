@@ -15,14 +15,6 @@ import org.junit.jupiter.api.Test;
 public class LibroDAOTest  {
 
    private LibroDAO libroDAO;
-    @Test
-    public void crear_documento_funciona(){
-        try {
-           libroDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\libros.xml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     public void abrir_documento_funciona(){
