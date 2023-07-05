@@ -76,6 +76,75 @@ public class TematicaDAO {
         return tematicas;
     }
 
+    public void eliminarTematica(String nombreTematicaEliminar) throws IOException {
+
+        List<Element> eListaTematicas = root.getChildren();
+        int nuevoIdTipo = 1;
+
+        for (int i = 0; i < eListaTematicas.size(); i++) {
+            Element eTematica = eListaTematicas.get(i);
+            String nombreTematica = eTematica.getChildText("nombre");
+
+            if (nombreTematica.equals(nombreTematicaEliminar)) {
+                eListaTematicas.remove(i);
+                i--;
+                for (Element tematicaRestante : eListaTematicas) {
+                    tematicaRestante.setAttribute("idTipo", String.valueOf(nuevoIdTipo));
+                    nuevoIdTipo++;
+                }
+                guardar();
+                return;
+            }
+        }
+    }
+
+    public boolean buscarTematicaporID(int idTematica) {
+        List<Element> eListaTematicas = root.getChildren();
+        boolean isPresent = false;
+
+        for (Element eTematica : eListaTematicas) {
+            int idActual = Integer.parseInt(eTematica.getAttributeValue("idTipo"));
+            if (idActual == idTematica) {
+                isPresent = true;
+                break;
+            }
+        }
+
+        return isPresent;
+    }
+
+    public Tematica getTematica(int idTematica)  {
+        List<Element> eListaTematicas = root.getChildren();
+        Tematica tematica = null;
+
+        for (Element eTematica : eListaTematicas) {
+            int idActual = Integer.parseInt(eTematica.getAttributeValue("idTipo"));
+
+            if (idActual == idTematica) {
+                tematica = new Tematica();
+                tematica.setIdTipo(idActual);
+                tematica.setNombreTematica(eTematica.getChildText("nombre"));
+                break;
+            }
+        }
+        return tematica;
+    }
+
+    public void editarTematica(String nombreTematicaEditar, String nuevoNombreTematica) throws IOException {
+        List<Element> eListaTematicas = root.getChildren();
+
+        for (Element eTematica : eListaTematicas) {
+            String nombreTematicaActual= eTematica.getChildText("nombre");
+
+            if (nombreTematicaActual.equals(nombreTematicaEditar)) {
+                eTematica.getChild("nombre").setText(nuevoNombreTematica);
+                break;
+            }
+        }
+
+        guardar();
+    }
+
     public String tematicaString(){
         XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
         return xmlOutputter.outputString(document);
