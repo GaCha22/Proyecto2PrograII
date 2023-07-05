@@ -1,12 +1,11 @@
-<%@ page import="java.util.List" %>
-<%@ page import="cr.ac.ucr.ie.prograii.model.Tematica" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Insertar Libro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script><style type="text/css" id="operaUserStyle"></style>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <style>
     body {
@@ -82,17 +81,22 @@
 
 
     body {
-      background-image: url('giphy.gif');
+      background-image: url('../giphy.gif');
       background-repeat: no-repeat;
       background-size: cover;
     }
 
+    .error-message {
+      color: #fff;
+      margin-top: 10px;
+      align-items: center;
+    }
 
   </style>
   <script>
     $(document).ready(function() {
       var autocompleteTematica = $("#tematica");
-      var autocompleteAutor = $("#autor");
+      var autocompleteAutor1 = $("#autor");
       var autocompleteEditorial = $("#editorial");
 
       if (autocompleteTematica.data("autocomplete")) {
@@ -131,57 +135,17 @@
           select: function(event, ui) {
             var selectedObj = ui.item.value;
             var selectedNombre = selectedObj.nombre;
+            var selectedId = selectedObj.id;
 
             autocompleteTematica.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+            $("#codTematica").val(selectedId);
 
             return false;
           }
         });
       }
 
-      if (autocompleteAutor.data("autocomplete")) {
-        autocompleteAutor.autocomplete({
-          source: function(request, response) {
-            $.ajax({
-              url: "autocompleteAutor",
-              type: "POST",
-              dataType: "xml",
-              data: {
-                term: request.term
-              },
-              success: function(data) {
-                var autocompleteData = [];
-
-                $(data).find("autor").each(function() {
-                  var objeto = $(this);
-                  var nombre = objeto.attr("nombre");
-                  var id = objeto.attr("idAutor");
-
-                  var autocompleteItem = {
-                    label: nombre,
-                    value: {
-                      id: id,
-                      nombre: nombre
-                    }
-                  };
-
-                  autocompleteData.push(autocompleteItem);
-                });
-
-                response(autocompleteData);
-              }
-            });
-          },
-          select: function(event, ui) {
-            var selectedObj = ui.item.value;
-            var selectedNombre = selectedObj.nombre;
-
-            autocompleteAutor.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
-
-            return false;
-          }
-        });
-      }
+      autocompleteAutor(autocompleteAutor1, $("#codAutor"));
 
       if (autocompleteEditorial.data("autocomplete")) {
         autocompleteEditorial.autocomplete({
@@ -219,14 +183,63 @@
           select: function(event, ui) {
             var selectedObj = ui.item.value;
             var selectedNombre = selectedObj.nombre;
+            var selectedId = selectedObj.id;
 
             autocompleteEditorial.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+            $("#codEditorial").val(selectedId);
 
             return false;
           }
         });
       }
     });
+
+    function autocompleteAutor(field, codField){
+      if (field.data("autocomplete")) {
+        field.autocomplete({
+          source: function(request, response) {
+            $.ajax({
+              url: "autocompleteAutor",
+              type: "POST",
+              dataType: "xml",
+              data: {
+                term: request.term
+              },
+              success: function(data) {
+                var autocompleteData = [];
+
+                $(data).find("autor").each(function() {
+                  var objeto = $(this);
+                  var nombre = objeto.attr("nombre");
+                  var id = objeto.attr("idAutor");
+
+                  var autocompleteItem = {
+                    label: nombre,
+                    value: {
+                      id: id,
+                      nombre: nombre
+                    }
+                  };
+
+                  autocompleteData.push(autocompleteItem);
+                });
+
+                response(autocompleteData);
+              }
+            });
+          },
+          select: function(event, ui) {
+            var selectedObj = ui.item.value;
+            var selectedNombre = selectedObj.nombre;
+            var selectedId = selectedObj.id;
+
+            field.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+            codField.val(selectedId)
+            return false;
+          }
+        });
+      }
+    }
 
     var authorCount = 1;
 
@@ -239,7 +252,15 @@
       var authorInput = document.createElement("input");
       authorInput.type = "text";
       authorInput.name = "autor" + authorCount;
-      authorInput.placeholder = "Autor"
+      // authorInput.id = "autor" + authorCount;
+      authorInput.placeholder = "Autor";
+      authorInput.autocomplete = "on";
+      authorInput.setAttribute("data-autocomplete", "true");
+
+      var codAuthorInput = document.createElement("input");
+      codAuthorInput.type = "hidden";
+      codAuthorInput.name = "codAutor" + authorCount;
+      codAuthorInput.placeholder = "Autor code"
 
       var removeButton = document.createElement("button");
       removeButton.textContent = "Eliminar Autor";
@@ -251,15 +272,17 @@
         showLastRemoveButton();
         authorCount--;
       });
-
-      var removeGroup = document.createElement("div");
-      removeGroup.appendChild(removeButton);
-      authorGroup.appendChild(authorInput);
-      authorGroup.appendChild(removeGroup);
-      authorContainer.appendChild(authorGroup);
-
-      authorCount++;
-      showLastRemoveButton();
+      if (authorCount < 3) {
+        var removeGroup = document.createElement("div");
+        removeGroup.appendChild(removeButton);
+        authorGroup.appendChild(authorInput);
+        authorGroup.appendChild(codAuthorInput);
+        authorGroup.appendChild(removeGroup);
+        authorContainer.appendChild(authorGroup);
+        authorCount++;
+        showLastRemoveButton();
+        autocompleteAutor($(authorInput), $(codAuthorInput))
+      }
     }
 
     function showLastRemoveButton() {
@@ -274,55 +297,84 @@
         }
       }
     }
+
+    function validateForm() {
+      var titulo = document.getElementById("titulo").value;
+      var autor = document.getElementById("autor").value;
+      var id = document.getElementById("idLibro").value;
+      var tematica = document.getElementById("tematica").value;
+      var editorial = document.getElementById("editorial").value;
+      var codAutor = document.getElementById("codAutor").value
+      var codTematica = document.getElementById("codTematica").value
+      var codEditorial = document.getElementById("codEditorial").value
+
+      var errorMessage = "";
+
+      if (titulo === "" || autor === "" || id === "" || editorial === "" || tematica === "") {
+        errorMessage = "Por favor, complete todos los campos.";
+      } else if (!/^\d+$/.test(id)) {
+        errorMessage = "El id del libro debe contener solo números.";
+      }else if (codAutor === ""){
+        errorMessage = "El autor no existe, elija una de las opciones"
+      } else if (codTematica === ""){
+        errorMessage = "La tematica no existe, elija una de las opciones"
+      } else if (codEditorial === ""){
+        errorMessage = "La editorial no existe, elija una de las opciones"
+      }
+
+      if (errorMessage !== "") {
+        document.getElementById("error-message").innerText = errorMessage;
+        return false;
+      }
+    }
+
+    function goBack(){
+      window.location.href = "./libro.jsp";
+    }
   </script>
-</head>
 <body>
 
 <div class="container">
+  <form action="./insertarLibro" method="post">
+
   <div class="form-group mb-4">
-    <input type="text" placeholder="Signatura">
+    <input type="text" placeholder="Id del Libro" id="idLibro" name="idLibro">
   </div>
 
   <div class="form-group mb-4">
-    <input type="text" placeholder="ISBN">
-  </div>
-
-  <div class="form-group mb-4">
-    <input type="text" placeholder="Título">
-  </div>
-
-  <div class="form-group mb-4">
-    <input type="text" placeholder="Año">
+    <input type="text" placeholder="Título" id="titulo" name="titulo">
   </div>
 
   <div class="form-group mb-4">
     <div id="author-container">
       <div class="author-group">
-        <input type="text" placeholder="Autor" name="autor" id="autor" data-autocomplete="true" autocomplete="on">
+        <input type="text" placeholder="Autor" name="autor" id="autor" data-autocomplete="true" autocomplete="off" class="ui-autocomplete-input">
+        <input type="hidden" name="codAutor" id="codAutor">
       </div>
     </div>
-      <button type="button" id="addAuthor-button" onclick="addAuthorField()">Agregar Autor</button>
+    <button type="button" id="addAuthor-button" onclick="addAuthorField()">Agregar Autor</button>
     <div id="author-buttons"></div>
   </div>
 
   <div class="form-group mb-4">
-    <input type="text" placeholder="Tematica" name="tematica" id="tematica" data-autocomplete="true" autocomplete="on">
+    <input type="text" placeholder="Tematica" name="tematica" id="tematica" data-autocomplete="true" autocomplete="off" class="ui-autocomplete-input">
+    <input type="hidden" name="codTematica" id="codTematica">
   </div>
 
   <div class="form-group mb-4">
-    <input type="text" placeholder="Editorial" name="editorial" id="editorial" data-autocomplete="true" autocomplete="on">
+    <input type="text" placeholder="Editorial" name="editorial" id="editorial" data-autocomplete="true" autocomplete="off" class="ui-autocomplete-input">
+    <input type="hidden" name="codEditorial" id="codEditorial">
   </div>
+  <div id="error-message" class="error-message"></div>
 
   <div class="button-container mb-4">
-    <form action="index.jsp">
-      <button type="submit">Atrás</button>
-    </form>
-
-    <form action="index.jsp">
-      <button type="submit">Guardar</button>
-    </form>
+    <button type="button" onclick="goBack()">Atrás</button>
+    <button type="submit">Guardar</button>
   </div>
 
+</form>
+
 </div>
+
 </body>
 </html>

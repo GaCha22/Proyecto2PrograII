@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets;
+package cr.ac.ucr.ie.prograii.servlets.libro;
 
 import jakarta.servlet.http.HttpServlet;
 

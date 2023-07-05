@@ -12,7 +12,7 @@ class AutorDAOTest {
     @Test
     void crear_documento_funciona(){
         try {
-            AutorDAO autorDAO = AutorDAO.crearDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml");
+            AutorDAO autorDAO = AutorDAO.crearDocumento("autores.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,7 +42,7 @@ class AutorDAOTest {
         autor2.setApellidosAutor("ASFDALJHGFSD");
 
         try {
-            AutorDAO autorDAO = AutorDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\autores.xml");
+            AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
             autorDAO.insertarAutor(autor1);
             autorDAO.insertarAutor(autor2);
         } catch (IOException | JDOMException e) {
@@ -57,6 +57,36 @@ class AutorDAOTest {
             List<Autor> autores = autorDAO.getAutores();
             System.out.println(autores.toString());
         } catch (IOException | JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void eliminar_funciona(){
+        try {
+            AutorDAO autorDAO = AutorDAO.abrirDocumento("autores.xml");
+            autorDAO.eliminarAutor(2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JDOMException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void editar_funciona(){
+        Autor autor1 = new Autor();
+        Autor autor2 = new Autor();
+        autor1.setIdAutor(1);
+        autor1.setNombre("ASADV");
+        autor1.setApellidosAutor("ASFDASD");
+        autor2.setNombre("ASDFSTF");
+        autor2.setApellidosAutor("ASFDALJHGFSD");
+        try {
+            AutorDAO.abrirDocumento("autores.xml").editarAutor(1, autor2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
     }

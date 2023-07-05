@@ -1,9 +1,15 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Luis
+  Date: 04/07/2023
+  Time: 04:24 p. m.
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Eliminar Libro</title>
-    <link rel="stylesheet" type="text/css" href="estilox.css/eliminar.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Eliminar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
 
     <style>
         body {
@@ -13,7 +19,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #435164;
+            background-color: #22272e;
             font-family: Arial, sans-serif;
         }
 
@@ -40,9 +46,8 @@
             justify-content: space-between;
             width: 100%;
         }
-
         .button-container button {
-            background-color: #ad3d46;
+            background-color: #3dad8d;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -55,48 +60,24 @@
             margin-right: 10px;
         }
 
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
+        }
 
     </style>
+
 </head>
 <body>
+    <div>
+        <div>
+            <form action="/prograii_war_exploded/eliminarEditorial" method="post">
+                <input type="text" name="id" placeholder="Buscar por id...">
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
 
-
-
-<div class="container">
-
-    <div class="input-container">
-
-        <input type="text" placeholder="Buscar">
-        <button type="submit">Buscar</button>
-
-        <div class="row mt-4">
-            <div class="col-sm-4 border text-center">
-                <h3>Libro</h3>
-            </div>
-            <div class="col-sm-4 border text-center">
-                <h3>Autor</h3>
-            </div>
-            <div class="col-sm-4 border text-center">
-                <h3 style="white-space: nowrap;">Tematica</h3>
-
-            </div>
     </div>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

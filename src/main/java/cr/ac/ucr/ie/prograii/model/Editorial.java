@@ -14,6 +14,12 @@ public class Editorial {
         this.libros = new ArrayList<>();
     }
 
+    public Editorial(int idEditorial, String nombreEditorial, String ciudad) {
+        this.idEditorial = idEditorial;
+        this.nombreEditorial = nombreEditorial;
+        this.ciudad = ciudad;
+    }
+
     public Editorial(int idEditorial, String nombreEditorial, String ciudad, List<Libro> libros) {
         this.idEditorial = idEditorial;
         this.nombreEditorial = nombreEditorial;

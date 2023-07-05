@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Autor</title>
+    <meta charset="UTF-8">
+    <title>Editar</title>
 </head>
 <body>
-<h1>En Construcción</h1>
+
+
 </body>
 </html>
