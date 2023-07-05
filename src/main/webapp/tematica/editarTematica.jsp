@@ -76,7 +76,7 @@
 <body>
 <div class="container">
     <h1>Editar una temática</h1>
-    <form action="/prograii/editarTematica" method="post">
+    <form action="./editarTematica" method="post">
         <div class="form-group mb-4">
             <h1>Seleccione la temática que desea editar.</h1>
         </div>

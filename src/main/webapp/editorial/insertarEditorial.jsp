@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <title>Insertar Editorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../estilox.css/editar.css">
 
     <style>
         body {
@@ -31,20 +32,12 @@
             padding: 20px;
         }
 
-        .form-group {
-            margin-bottom: 10px;
-        }
 
         select, input, button {
             font-size: 20px;
             padding: 10px;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
          .button-container button {
             background-color: #3dad8d;
             color: #fff;
@@ -63,6 +56,13 @@
             color: #fff;
             margin-top: 10px;
         }
+        h1 {
+            color: white;
+        }
+        label {
+            color: white;
+        }
+
 
     </style>
 
@@ -75,6 +75,8 @@
 
             if (nombre === "" || ciudad === "") {
                 errorMessage = "Por favor, complete todos los campos.";
+            } else if (!validarString(nombre) && !validarString(ciudad)) {
+                errorMessage = "Ingrese un nombre válido";
             }
 
             if (errorMessage !== "") {
@@ -82,30 +84,40 @@
                 return false;
             }
         }
+
+        function validarString(input) {
+            // Expresión regular para verificar si el string no comienza ni termina con espacios en blanco
+            var regex = /^\S.*\S$/;
+
+            // Verificar si el input coincide con la expresión regular
+            return regex.test(input);
+        }
     </script>
 
 </head>
 <body>
     <div class="container text-center">
-        <form action="./insertarEditorial" method="post" onsubmit="return validateForm()">
-        <div>
-            <label for="nombre" class="form-label text-danger">Nombre</label>
-        </div>
-        <div>
-            <input type="text" name="nombre" id="nombre" class="mb-5">
+        <div class="mb-3">
+            <h1>Insertar Editorial</h1>
         </div>
 
+        <form action="./insertarEditorial" method="post" onsubmit="return validateForm()">
         <div>
-            <label for="ciudad" class="form-label text-danger">Ciudad</label>
+            <label for="nombre">Nombre</label>
         </div>
         <div>
-            <input type="text" name="ciudad" id="ciudad" class="mb-5">
+            <input type="text" placeholder="Nombre" name="nombre" id="nombre" class="mb-5">
+        </div>
+        <div>
+            <label for="nombre">Ciudad</label>
+        </div>
+        <div>
+            <input type="text" placeholder="Ciudad" name="ciudad" id="ciudad" class="mb-5">
         </div>
         <div>
             <button type="submit" class="">Guardar</button>
         </div>
         <div id="error-message" class="error-message"></div>
-
         </form>
     </div>
 

@@ -105,25 +105,25 @@
 </head>
 <body>
 <div class="container">
-<h1>Iniciar sesión</h1>
-<form action="/prograii/login" method="post" onsubmit="return validateForm()">
-    <div>
-        <label for="username">Username</label>
+    <h1>Iniciar sesión</h1>
+    <form action="/prograii/login" method="post" onsubmit="return validateForm()">
         <div>
-            <input type="text" name="username" id="username">
+            <label for="username">Username</label>
+            <div>
+                <input type="text" name="username" id="username">
+            </div>
         </div>
-    </div>
-    <div>
-        <label for="password">Password</label>
         <div>
-            <input type="password" name="password" id="password">
+            <label for="password">Password</label>
+            <div>
+                <input type="password" name="password" id="password">
+            </div>
         </div>
-    </div>
-    <div id="error-message" class="error-message"></div>
-    <div class="button-container">
-        <input type="submit" value="Login" class="login-button">
-    </div>
-</form>
-</div>>
+        <div id="error-message" class="error-message"></div>
+        <div class="button-container">
+            <input type="submit" value="Login" class="login-button">
+        </div>
+    </form>
+</div>
 </body>
 </html>
