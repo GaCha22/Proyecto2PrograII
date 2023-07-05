@@ -18,7 +18,7 @@ public class EditarAutorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombreAutor = req.getParameter("nombre");
         String apellidosAutor = req.getParameter("apellidos");
-        int idAutor = Integer.parseInt(req.getParameter("codAutor"));
+        int idAutor = Integer.parseInt(req.getParameter("id"));
         Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
         try {
             AutorDAO.abrirDocumento("autores.xml").editarAutor(idAutor, autor);
