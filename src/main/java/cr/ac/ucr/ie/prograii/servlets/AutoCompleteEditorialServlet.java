@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/autocompleteEditorial")
+@WebServlet("/libro/autocompleteEditorial")
 public class AutoCompleteEditorialServlet extends HttpServlet {
 
     @Override
