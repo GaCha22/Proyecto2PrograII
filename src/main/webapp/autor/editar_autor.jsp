@@ -148,7 +148,7 @@
         </div>
       </div>
       <div>
-        <input type="submit" value="Guardar" class="save-button">
+        <input type="submit" value="Editar" class="save-button">
       </div>
       <div id="error-message" class="error-message"></div>
     </form>
