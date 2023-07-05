@@ -8,7 +8,11 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,13 +21,13 @@ import java.util.List;
 
 public class EditorialDAO {
     private Document document;
-    private Element root;
-    private String path;
+    private Element raiz;
+    private String rutaDocumento;
 
     public EditorialDAO(String rutaDocumento, String nombreRaiz) throws IOException {
-        this.root = new Element(nombreRaiz);
-        this.path = rutaDocumento;
-        this.document = new Document(root);
+        this.raiz = new Element(nombreRaiz);
+        this.rutaDocumento = rutaDocumento;
+        this.document = new Document(raiz);
         guardar();
     }
 
@@ -47,6 +51,7 @@ public class EditorialDAO {
             this.document = saxBuilder.build(rutaDocumento);
             this.root = document.getRootElement();
             this.path = rutaDocumento;
+
         }
     }
 
@@ -58,11 +63,13 @@ public class EditorialDAO {
     public void guardar() throws IOException {
         XMLOutputter xmlOutputter = new XMLOutputter();
         xmlOutputter.setFormat(Format.getPrettyFormat());
-        xmlOutputter.output(this.document, new FileWriter(this.path));
+        xmlOutputter.output(this.document, new FileWriter(this.rutaDocumento));
 
         // extra para revisar mejor
         xmlOutputter.output(this.document, System.out);
     }
+
+
 
     // insertar Editorial
     public void insertarEditorial(Editorial editorial) throws IOException {
@@ -80,7 +87,7 @@ public class EditorialDAO {
         eCiudad.addContent(editorial.getCiudad());
         eEditorial.addContent(eCiudad);
 
-        root.addContent(eEditorial);
+        raiz.addContent(eEditorial);
         guardar();
     }
 
@@ -89,7 +96,7 @@ public class EditorialDAO {
         int ultimoId = 0;
 
         // Obtener la lista de elementos "editorial" del XML
-        List<Element> elementosEditorial = root.getChildren("editorial");
+        List<Element> elementosEditorial = raiz.getChildren("editorial");
 
         // Recorrer la lista y encontrar el último ID
         for (Element elemento : elementosEditorial) {
@@ -110,6 +117,7 @@ public class EditorialDAO {
     // eliminar
     public void eliminarEditorial(int codEditorial) throws IOException {
         List<Element> editoriales = root.getChildren("editorial");
+
         for (Element editorial : editoriales) {
             int id = Integer.parseInt(editorial.getAttributeValue("id"));
             if (id == codEditorial) {
@@ -122,7 +130,7 @@ public class EditorialDAO {
 
     // get de editoriales
     public ArrayList<Editorial> getEditoriales() throws DataConversionException {
-        List eListaEditoriales = root.getChildren();
+        List eListaEditoriales = raiz.getChildren();
 
         // castear la lista
         ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
@@ -141,7 +149,7 @@ public class EditorialDAO {
 
     // get de una editorial
     public Editorial getEditorial(int codAreaBuscar) throws DataConversionException {
-        List eEditoriales = root.getChildren();
+        List eEditoriales = raiz.getChildren();
 
         Editorial editorialActual = null;
         for (Object obj : eEditoriales) {
@@ -168,6 +176,20 @@ public class EditorialDAO {
         }
         return false;
     }
+
+    // se fija cual es igual en el archivo
+    public boolean buscarTruncar(String nombreTrunc, String ciudadTrunc){
+
+        List<Element> eListaEditoriales = raiz.getChildren();
+        for (Element eEditorial : eListaEditoriales) {
+            String nombreEditorial = eEditorial.getChildText("nombre");
+            String ciudadEditorial = eEditorial.getChildText("ciudad");
+
+            if (nombreEditorial.replaceAll("\\s+", "").equalsIgnoreCase(nombreTrunc) && ciudadEditorial.replaceAll("\\s+", "").equalsIgnoreCase(ciudadTrunc)) return true;
+        }
+        return false;
+    }
+
 
     // busca por nombre una editorial
     public boolean buscarIguales(String nombreEditorial, String ciudadEditorial) {

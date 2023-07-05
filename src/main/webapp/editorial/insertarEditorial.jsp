@@ -75,14 +75,18 @@
 
             if (nombre === "" || ciudad === "") {
                 errorMessage = "Por favor, complete todos los campos.";
-            } else if (!validarString(nombre) && !validarString(ciudad)) {
-                errorMessage = "Ingrese un nombre válido";
+            } else if (!validarString(nombre) || !validarString(ciudad)) {
+                errorMessage = "Ingrese mínimo dos caracteres.";
             }
 
             if (errorMessage !== "") {
                 document.getElementById("error-message").innerText = errorMessage;
                 return false;
             }
+
+            // Resto de la lógica de validación del formulario...
+            // Si no hay errores, puedes retornar true para enviar el formulario correctamente.
+            return true;
         }
 
         function validarString(input) {
@@ -92,6 +96,7 @@
             // Verificar si el input coincide con la expresión regular
             return regex.test(input);
         }
+
     </script>
 
 </head>
