@@ -41,10 +41,6 @@ public class InsertarEditorial extends HttpServlet {
             }
              */
 
-
-
-
-
             if (!nombre.isEmpty() && !ciudad.isEmpty()) {
 
 
