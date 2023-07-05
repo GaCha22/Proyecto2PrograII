@@ -1,7 +1,7 @@
-package cr.ac.ucr.ie.prograii.servlets.autor;
+package cr.ac.ucr.ie.prograii.servlets.libro;
 
-import cr.ac.ucr.ie.prograii.model.Autor;
 import cr.ac.ucr.ie.prograii.service.AutorDAO;
+import cr.ac.ucr.ie.prograii.service.LibroDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,26 +12,25 @@ import org.jdom2.JDOMException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/editar_autor")
-public class EditarAutorServlet extends HttpServlet {
+@WebServlet("/libro/eliminarServlet")
+public class EliminarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombreAutor = req.getParameter("nombre");
-        String apellidosAutor = req.getParameter("apellidos");
-        int idAutor = Integer.parseInt(req.getParameter("autor"));
-        Autor autor = new Autor(idAutor, nombreAutor, apellidosAutor);
+        int idLibro = Integer.parseInt(req.getParameter("idLibro"));
+        System.out.println(idLibro);
         try {
-            AutorDAO.abrirDocumento("autores.xml").editarAutor(idAutor, autor);
+            LibroDAO.abrirDocumento("libros.xml").eliminarLibro(idLibro);
         } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
         resp.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = resp.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("    <head>");
             out.println("        <meta charset=\"UTF-8\">");
-            out.println("        <title>Autor editado</title>");
+            out.println("        <title>Autor eliminado</title>");
             out.println("        <link rel=\"stylesheet\" type=\"text/css\" href=\"estilox.css/inicio.css\">");
             out.println("        <style>");
             out.println("            body {");
@@ -81,9 +80,9 @@ public class EditarAutorServlet extends HttpServlet {
             out.println("    </head>");
             out.println("    <body>");
             out.println("    <div class=\"container\">");
-            out.println("        <h1>Autor editado correctamente</h1>");
+            out.println("        <h1>Libro eliminado correctamente</h1>");
             out.println("       <div class=\"button-container mb-4\">");
-            out.println("       <form action=\"/prograii/autor/autor.jsp\">");
+            out.println("       <form action=\"./libro.jsp\">");
             out.println("           <button type=\"submit\">Atrás</button>");
             out.println("       </form>");
             out.println("       </div>");

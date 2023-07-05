@@ -9,6 +9,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,23 +21,21 @@ public class LibroDAO {
     private Element root;
     private String path;
 
-    public LibroDAO(String rootName, String path) throws IOException {
-        this.root = new Element(rootName);
-        this.path = path;
-        this.document = new Document(root);
-        guardar();
-    }
-
-    public static LibroDAO crearDocumento(String documentPath) throws IOException {
-        return new LibroDAO("libros",documentPath);
-    }
-
     private LibroDAO(String documentPath) throws IOException, JDOMException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setIgnoringElementContentWhitespace(true);
-        this.document = saxBuilder.build(documentPath);
-        this.root = document.getRootElement();
-        this.path = documentPath;
+        File file = new File(documentPath);
+        if (!file.exists()) {
+            //se encarga de crear tanto el DOM y como Documento XML
+            this.path = documentPath;
+            this.root = new Element("libros");
+            this.document = new Document(root);
+            guardar();
+        }else {
+            SAXBuilder saxBuilder = new SAXBuilder();
+            saxBuilder.setIgnoringElementContentWhitespace(true);
+            this.document = saxBuilder.build(documentPath);
+            this.root = document.getRootElement();
+            this.path = documentPath;
+        }
     }
 
     public static LibroDAO abrirDocumento(String documentPath) throws IOException, JDOMException {
@@ -67,33 +67,17 @@ public class LibroDAO {
         for (Autor autor : autores) {
             Element eAutor = new Element("autor");
 
-            Element eNombre = new Element("nombre");
-            eNombre.addContent(autor.getNombre());
-            eAutor.addContent(eNombre);
-
-            Element eApellidos = new Element("apellido");
-            eApellidos.addContent(autor.getApellidosAutor());
-            eAutor.addContent(eApellidos);
+            eAutor.setAttribute("idAutor", String.valueOf(autor.getIdAutor()));
             eLibro.addContent(eAutor);
         }
 
-        Element eItems = new Element("items");
-        List<LibroItem> libroItems = libro.getItems();
-        for (LibroItem libroItem : libroItems) {
-            Element eItem = new Element("item");
-            eItem.setAttribute("numInscripcion", String.valueOf(libroItem.getNumInscripcion()));
-            eItem.setAttribute("estado", String.valueOf(libroItem.isEstado()));
-            eItems.addContent(eItem);
-        }
-        eLibro.addContent(eItems);
-
         Element eEditorial = new Element("editorial");
 
-        eEditorial.addContent(libro.getEditorial().getNombreEditorial());
+        eEditorial.setAttribute("idEditorial", String.valueOf(libro.getEditorial().getIdEditorial()));
         eLibro.addContent(eEditorial);
 
         Element eTematica = new Element("tematica");
-        eTematica.addContent(libro.getTematica().getNombreTematica());
+        eTematica.setAttribute("idTematica", String.valueOf(libro.getTematica().getIdTipo()));
         eLibro.addContent(eTematica);
 
         root.addContent(eLibro);
@@ -112,34 +96,107 @@ public class LibroDAO {
             List<Autor> autores = new ArrayList<>();
 
             for (Element eAutor : eAutores) {
-                Autor autor = new Autor();
-                autor.setIdAutor(Integer.parseInt(eAutor.getAttributeValue("id")));
-                autor.setNombre(eAutor.getChildText("nombre"));
-                autor.setApellidosAutor(eAutor.getChildText("apellido"));
+                Autor autor = null;
+                try {
+                    autor = AutorDAO.abrirDocumento("autores.xml").getAutor(eAutor.getAttribute("idAutor").getIntValue());
+                } catch (IOException | JDOMException e) {
+                    throw new RuntimeException(e);
+                }
                 autores.add(autor);
             }
-
             libroActual.setAutores(autores);
 
-            List<Element> eItems = eLibro.getChild("items").getChildren("item");
-            List<LibroItem> items = new ArrayList<>();
 
-            for (Element eItem : eItems) {
-                int numInscripcion = Integer.parseInt(eItem.getAttributeValue("numInscripcion"));
-                boolean estado = Boolean.parseBoolean(eItem.getAttributeValue("estado"));
-                LibroItem item = new LibroItem(numInscripcion, estado);
-                items.add(item);
+            Editorial editorial = null;
+            try {
+                editorial = EditorialDAO.abrirDocumento("editoriales.xml").getEditorial(eLibro.getChild("editorial").getAttribute("idEditorial").getIntValue());
+            } catch (IOException | JDOMException e) {
+                throw new RuntimeException(e);
             }
-
-            libroActual.setItems(items);
-            Editorial editorial = new Editorial();
-            editorial.setNombreEditorial(eLibro.getChildText("editorial"));
             libroActual.setEditorial(editorial);
-            Tematica tematica = new Tematica();
-            tematica.setNombreTematica(eLibro.getChildText("tematica"));
+
+            Tematica tematica = null;
+            try {
+                tematica = TematicaDAO.abrirDocumento("tematicas.xml").getTematica(eLibro.getChild("tematica").getAttribute("idTematica").getIntValue());
+            } catch (IOException | JDOMException e) {
+                throw new RuntimeException(e);
+            }
             libroActual.setTematica(tematica);
 
             libros.add(libroActual);
         }
         return libros;
-    }}
+    }
+
+    public boolean buscarLibro(int idLibro) throws DataConversionException {
+        List<Element> eListaLibros = root.getChildren();
+        for (Element eLibro : eListaLibros) {
+            int codLibroActual = eLibro.getAttribute("id").getIntValue();
+            if (codLibroActual == idLibro) return true;
+        }
+        return false;
+    }
+
+    public Libro getLibro(int idLibro) throws DataConversionException {
+        List<Element> eListaLibros = root.getChildren();
+        try {
+            for (Element eLibro : eListaLibros) {
+                int codLibroActual = eLibro.getAttribute("id").getIntValue();
+                if (codLibroActual == idLibro) {
+                    Libro libro = new Libro();
+                    libro.setIdLibro(codLibroActual);
+                    libro.setTitulo(eLibro.getChildText("titulo"));
+                    Tematica tematica = TematicaDAO.abrirDocumento("tematicas.xml").getTematica(eLibro.getChild("tematica").getAttribute("id").getIntValue());
+                    libro.setTematica(tematica);
+//                    Autor autor = AutorDAO.abrirDocumento("autores")
+                    return libro;
+                }
+            }
+        } catch (IOException | JDOMException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public void eliminarLibro(int idLibro) throws IOException {
+        List<Element> eListaLibros = root.getChildren("libro");
+
+        for (Element eLibro : eListaLibros) {
+            int id = Integer.parseInt(eLibro.getAttributeValue("id"));
+            if (id == idLibro) {
+                root.removeContent(eLibro);
+                break;
+            }
+        }
+        guardar();
+    }
+
+    public void editarLibro(int idLibro, Libro libroActualizado) throws IOException, DataConversionException {
+        List<Element> libros = root.getChildren("libro");
+
+        for (Element eLibro : libros) {
+            int id = eLibro.getAttribute("id").getIntValue();
+            if (id == idLibro) {
+                eLibro.getChild("titulo").setText(libroActualizado.getTitulo());
+                eLibro.getChild("isbn").setText(libroActualizado.getIsbn());
+                eLibro.removeChildren("autor");
+                for (Autor autor :
+                        libroActualizado.getAutores()) {
+                    Element eAutor = new Element("autor");
+                    eAutor.setAttribute("idAutor", String.valueOf(autor.getIdAutor()));
+                    eLibro.addContent(eAutor);
+                }
+                Element eEditorial = eLibro.getChild("editorial");
+                Element eTematica = eLibro.getChild("tematica");
+                eEditorial.getAttribute("idEditorial").setValue(String.valueOf(libroActualizado.getEditorial().getIdEditorial()));
+                eTematica.getAttribute("idTematica").setValue(String.valueOf(libroActualizado.getTematica().getIdTipo()));
+                eLibro.removeChildren("editorial");
+                eLibro.removeChildren("tematica");
+                eLibro.addContent(eEditorial);
+                eLibro.addContent(eTematica);
+                break;
+            }
+        }
+        guardar();
+    }
+}

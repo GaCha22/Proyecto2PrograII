@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets.TematicaServlets;
+package cr.ac.ucr.ie.prograii.servlets.tematica;
 
 import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
@@ -70,7 +70,7 @@ public class EditarTematicaServlet extends HttpServlet {
                     TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
                     tematicaDAO.editarTematica(nombreTematicaEditar, nuevoNombreTematica);
                     out.println("        <h1>¡Se ha editado el nombre de la temática con éxito!</h1>");
-                    out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
+                    out.println("         <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
                 }
                 out.println("    </div>");
                 out.println("</body>");
