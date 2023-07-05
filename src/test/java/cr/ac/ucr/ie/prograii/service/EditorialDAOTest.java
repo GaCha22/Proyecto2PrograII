@@ -63,7 +63,7 @@ class EditorialDAOTest {
     void buscar() throws IOException, JDOMException {
         editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\Luis\\Desktop\\apache-tomcat\\bin\\editoriales.xml");
 
-        boolean resultado = editorialDAO.buscar(1);
+        boolean resultado = editorialDAO.buscar(8);
 
         if(resultado){
             editorialDAO.eliminarEditorial(1);
@@ -82,6 +82,17 @@ class EditorialDAOTest {
         Editorial nueva = new Editorial(3, "Funciona", "Paraiso");
 
         editorialDAO.editarEditorial(3,nueva);
+
+    }
+
+    @Test
+    void buscarTruncar_funciona() throws IOException, JDOMException {
+        editorialDAO = EditorialDAO.abrirDocumento("C:\\Users\\Luis\\Desktop\\apache-tomcat\\bin\\editoriales.xml");
+
+        boolean resultado = editorialDAO.buscarTruncar("Monge", "Jalisco");
+
+        assert resultado == true : "No se encuentra";
+
 
     }
 

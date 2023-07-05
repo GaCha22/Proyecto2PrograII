@@ -69,6 +69,8 @@ public class EditorialDAO {
         xmlOutputter.output(this.document, System.out);
     }
 
+
+
     // insertar Editorial
     public void insertarEditorial(Editorial editorial) throws IOException {
 
@@ -174,6 +176,20 @@ public class EditorialDAO {
         }
         return false;
     }
+
+    // se fija cual es igual en el archivo
+    public boolean buscarTruncar(String nombreTrunc, String ciudadTrunc){
+
+        List<Element> eListaEditoriales = raiz.getChildren();
+        for (Element eEditorial : eListaEditoriales) {
+            String nombreEditorial = eEditorial.getChildText("nombre");
+            String ciudadEditorial = eEditorial.getChildText("ciudad");
+
+            if (nombreEditorial.replaceAll("\\s+", "").equalsIgnoreCase(nombreTrunc) && ciudadEditorial.replaceAll("\\s+", "").equalsIgnoreCase(ciudadTrunc)) return true;
+        }
+        return false;
+    }
+
 
     // busca por nombre una editorial
     public boolean buscarIguales(String nombreEditorial, String ciudadEditorial) {

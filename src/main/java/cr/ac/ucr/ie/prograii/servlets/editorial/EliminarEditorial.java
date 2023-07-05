@@ -96,6 +96,7 @@ public class EliminarEditorial extends HttpServlet {
                 } catch (DataConversionException e) {
                     throw new RuntimeException(e);
                 }
+
             }
 
 
