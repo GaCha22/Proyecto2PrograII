@@ -20,6 +20,8 @@ public class InsertarEditorial extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         try (PrintWriter out = resp.getWriter()) {
 
 

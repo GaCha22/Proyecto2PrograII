@@ -64,7 +64,7 @@
         <form action="autor/autor.jsp">
             <button type="submit">Autor</button>
         </form>
-        <form action="editorial.jsp">
+        <form action="editorial/editorial.jsp">
             <button type="submit">Editorial</button>
         </form>
         <form action="tematica.jsp">
