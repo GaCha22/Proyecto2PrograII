@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/libro/autocompleteLibro")
+@WebServlet("/autocomplete/autocompleteLibro")
 public class AutoCompleteLibroServlet extends HttpServlet {
 
     @Override
@@ -39,19 +39,35 @@ public class AutoCompleteLibroServlet extends HttpServlet {
             // Generar la respuesta XML con las temáticas filtradas
             resp.setContentType("application/xml");
             resp.setCharacterEncoding("UTF-8");
+            System.out.println(convertLibrosToXML(librosFiltrados));
             resp.getWriter().write(convertLibrosToXML(librosFiltrados));
         } catch (JDOMException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private String convertLibrosToXML(List<Libro> autores) {
+    private String convertLibrosToXML(List<Libro> libros) {
         StringBuilder xml = new StringBuilder();
         xml.append("<libros>");
 
-        for (Libro libro : autores) {
-            xml.append("<libro idLibro=\"").append(libro.getIdLibro()).append("\" titulo=\"")
-                    .append(libro.getTitulo()).append("\" />");
+        for (Libro libro : libros) {
+            List<Autor> autores = libro.getAutores();
+            xml.append("<libro idLibro=\"").append(libro.getIdLibro())
+                    .append("\" titulo=\"").append(libro.getTitulo())
+                    .append("\" isbn=\"").append(libro.getIsbn())
+                    .append("\" autor1=\"").append(autores.get(0).getNombre()).append(" ").append(autores.get(0).getApellidosAutor())
+                    .append("\" codAutor1=\"").append(autores.get(0).getIdAutor())
+                    .append("\" autor2=\"");
+            if (autores.size() > 1) xml.append(autores.get(1).getNombre()).append(" ").append(autores.get(1).getApellidosAutor()).append("\" codAutor2=\"").append(autores.get(1).getIdAutor());
+            else xml.append(-1).append("\" codAutor2=\"").append(-1);
+            xml.append("\" autor3=\"");
+            if (autores.size() > 2) xml.append(autores.get(2).getNombre()).append(" ").append(autores.get(2).getApellidosAutor()).append("\" codAutor3=\"").append(autores.get(2).getIdAutor());
+            else xml.append(-1).append("\" codAutor3=\"").append(-1);
+            xml.append("\" editorial=\"").append(libro.getEditorial().getNombreEditorial())
+                    .append("\" codEditorial=\"").append(libro.getEditorial().getIdEditorial())
+                    .append("\" tematica=\"").append(libro.getTematica().getNombreTematica())
+                    .append("\" codTematica=\"").append(libro.getTematica().getIdTipo())
+                    .append("\" />");
         }
 
         xml.append("</libros>");

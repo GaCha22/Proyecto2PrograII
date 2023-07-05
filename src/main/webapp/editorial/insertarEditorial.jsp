@@ -87,7 +87,7 @@
 </head>
 <body>
     <div class="container text-center">
-        <form action="prograii/insertarEditorial" method="post" onsubmit="return validateForm()">
+        <form action="./insertarEditorial" method="post" onsubmit="return validateForm()">
         <div>
             <label for="nombre" class="form-label text-danger">Nombre</label>
         </div>

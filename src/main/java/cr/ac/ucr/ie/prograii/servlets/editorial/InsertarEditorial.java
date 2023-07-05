@@ -12,7 +12,7 @@ import org.jdom2.JDOMException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/insertarEditorial")
+@WebServlet("/editorial/insertarEditorial")
 public class InsertarEditorial extends HttpServlet {
     private EditorialDAO editorialDAO;
     private Editorial nuevaEditorial;
@@ -107,7 +107,7 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("   <div class=\"container\">");
                 out.println("       <h1>Insertado con éxito</h1>");
                 out.println("       <div class=\"button-container mb-4\">");
-                out.println("       <form action=\"editorial/editorial.jsp\">");
+                out.println("       <form action=\"./editorial.jsp\">");
                 out.println("           <button type=\"submit\">Volver al inicio</button>");
                 out.println("       </form>");
                 out.println("   </div>");

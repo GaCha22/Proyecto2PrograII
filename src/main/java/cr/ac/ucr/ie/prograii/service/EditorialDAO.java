@@ -8,11 +8,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,13 +17,13 @@ import java.util.List;
 
 public class EditorialDAO {
     private Document document;
-    private Element raiz;
-    private String rutaDocumento;
+    private Element root;
+    private String path;
 
     public EditorialDAO(String rutaDocumento, String nombreRaiz) throws IOException {
-        this.raiz = new Element(nombreRaiz);
-        this.rutaDocumento = rutaDocumento;
-        this.document = new Document(raiz);
+        this.root = new Element(nombreRaiz);
+        this.path = rutaDocumento;
+        this.document = new Document(root);
         guardar();
     }
 
@@ -37,12 +33,21 @@ public class EditorialDAO {
     }
 
     private EditorialDAO(String rutaDocumento) throws IOException, JDOMException {
-        SAXBuilder saxBuilder = new SAXBuilder();
-        saxBuilder.setIgnoringElementContentWhitespace(true);
+        File file = new File(rutaDocumento);
+        if (!file.exists()) {
+            //se encarga de crear tanto el DOM y como Documento XML
+            this.path = rutaDocumento;
+            this.root = new Element("libros");
+            this.document = new Document(root);
+            guardar();
+        }else {
+            SAXBuilder saxBuilder = new SAXBuilder();
+            saxBuilder.setIgnoringElementContentWhitespace(true);
 
-        this.document = saxBuilder.build(rutaDocumento);
-        this.raiz = document.getRootElement();
-        this.rutaDocumento = rutaDocumento;
+            this.document = saxBuilder.build(rutaDocumento);
+            this.root = document.getRootElement();
+            this.path = rutaDocumento;
+        }
     }
 
     public static EditorialDAO abrirDocumento(String rutaDocumento) throws IOException, JDOMException {
@@ -53,7 +58,7 @@ public class EditorialDAO {
     public void guardar() throws IOException {
         XMLOutputter xmlOutputter = new XMLOutputter();
         xmlOutputter.setFormat(Format.getPrettyFormat());
-        xmlOutputter.output(this.document, new FileWriter(this.rutaDocumento));
+        xmlOutputter.output(this.document, new FileWriter(this.path));
 
         // extra para revisar mejor
         xmlOutputter.output(this.document, System.out);
@@ -76,7 +81,7 @@ public class EditorialDAO {
         eCiudad.addContent(editorial.getCiudad());
         eEditorial.addContent(eCiudad);
 
-        raiz.addContent(eEditorial);
+        root.addContent(eEditorial);
         guardar();
     }
 
@@ -84,7 +89,7 @@ public class EditorialDAO {
         int ultimoId = 0;
 
         // Obtener la lista de elementos "editorial" del XML
-        List<Element> elementosEditorial = raiz.getChildren("editorial");
+        List<Element> elementosEditorial = root.getChildren("editorial");
 
         // Recorrer la lista y encontrar el último ID
         for (Element elemento : elementosEditorial) {
@@ -104,7 +109,7 @@ public class EditorialDAO {
 
     public void eliminarEditorial(String idEditorial) throws IOException {
 
-        List<Element> eListaEditorial = raiz.getChildren();
+        List<Element> eListaEditorial = root.getChildren();
         int nuevoIdTipo = 1;
 
         for (int i = 0; i < eListaEditorial.size(); i++) {
@@ -126,7 +131,7 @@ public class EditorialDAO {
 
     // get de editoriales
     public ArrayList<Editorial> getEditoriales() throws DataConversionException {
-        List eListaEditoriales = raiz.getChildren();
+        List eListaEditoriales = root.getChildren();
 
         // castear la lista
         ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
@@ -145,7 +150,7 @@ public class EditorialDAO {
 
     // get de una editorial
     public Editorial getEditorial(int codAreaBuscar) throws DataConversionException {
-        List eEditoriales = raiz.getChildren();
+        List eEditoriales = root.getChildren();
 
         Editorial editorialActual = null;
         for (Object obj : eEditoriales) {
@@ -164,7 +169,7 @@ public class EditorialDAO {
     }
 
     public boolean buscar(String idAbuscar) {
-        Element editorial = raiz.getChild("editorial");
+        Element editorial = root.getChild("editorial");
         if (editorial != null) {
             String id = editorial.getAttributeValue("id");
             return idAbuscar.equals(id);
