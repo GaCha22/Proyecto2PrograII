@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/libro/autocompleteLibro")
+@WebServlet("/autocomplete/autocompleteLibro")
 public class AutoCompleteLibroServlet extends HttpServlet {
 
     @Override

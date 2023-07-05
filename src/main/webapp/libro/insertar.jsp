@@ -103,7 +103,7 @@
         autocompleteTematica.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteTematica",
+              url: "/prograii/autocomplete/autocompleteTematica",
               type: "POST",
               dataType: "xml",
               data: {
@@ -151,7 +151,7 @@
         autocompleteEditorial.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteEditorial",
+              url: "/prograii/autocomplete/autocompleteEditorial",
               type: "POST",
               dataType: "xml",
               data: {
@@ -199,7 +199,7 @@
         field.autocomplete({
           source: function(request, response) {
             $.ajax({
-              url: "autocompleteAutor",
+              url: "/prograii/autocomplete/autocompleteAutor",
               type: "POST",
               dataType: "xml",
               data: {

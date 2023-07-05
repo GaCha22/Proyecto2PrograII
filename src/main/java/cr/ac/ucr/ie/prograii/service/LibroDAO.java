@@ -96,18 +96,25 @@ public class LibroDAO {
             List<Autor> autores = new ArrayList<>();
 
             for (Element eAutor : eAutores) {
-                Autor autor = new Autor();
-                autor.setIdAutor(Integer.parseInt(eAutor.getAttributeValue("id")));
-                autor.setNombre(eAutor.getChildText("nombre"));
-                autor.setApellidosAutor(eAutor.getChildText("apellido"));
+                Autor autor = null;
+                try {
+                    autor = AutorDAO.abrirDocumento("autores.xml").getAutor(eAutor.getAttribute("idAutor").getIntValue());
+                } catch (IOException | JDOMException e) {
+                    throw new RuntimeException(e);
+                }
                 autores.add(autor);
             }
-
             libroActual.setAutores(autores);
 
-            Editorial editorial = new Editorial();
-            editorial.setNombreEditorial(eLibro.getChildText("editorial"));
+
+            Editorial editorial = null;
+            try {
+                editorial = EditorialDAO.abrirDocumento("editoriales.xml").getEditorial(eLibro.getChild("editorial").getAttribute("idEditorial").getIntValue());
+            } catch (IOException | JDOMException e) {
+                throw new RuntimeException(e);
+            }
             libroActual.setEditorial(editorial);
+
             Tematica tematica = null;
             try {
                 tematica = TematicaDAO.abrirDocumento("tematicas.xml").getTematica(eLibro.getChild("tematica").getAttribute("idTematica").getIntValue());
@@ -149,5 +156,18 @@ public class LibroDAO {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public void eliminarLibro(int idLibro) throws IOException {
+        List<Element> eListaLibros = root.getChildren("libro");
+
+        for (Element eLibro : eListaLibros) {
+            int id = Integer.parseInt(eLibro.getAttributeValue("id"));
+            if (id == idLibro) {
+                root.removeContent(eLibro);
+                break;
+            }
+        }
+        guardar();
     }
 }
