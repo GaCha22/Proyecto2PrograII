@@ -27,6 +27,7 @@ public class BuscarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //titulo, autor, tema
         String buscar = req.getParameter("search");
+        buscar = buscar.toLowerCase();
         int valorABuscar = Integer.parseInt(req.getParameter("tipo"));
         List<Libro> librosFiltrados = new ArrayList<>();
         List<Libro> listaLibros;
@@ -39,20 +40,20 @@ public class BuscarServlet extends HttpServlet {
         for (Libro libro : listaLibros) {
             switch (valorABuscar){
                 case 1:
-                    if (libro.getTitulo().contains(buscar)) librosFiltrados.add(libro);
+                    if (libro.getTitulo().toLowerCase().contains(buscar)) librosFiltrados.add(libro);
                     break;
                 case 2:
                     List<Autor> autores = libro.getAutores();
                     for (Autor autor :
                             autores) {
-                        if ((autor.getNombre() + " " + autor.getApellidosAutor()).contains(buscar)) {
+                        if ((autor.getNombre() + " " + autor.getApellidosAutor()).toLowerCase().contains(buscar)) {
                             librosFiltrados.add(libro);
                             break;
                         }
                     }
                     break;
                 case 3:
-                    if (libro.getTematica().getNombreTematica().contains(buscar)) librosFiltrados.add(libro);
+                    if (libro.getTematica().getNombreTematica().toLowerCase().contains(buscar)) librosFiltrados.add(libro);
                     break;
             }
         }

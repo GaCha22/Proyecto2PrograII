@@ -21,13 +21,13 @@ import java.util.List;
 
 public class EditorialDAO {
     private Document document;
-    private Element raiz;
-    private String rutaDocumento;
+    private Element root;
+    private String path;
 
     public EditorialDAO(String rutaDocumento, String nombreRaiz) throws IOException {
-        this.raiz = new Element(nombreRaiz);
-        this.rutaDocumento = rutaDocumento;
-        this.document = new Document(raiz);
+        this.root = new Element(nombreRaiz);
+        this.path = rutaDocumento;
+        this.document = new Document(root);
         guardar();
     }
 
@@ -63,7 +63,7 @@ public class EditorialDAO {
     public void guardar() throws IOException {
         XMLOutputter xmlOutputter = new XMLOutputter();
         xmlOutputter.setFormat(Format.getPrettyFormat());
-        xmlOutputter.output(this.document, new FileWriter(this.rutaDocumento));
+        xmlOutputter.output(this.document, new FileWriter(this.path));
 
         // extra para revisar mejor
         xmlOutputter.output(this.document, System.out);
@@ -87,7 +87,7 @@ public class EditorialDAO {
         eCiudad.addContent(editorial.getCiudad());
         eEditorial.addContent(eCiudad);
 
-        raiz.addContent(eEditorial);
+        root.addContent(eEditorial);
         guardar();
     }
 
@@ -96,7 +96,7 @@ public class EditorialDAO {
         int ultimoId = 0;
 
         // Obtener la lista de elementos "editorial" del XML
-        List<Element> elementosEditorial = raiz.getChildren("editorial");
+        List<Element> elementosEditorial = root.getChildren("editorial");
 
         // Recorrer la lista y encontrar el último ID
         for (Element elemento : elementosEditorial) {
@@ -130,7 +130,7 @@ public class EditorialDAO {
 
     // get de editoriales
     public ArrayList<Editorial> getEditoriales() throws DataConversionException {
-        List eListaEditoriales = raiz.getChildren();
+        List eListaEditoriales = root.getChildren();
 
         // castear la lista
         ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
@@ -149,7 +149,7 @@ public class EditorialDAO {
 
     // get de una editorial
     public Editorial getEditorial(int codAreaBuscar) throws DataConversionException {
-        List eEditoriales = raiz.getChildren();
+        List eEditoriales = root.getChildren();
 
         Editorial editorialActual = null;
         for (Object obj : eEditoriales) {
@@ -180,7 +180,7 @@ public class EditorialDAO {
     // se fija cual es igual en el archivo
     public boolean buscarTruncar(String nombreTrunc, String ciudadTrunc){
 
-        List<Element> eListaEditoriales = raiz.getChildren();
+        List<Element> eListaEditoriales = root.getChildren();
         for (Element eEditorial : eListaEditoriales) {
             String nombreEditorial = eEditorial.getChildText("nombre");
             String ciudadEditorial = eEditorial.getChildText("ciudad");
