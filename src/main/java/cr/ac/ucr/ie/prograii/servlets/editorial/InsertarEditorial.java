@@ -114,7 +114,6 @@ public class InsertarEditorial extends HttpServlet {
                     System.out.println(nombre);
                     System.out.println(ciudad);
 
-
                     int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
 
                     nuevaEditorial = new Editorial(nuevoID, nombre, ciudad);
