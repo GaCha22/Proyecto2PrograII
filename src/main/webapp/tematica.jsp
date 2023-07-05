@@ -65,6 +65,9 @@
     <form action="eliminarTematica.jsp" method="post">
       <button type="submit">Eliminar Tématica</button>
     </form>
+    <form action="/prograii" method="post">
+      <button type="submit">Atrás</button>
+    </form>
   </div>
 </div>
 </body>

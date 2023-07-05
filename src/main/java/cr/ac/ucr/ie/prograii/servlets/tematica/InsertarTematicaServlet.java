@@ -81,7 +81,7 @@ public class InsertarTematicaServlet extends HttpServlet {
                         Tematica tematica = new Tematica(contador, nombre);
                         tematicaDAO.insertarTematica(tematica);
                         out.println("        <h1>Se agregó correctamente la temática!</h1>");
-                        out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
+                        out.println("        <p><a href=\"/prograii/insertarTematica.jsp\">Atrás</a></p>");
                     }
                 }
             } catch (JDOMException e) {

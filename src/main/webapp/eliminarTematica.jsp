@@ -110,6 +110,9 @@
             <button type="submit">Eliminar</button>
         </div>
     </form>
+    <form action="tematica.jsp">
+        <button type="submit">Atrás</button>
+    </form>
 </div>
 </body>
 </html>
