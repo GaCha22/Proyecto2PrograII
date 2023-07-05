@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="estilox.css/inicio.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script><style type="text/css" id="operaUserStyle"></style>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <style>
         body {
             margin: 0;
@@ -60,6 +63,12 @@
             cursor: pointer;
             padding: 12px 20px;
             font-size: 18px;
+        }
+
+        body {
+            background-image: url('./giphy.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         label {
