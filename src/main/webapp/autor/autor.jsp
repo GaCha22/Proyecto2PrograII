@@ -1,3 +1,6 @@
+<%@ page import="cr.ac.ucr.ie.prograii.model.Autor" %>
+<%@ page import="cr.ac.ucr.ie.prograii.service.AutorDAO" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,13 +27,28 @@
             padding: 20px;
         }
 
-        .input-container {
-            margin-bottom: 20px;
+        table {
+            font-size: 20px;
+            color: #ffffff;
+            border-collapse: collapse;
+            width: 300px;
+            margin: 50px;
         }
 
-        select, input, button {
-            font-size: 20px;
+        th,
+        td {
             padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #553dad;
+        }
+
+        table a {
+            color: #fff;
+            text-decoration: none;
         }
 
         .button-container {
@@ -53,16 +71,37 @@
 </head>
 <body>
 <div class="container">
+    <div style="overflow: auto; max-height: 300px; width: 400px; margin: 50px;">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                ArrayList<Autor> autores = AutorDAO.abrirDocumento("autores.xml").getAutores();
+                for (Autor autor : autores) {
+            %>
+            <tr>
+                <td><%= autor.getIdAutor() %></td>
+                <td><a href="editar_autor.jsp"><%= autor.getNombre() + " " + autor.getApellidosAutor() %></a></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
     <div class="button-container">
-    <form action="insertar_autor.jsp">
-        <button type="submit">Añadir Autor</button>
-    </form>
-    <form action="eliminar_autor.jsp" method="post">
-        <button type="submit">Eliminar Autor</button>
-    </form>
-    <form action="editar_autor.jsp" method="post">
-        <button type="submit">Editar Autor</button>
-    </form>
+        <form action="insertar_autor.jsp">
+            <button type="submit">Añadir Autor</button>
+        </form>
+        <form action="eliminar_autor.jsp" method="post">
+            <button type="submit">Eliminar Autor</button>
+        </form>
+        <form action="editar_autor.jsp" method="post">
+            <button type="submit">Editar Autor</button>
+        </form>
         <form action="/prograii">
             <button type="submit">Atrás</button>
         </form>
