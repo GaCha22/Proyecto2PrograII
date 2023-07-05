@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets;
+package cr.ac.ucr.ie.prograii.servlets.libro;
 
 import cr.ac.ucr.ie.prograii.model.Autor;
 import cr.ac.ucr.ie.prograii.model.Editorial;
