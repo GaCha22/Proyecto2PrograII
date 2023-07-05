@@ -18,7 +18,6 @@ import static java.lang.System.out;
 public class EliminarEditorial extends HttpServlet {
     private EditorialDAO editorialDAO;
     private String path = "editoriales.xml";
-    ;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +36,7 @@ public class EliminarEditorial extends HttpServlet {
             boolean encontrado = editorialDAO.buscar(id);
 
             if(encontrado){
-                editorialDAO.eliminarEditorial(id);
+                editorialDAO.eliminarEditorial(Integer.parseInt(id));
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -56,8 +55,6 @@ public class EliminarEditorial extends HttpServlet {
 
             }else{
                 out.println("<h1 style=\"text-align: center;\">No se pudo eliminar</h1>");
-
-
             }
 
         }

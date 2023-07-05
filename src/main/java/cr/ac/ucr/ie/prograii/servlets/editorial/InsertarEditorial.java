@@ -23,15 +23,27 @@ public class InsertarEditorial extends HttpServlet {
         try (PrintWriter out = resp.getWriter()) {
 
 
+
+
             String nombre = req.getParameter("nombre");
             String ciudad = req.getParameter("ciudad");
 
-            out.println("       <title>antes del IF</title>");
+            // trim para comparar
+            String nombreSpaces = nombre.trim();
+            String ciudadSpaces = ciudad.trim();
+
+            /*
+            if(nombreSpaces.equalsIgnoreCase(ciudadSpaces)){
+                out.println("<h1 style=\"text-align: center;\">Error, ya existe esta editorial</h1>");
+                out.println("<form action=\"editorial/editorial.jsp\">");
+                out.println("    <button type=\"submit\">Volver al inicio</button>");
+                out.println("</form>");
+            }
+
+             */
+
 
             if (!nombre.isEmpty() && !ciudad.isEmpty()) {
-
-                System.out.println(nombre);
-                System.out.println(ciudad);
 
 
                 try {
@@ -41,6 +53,11 @@ public class InsertarEditorial extends HttpServlet {
                     out.println("<h1>"+error+"</h1>");
                     return;
                 }
+
+                System.out.println(nombre);
+                System.out.println(ciudad);
+
+
 
                 int nuevoID = Integer.parseInt(editorialDAO.generarNuevoId());
 

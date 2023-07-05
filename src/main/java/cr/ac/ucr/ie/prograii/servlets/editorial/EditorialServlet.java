@@ -6,4 +6,5 @@ import jakarta.servlet.http.HttpServlet;
 public class EditorialServlet extends HttpServlet {
 
 
+
 }

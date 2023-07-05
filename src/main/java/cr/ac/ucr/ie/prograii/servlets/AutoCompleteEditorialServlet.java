@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/autocompleteEditorial")
+@WebServlet("/autocomplete/autocompleteEditorial")
 public class AutoCompleteEditorialServlet extends HttpServlet {
 
     @Override
@@ -22,7 +22,7 @@ public class AutoCompleteEditorialServlet extends HttpServlet {
             String term = req.getParameter("term"); // Obtener el valor del parámetro "term" enviado desde el cliente
 
             // Obtener todas las temáticas desde el archivo XML
-            List<Editorial> editoriales = EditorialDAO.abrirDocumento("C:\\Users\\gabri\\Desktop\\Cosas de progra\\editoriales.xml").getEditoriales();
+            List<Editorial> editoriales = EditorialDAO.abrirDocumento("editoriales.xml").getEditoriales();
             System.out.println(editoriales.toString());
 
             // Filtrar las temáticas que coincidan con el término de búsqueda
