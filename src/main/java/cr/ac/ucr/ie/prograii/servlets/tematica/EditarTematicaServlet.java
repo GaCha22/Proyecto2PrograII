@@ -1,4 +1,4 @@
-package cr.ac.ucr.ie.prograii.servlets.TematicaServlets;
+package cr.ac.ucr.ie.prograii.servlets.tematica;
 
 import cr.ac.ucr.ie.prograii.service.TematicaDAO;
 import jakarta.servlet.ServletException;
@@ -10,16 +10,18 @@ import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-@WebServlet("/eliminarTematica")
-public class EliminarTematicaServlet extends HttpServlet {
+
+
+@WebServlet("/editarTematica")
+public class EditarTematicaServlet extends HttpServlet {
 
     private TematicaDAO tematicaDAO;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombreTematicaEliminar = req.getParameter("tematica");
+        String nombreTematicaEditar = req.getParameter("tematica");
+        String nuevoNombreTematica = req.getParameter("newNombre");
         try {
-
             resp.setContentType("text/html;charset=UTF-8");
 
             try (PrintWriter out = resp.getWriter()) {
@@ -54,14 +56,21 @@ public class EliminarTematicaServlet extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 out.println("    <div class=\"container\">");
-                if(nombreTematicaEliminar == null || nombreTematicaEliminar.isBlank()){
-                    out.println("        <h1>¡Error, no se ha seleccionado una temática!</h1>");
-                    out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
-                }else{
+                if (nombreTematicaEditar == null || nombreTematicaEditar.isBlank()) {
+                    out.println("        <h1>¡Error, debe seleccionar una temática!</h1>");
+                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Menu Inicial</a></p>");
+                } else if (nuevoNombreTematica == null || nuevoNombreTematica.isBlank()) {
+                    out.println("        <h1>¡Error, debe ingresar un nuevo nombre!</h1>");
+                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
+                } else if (nombreTematicaEditar == null || nombreTematicaEditar.isBlank()
+                        || nuevoNombreTematica == null || nuevoNombreTematica.isBlank()) {
+                    out.println("        <h1>¡Error, debe ingresar un nuevo nombre y seleccionar una temática!</h1>");
+                    out.println("        <p><a href=\"/prograii/editarTematica.jsp\">Atrás</a></p>");
+                } else {
                     TematicaDAO tematicaDAO = TematicaDAO.abrirDocumento("tematicas.xml");
-                    tematicaDAO.eliminarTematica(nombreTematicaEliminar);
-                    out.println("        <h1>¡Se ha eliminado la temática con éxito!</h1>");
-                     out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
+                    tematicaDAO.editarTematica(nombreTematicaEditar, nuevoNombreTematica);
+                    out.println("        <h1>¡Se ha editado el nombre de la temática con éxito!</h1>");
+                    out.println("        <p><a href=\"/prograii/index.jsp\">Menú Inicial</a></p>");
                 }
                 out.println("    </div>");
                 out.println("</body>");
