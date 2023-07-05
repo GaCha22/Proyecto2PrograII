@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tematicas>
+  <tematica idTipo="1">
+    <nombre>Romance</nombre>
+  </tematica>
+  <tematica idTipo="2">
+    <nombre>Terror</nombre>
+  </tematica>
+</tematicas>
