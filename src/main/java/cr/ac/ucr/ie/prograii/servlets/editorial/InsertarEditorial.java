@@ -39,8 +39,10 @@ public class InsertarEditorial extends HttpServlet {
                 out.println("    <button type=\"submit\">Volver al inicio</button>");
                 out.println("</form>");
             }
-
              */
+
+
+
 
 
             if (!nombre.isEmpty() && !ciudad.isEmpty()) {
