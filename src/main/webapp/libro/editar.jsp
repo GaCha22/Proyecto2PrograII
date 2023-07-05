@@ -171,9 +171,146 @@
                 });
             }
 
-            autocompleteAutor($("#autor"), $("#codAutor"));
-            autocompleteAutor($("#autor1"), $("#codAutor1"));
-            autocompleteAutor($("#autor2"), $("#codAutor2"));
+            if ($("#autor").data("autocomplete")) {
+                $("#autor").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/prograii/autocomplete/autocompleteAutor",
+                            type: "POST",
+                            dataType: "xml",
+                            data: {
+                                term: request.term
+                            },
+                            success: function(data) {
+                                var autocompleteData = [];
+
+                                $("#codAutor").val("");
+
+                                $(data).find("autor").each(function() {
+                                    var objeto = $(this);
+                                    var nombre = objeto.attr("nombre");
+                                    var id = objeto.attr("idAutor");
+
+                                    var autocompleteItem = {
+                                        label: nombre,
+                                        value: {
+                                            id: id,
+                                            nombre: nombre
+                                        }
+                                    };
+
+                                    autocompleteData.push(autocompleteItem);
+                                });
+
+                                response(autocompleteData);
+                            }
+                        });
+                    },
+                    select: function(event, ui) {
+                        var selectedObj = ui.item.value;
+                        var selectedNombre = selectedObj.nombre;
+                        var selectedId = selectedObj.id;
+
+                        $("#autor").val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+                        $("#codAutor").val(selectedId);
+                        return false;
+                    }
+                });
+            }
+
+            if ($("#autor2").data("autocomplete")) {
+                $("#autor2").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/prograii/autocomplete/autocompleteAutor",
+                            type: "POST",
+                            dataType: "xml",
+                            data: {
+                                term: request.term
+                            },
+                            success: function(data) {
+                                var autocompleteData = [];
+
+                                $("#codAutor2").val("");
+
+                                $(data).find("autor").each(function() {
+                                    var objeto = $(this);
+                                    var nombre = objeto.attr("nombre");
+                                    var id = objeto.attr("idAutor");
+
+                                    var autocompleteItem = {
+                                        label: nombre,
+                                        value: {
+                                            id: id,
+                                            nombre: nombre
+                                        }
+                                    };
+
+                                    autocompleteData.push(autocompleteItem);
+                                });
+
+                                response(autocompleteData);
+                            }
+                        });
+                    },
+                    select: function(event, ui) {
+                        var selectedObj = ui.item.value;
+                        var selectedNombre = selectedObj.nombre;
+                        var selectedId = selectedObj.id;
+
+                        $("#autor2").val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+                        $("#codAutor2").val(selectedId);
+                        return false;
+                    }
+                });
+            }
+
+            if ($("#autor1").data("autocomplete")) {
+                $("#autor1").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/prograii/autocomplete/autocompleteAutor",
+                            type: "POST",
+                            dataType: "xml",
+                            data: {
+                                term: request.term
+                            },
+                            success: function(data) {
+                                var autocompleteData = [];
+
+                                $("#codAutor1").val("");
+
+                                $(data).find("autor").each(function() {
+                                    var objeto = $(this);
+                                    var nombre = objeto.attr("nombre");
+                                    var id = objeto.attr("idAutor");
+
+                                    var autocompleteItem = {
+                                        label: nombre,
+                                        value: {
+                                            id: id,
+                                            nombre: nombre
+                                        }
+                                    };
+
+                                    autocompleteData.push(autocompleteItem);
+                                });
+
+                                response(autocompleteData);
+                            }
+                        });
+                    },
+                    select: function(event, ui) {
+                        var selectedObj = ui.item.value;
+                        var selectedNombre = selectedObj.nombre;
+                        var selectedId = selectedObj.id;
+
+                        $("#autor1").val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
+                        $("#codAutor1").val(selectedId);
+                        return false;
+                    }
+                });
+            }
 
             if (autocompleteTematica.data("autocomplete")) {
                 autocompleteTematica.autocomplete({
@@ -271,55 +408,6 @@
                 });
             }
         });
-
-        function autocompleteAutor(field, codField){
-            if (field.data("autocomplete")) {
-                field.autocomplete({
-                    source: function(request, response) {
-                        $.ajax({
-                            url: "/prograii/autocomplete/autocompleteAutor",
-                            type: "POST",
-                            dataType: "xml",
-                            data: {
-                                term: request.term
-                            },
-                            success: function(data) {
-                                var autocompleteData = [];
-
-                                codField.val("");
-
-                                $(data).find("autor").each(function() {
-                                    var objeto = $(this);
-                                    var nombre = objeto.attr("nombre");
-                                    var id = objeto.attr("idAutor");
-
-                                    var autocompleteItem = {
-                                        label: nombre,
-                                        value: {
-                                            id: id,
-                                            nombre: nombre
-                                        }
-                                    };
-
-                                    autocompleteData.push(autocompleteItem);
-                                });
-
-                                response(autocompleteData);
-                            }
-                        });
-                    },
-                    select: function(event, ui) {
-                        var selectedObj = ui.item.value;
-                        var selectedNombre = selectedObj.nombre;
-                        var selectedId = selectedObj.id;
-
-                        field.val(selectedNombre); // Establecer el valor del campo de entrada con el nombre seleccionado
-                        codField.val(selectedId);
-                        return false;
-                    }
-                });
-            }
-        }
 
         function goBack(){
             window.location.href = "./buscarLibro";

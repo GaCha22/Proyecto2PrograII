@@ -76,4 +76,15 @@ public class Libro {
         this.tematica = tematica;
     }
 
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "idLibro=" + idLibro +
+                ", titulo='" + titulo + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", autores=" + autores +
+                ", editorial=" + editorial +
+                ", tematica=" + tematica +
+                '}';
+    }
 }

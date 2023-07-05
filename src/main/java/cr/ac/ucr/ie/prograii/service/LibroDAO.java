@@ -123,12 +123,12 @@ public class LibroDAO {
 
 
             Editorial editorial = new Editorial();
-//            editorial.setIdEditorial(eLibro.getChild("editorial").getAttribute("idEditorial").getIntValue());
+            editorial.setIdEditorial(eLibro.getChild("editorial").getAttribute("idEditorial").getIntValue());
             editorial.setNombreEditorial(eLibro.getChildText("editorial"));
             libroActual.setEditorial(editorial);
 
             Tematica tematica = new Tematica();
-//            tematica.setIdTipo(eLibro.getChild("tematica").getAttribute("idTematica").getIntValue());
+            tematica.setIdTipo(eLibro.getChild("tematica").getAttribute("idTematica").getIntValue());
             tematica.setNombreTematica(eLibro.getChildText("tematica"));
             libroActual.setTematica(tematica);
 

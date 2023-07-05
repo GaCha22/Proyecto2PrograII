@@ -144,12 +144,12 @@
                 <%if (editorial.getAutores().size() > 1){%>
                     <td><%= editorial.getAutores().get(1).getNombre() + " " + editorial.getAutores().get(1).getApellidosAutor() %></td>
                 <%}else {%>
-                    <td>null</td>
+                    <td>N/T</td>
                 <%}%>
                 <%if (editorial.getAutores().size() > 2){%>
                     <td><%= editorial.getAutores().get(2).getNombre() + " " + editorial.getAutores().get(2).getApellidosAutor() %></td>
                 <%}else {%>
-                    <td>null</td>
+                    <td>N/T</td>
                 <%}%>
                 <td><%= editorial.getTematica().getNombreTematica() %></td>
                 <td><%= editorial.getEditorial().getNombreEditorial() %></td>
